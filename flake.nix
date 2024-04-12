@@ -56,6 +56,7 @@
         extraSpecialArgs = {
           inherit userSettings;
         };
+        system = systemSettings.system;
         modules = [
           # load {systemSettings.profile}/home.nix
           (./. + "/profiles" + ("/" + systemSettings.profile) + "/home.nix")
