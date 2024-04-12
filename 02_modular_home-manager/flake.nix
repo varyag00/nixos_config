@@ -40,7 +40,7 @@
       system = systemSettings.system;
       modules = [
         # load {systemSettings.profile}/home.nix
-        (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
+        (./. + "/../profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
         nixos-wsl.nixosModules.wsl
       ];
     };
@@ -55,7 +55,7 @@
         system = systemSettings.system;
         modules = [
           # load {systemSettings.profile}/home.nix
-          (./. + "/profiles" + ("/" + systemSettings.profile) + "/home.nix")
+          (./. + "/../profiles" + ("/" + systemSettings.profile) + "/home.nix")
         ];
       };
     };
