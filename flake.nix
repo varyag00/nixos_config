@@ -1,64 +1,66 @@
+# helpful blog post: https://librephoenix.com/2023-11-02-how-to-manage-your-dotfiles-the-nix-way-with-home-manager#orgc8f3727
 {
-  description = "NixOS config flake";
+  description = "Nixos config flake";
 
   inputs = {
-    # TODO: make default stable, then use unstable.${pkg_name} in systempackages
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/nixos-wsl";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
-  outputs = { self, nixpkgs, nixos-wsl, ... }@inputs: 
-  let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};  
-  in
-  {
-    # DOC: see ticket https://github.com/nix-community/NixOS-WSL/discussions/374
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-      # TODO: figure out why system can't be commented here
-      system = "x86_64-linux";
 
-      # take inputs of this flake and add inputs to all imported modules
-      # NOTE: seems broken
-      #extraSpecialArgs = {inherit inputs;};
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./configuration.nix
-        nixos-wsl.nixosModules.wsl
-	#./dan/user.nix
-	inputs.home-manager.nixosModules.default
-      ];
+  outputs = { self, nixpkgs, nixos-wsl, home-manager, ... }@inputs:
+  let
+    # SECTION: system settings
+    systemSettings = {
+      system = "x86_64-linux"; # system arch
+      # hostname = "snowfire"; # hostname
+      profile = "personal"; # select a profile defined from my profiles directory
+      timezone = "Europe/Stockholm"; # select timezone
+      locale = "en_US.UTF-8"; # select locale
     };
 
-    #packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
-    #packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+    # SECTION: user settings
+    userSettings = {
+      username = "dan";
+      name = "Dan G";
+    };
 
+    pkgs = nixpkgs.legacyPackages.${systemSettings.system};
+  in {
+
+    # SECTION: system-level configuration
+    nixosConfigurations = {
+      wsl = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit systemSettings;
+        };
+        system = systemSettings.system;
+        modules = [
+          # load {systemSettings.profile}/home.nix
+          (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
+
+          # TODO: test if specified here or in configuration.nix
+          nixos-wsl.nixosModules.wsl
+        ];
+      };
+    };
+
+    # SECTION: user-level configuration (i.e. dotfiles)
+    homeConfigurations = {
+      user = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          inherit userSettings;
+        };
+        modules = [
+          # load {systemSettings.profile}/home.nix
+          (./. + "/profiles" + ("/" + systemSettings.profile) + "/home.nix")
+        ];
+      };
+    };
   };
-
-
-########  outputs = { self, nixpkgs, nixos-wsl, ... }@inputs: 
-########    let
-########      system = "x86_64-linux";
-########      pkgs = nixpkgs.legacyPackages.${system};
-########    in
-########    { 
-########      # DOC: see ticket https://github.com/nix-community/NixOS-WSL/discussions/374
-########      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-########	#extraSpecialArgs = {inherit inputs;};
-########	modules = [
-########	  ./configuration.nix
-########	  nixos-wsl.nixosModules.wsl
-########	];
-########      };
-
-########      #packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
-########      #packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
-
-########    };
 }
