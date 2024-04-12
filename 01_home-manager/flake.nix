@@ -18,14 +18,12 @@
       lib = nixpkgs.lib;
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      nixosConfigurations = {
-        wsl = lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./configuration.nix
-            nixos-wsl.nixosModules.wsl
-          ];
-        };
+      nixosConfigurations.nixos = lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./configuration.nix
+          nixos-wsl.nixosModules.wsl
+        ];
       };
       homeConfigurations = {
         dan = home-manager.lib.homeManagerConfiguration {
