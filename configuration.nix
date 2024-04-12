@@ -8,31 +8,18 @@
 { config, lib, pkgs, ... }:
 
 {
-  # DOC: see this ticket: https://github.com/nix-community/NixOS-WSL/discussions/374
-  # NOTE: removed these imports
   imports = [
+  # NOTE: removed the nixos-wsl modules and added them to the flake, see below
+  # DOC: see this ticket: https://github.com/nix-community/NixOS-WSL/discussions/374
   #  # include NixOS-WSL modules
   #  <nixos-wsl/modules>
     ./dan/config.nix
   ];
-  # NOTE: moved global syspackages from dan/config.nix here in response to this comment 
-  
 
   wsl.enable = true;
   # NOTE: updated from default "NixOS", and the ran the commands documented at url below
   # DOC: https://github.com/nix-community/NixOS-WSL/pull/406/files/379af73917816dd3d153b5862e648df3ba77ad32
   wsl.defaultUser = "dan";
-
-
-
-  # NOTE: ./dan/config.nix contents:
-  #environment.systemPackages = with pkgs; [ vim neovim git wget ];
-
-  # enable flakes
-  #nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
