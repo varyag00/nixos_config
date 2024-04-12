@@ -2,14 +2,25 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
   #    ./hardware-configuration.nix
-      ./dan/config.nix
+  #    ./dan/config.nix
+      inputs.home-manager.nixosModules.default
     ];
+
+
+  home-manager = {
+    # also pass inputs to home-manager modules
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      # import home.nix from user's home directory
+      "dan" = import ./home.nix;
+    };
+  };
 
   # Use the GRUB 2 boot loader.
   #boot.loader.grub.enable = true;
@@ -25,7 +36,7 @@
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "Europe/Amsterdam";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -125,8 +136,7 @@
 
 
 
-
-  # ADDED but commented 
+  # ADDED
   wsl.enable = true;
   # NOTE: updated from default "NixOS", and the ran the commands documented at url below
   # DOC: https://github.com/nix-community/NixOS-WSL/pull/406/files/379af73917816dd3d153b5862e648df3ba77ad32

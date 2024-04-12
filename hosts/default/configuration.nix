@@ -19,4 +19,7 @@
   # enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # configure user
+  #main-user.enable = true;
+  #main-user.userName = "dan";
 }
