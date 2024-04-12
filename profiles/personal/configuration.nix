@@ -11,6 +11,8 @@
   # DOC: https://github.com/nix-community/NixOS-WSL/pull/406/files/379af73917816dd3d153b5862e648df3ba77ad32
   wsl.defaultUser = "dan";
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   time.timeZone = "Europe/Amsterdam";
 
   # make zsh the default shell
