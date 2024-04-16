@@ -40,9 +40,13 @@
   in {
 
     # SECTION: system-level configuration
+    # NOTE: switch to this configuration using:
+    #   sudo nixos-rebuild switch --flake .
+    #   in the dir containing this file
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit systemSettings;
+        inherit inputs;
       };
       system = systemSettings.system;
       modules = [
@@ -54,12 +58,16 @@
 
     # SECTION: user-level configuration (i.e. dotfiles)
     homeConfigurations = {
-      user = home-manager.lib.homeManagerConfiguration {
+      # NOTE: switch to this home-manager configuration using:
+      #   home-manager switch --flake .#dan
+      #   or
+      #   home-manager switch --flake
+      dan = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
           inherit userSettings;
         };
-        system = systemSettings.system;
+        # system = systemSettings.system;
         modules = [
           # load {systemSettings.profile}/home.nix
           (./. + "/../profiles" + ("/" + systemSettings.profile) + "/home.nix")

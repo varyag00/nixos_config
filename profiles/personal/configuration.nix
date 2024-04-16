@@ -5,10 +5,12 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # NOTE: see options https://mynixos.com/search?q=nixpkgs%2Foption
 
-  wsl.defaultUser = "nixos";
   wsl.enable = true;
+  wsl.defaultUser = "dan";
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   #wsl = {
   #  enable = true;
     # NOTE: updated from default "NixOS", and the ran the commands documented at url below
@@ -44,7 +46,10 @@
   [
     home-manager
     zsh
-    atuin
+    # alejandra
+    nixfmt
+    gcc
+    # TODO: move these to user/shell/cli-apps.nix
     neovim
     git
     wget
@@ -56,6 +61,12 @@
     dog
     zoxide
   ];
+
+  programs.neovim = {
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+  };
 
   # SECTION: services
 

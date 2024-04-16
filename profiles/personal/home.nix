@@ -1,8 +1,9 @@
 { config, pkgs, userSettings, ... }:
 
 {
+  # NOTE: see https://mynixos.com/search?q=home-manager%2Foption for options
   home.username = userSettings.username;
-  home.homeDirectory = "/home/"+userSettings.username;
+  home.homeDirectory = "/home/" + userSettings.username;
 
   programs.home-manager.enable = true;
   # home.packages = with pkgs; [
@@ -11,12 +12,9 @@
   # wezterm
   # ];
 
-  imports = [
-    ../../user/shell/sh.nix # shell
-    # ../../user/shell/cli-collection.nix # Useful CLI apps
-    #"${fetchTarball "https://github.com/msteen/nixos-vscode-server/tarball/master"}/modules/vscode-server/home.nix"
+  imports = [ ../../user/shell/sh.nix ../../user/shell/cli-apps.nix ../../user/packages/lsp.nix 
+ # ../../user/packages/nvim.nix
   ];
-  #services.vscode-server.enable = true;
 
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
