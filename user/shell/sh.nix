@@ -5,6 +5,9 @@ let
     ls = "lsd";
     la = "lsd -lah";
     ll = "lsd -l";
+    # TODO: ensure z command is installed by zoxide
+    #cd = "z";
+    #cdi = "zi";
     cat = "bat";
     vim = "nvim";
     vi = "nvim";
@@ -12,8 +15,7 @@ let
     lgit = "lazygit";
     ldoc = "lazydocker";
   };
-in
-{
+in {
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -26,7 +28,9 @@ in
     # RPROMPT="%F{red}▂%f%F{yellow}▄%f%F{green}▆%f%F{cyan}█%f%F{blue}▆%f%F{magenta}▄%f%F{white}▂%f"
     # [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
     # '';
+
     # TODO: p10k config
+    # TODO: entire .zshrc, plugins, aliases
   };
 
   programs.bash = {
@@ -35,12 +39,23 @@ in
     shellAliases = myAliases;
   };
 
-  home.packages = with pkgs; [
-    bat lsd bottom fd bc
-    direnv nix-direnv
-  ];
+  home.packages = with pkgs; [ bat lsd bottom fd bc direnv nix-direnv atuin ];
 
-  programs.direnv.enable = true;
-  programs.direnv.enableZshIntegration = true;
-  programs.direnv.nix-direnv.enable = true;
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      show_preview = false;
+      inline_height = 25;
+    };
+  };
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }
