@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+# TODO: pull dotfiles from dotfiles dir, see 
+# https://github.com/mickours/nixos-config/blob/6694179962931efc54e802a61c7bff5b51ff8329/config/home.nix#L3
+
 let
   myAliases = {
     ls = "lsd";
@@ -16,8 +19,17 @@ let
     ldoc = "lazydocker";
   };
 in {
+  home.packages = with pkgs; [ zsh-powerlevel10k bat dog zoxide lsd bottom fd bc direnv nix-direnv atuin fzf ];
+  # p10k config
+  home.file.".p10k.zsh".text = builtins.readFile ../dots/zsh/.p10k.zsh;
+
   programs.zsh = {
     enable = true;
+    dotDir = ".config/zsh";
+
+    initExtraBeforeCompInit = builtins.readFile ../dots/zsh/init_p10k.zsh;
+    # TODO: .zshrc from dotfiles repo, see top of file
+    initExtra = builtins.readFile ../dots/zsh/.zshrc;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     enableCompletion = true;
@@ -29,20 +41,15 @@ in {
     # [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
     # '';
 
-    # TODO: p10k config
-    # programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
 
     # TODO: entire .zshrc, plugins, aliases
+    # plugins, see https://github.com/mickours/nixos-config/blob/6694179962931efc54e802a61c7bff5b51ff8329/config/my_vim_plugins.nix
   };
-
   programs.bash = {
     enable = true;
     enableCompletion = true;
     shellAliases = myAliases;
   };
-
-  # TODO: move to top of file
-  home.packages = with pkgs; [ bat dog zoxide lsd bottom fd bc direnv nix-direnv atuin fzf ];
 
   programs.atuin = {
     enable = true;
@@ -64,6 +71,7 @@ in {
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    # TODO: add fzf custom functions from dotfiles
   };
   programs.bat = {
     enable = true;

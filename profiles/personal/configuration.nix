@@ -37,22 +37,31 @@
   time.timeZone = "Europe/Amsterdam";
 
   # make zsh the default shell
-  environment.shells = with pkgs; [ zsh ];
-  users.defaultUserShell = pkgs.zsh;
-  programs.zsh.enable = true;
+  #environment.shells = with pkgs; [ zsh ];
+  #users.defaultUserShell = pkgs.zsh;
+  #programs.zsh.enable = true;
 
 
   environment.systemPackages = with pkgs;
   [
     home-manager
-    zsh
+  #  zsh
     wget
     gcc
     ripgrep
     git
     tlrc # tldr in rust
+
+    # nvim lsp 
+    yaml-language-server
+    unzip
+    tree-sitter
+    nodejs_21 
+    luajitPackages.luarocks-nix # lua package manager
+    cargo # rust package manager
+
     # alejandra
-    nixfmt
+    nixfmt-rfc-style
     # TODO: add back
     #powerlevel10k
     # TODO: move these to user/shell/cli-apps.nix
