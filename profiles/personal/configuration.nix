@@ -46,20 +46,23 @@
   [
     home-manager
     zsh
+    wget
+    gcc
+    ripgrep
+    git
+    tlrc # tldr in rust
     # alejandra
     nixfmt
-    gcc
+    # TODO: add back
+    #powerlevel10k
     # TODO: move these to user/shell/cli-apps.nix
     neovim
-    git
-    wget
-    ripgrep
-    lsd
-    fzf
-    direnv
-    bat
-    dog
-    zoxide
+    #lsd
+    #fzf
+    #direnv
+    #bat
+    #dog
+    #zoxide
   ];
 
   programs.neovim = {
