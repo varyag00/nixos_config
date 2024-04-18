@@ -18,9 +18,16 @@
       options = {
         navigate = true;
         line-numbers = true;
-        syntax-theme = "GitHub";
+        syntax-theme = "base16";
+        dark = true;
       };
     };
-
+  };
+  programs.zellij = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+        theme = "catppuccin-macchiato";
+      };
   };
 }

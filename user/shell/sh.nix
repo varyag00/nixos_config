@@ -6,8 +6,8 @@ let
     la = "lsd -lah";
     ll = "lsd -l";
     # TODO: ensure z command is installed by zoxide
-    #cd = "z";
-    #cdi = "zi";
+    cd = "z";
+    cdi = "zi";
     cat = "bat";
     vim = "nvim";
     vi = "nvim";
@@ -30,6 +30,8 @@ in {
     # '';
 
     # TODO: p10k config
+    # programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+
     # TODO: entire .zshrc, plugins, aliases
   };
 
@@ -39,7 +41,8 @@ in {
     shellAliases = myAliases;
   };
 
-  home.packages = with pkgs; [ bat lsd bottom fd bc direnv nix-direnv atuin ];
+  # TODO: move to top of file
+  home.packages = with pkgs; [ bat dog zoxide lsd bottom fd bc direnv nix-direnv atuin fzf ];
 
   programs.atuin = {
     enable = true;
@@ -57,5 +60,15 @@ in {
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
+  };
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "base16";
+    };
   };
 }
