@@ -30,7 +30,7 @@
   };
   programs.zellij = {
     enable = true;
-    enableZshIntegration = true;
+    enableZshIntegration = false;
     settings = {
         theme = "catppuccin-macchiato";
     };

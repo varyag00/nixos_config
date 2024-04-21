@@ -2,8 +2,8 @@
 
 {
 
-  imports = 
-    [ 
+  imports =
+    [
       ./dbus.nix
       ./fonts.nix
     ];
@@ -12,8 +12,11 @@
   services.xserver = {
     enable = true;
     layout = "us";
-    xkbVariant = "";
-    xkbOptions = "caps:escape";
+    xkb = {
+      variant = "";
+      # BUG: doesn't work; seems related to gnome-tweaks
+      options = "caps:escape";
+    };
     excludePackages = [ pkgs.xterm ];
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
