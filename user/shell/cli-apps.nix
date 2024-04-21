@@ -32,7 +32,7 @@
     enable = true;
     enableZshIntegration = false;
     settings = {
-        theme = "catppuccin-macchiato";
+      theme = "catppuccin-macchiato";
     };
   };
   programs.thefuck = {
