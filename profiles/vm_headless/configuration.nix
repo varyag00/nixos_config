@@ -1,27 +1,16 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, inputs, ... }:
 
 {
   # NOTE: see options https://mynixos.com/search?q=nixpkgs%2Foption
 
-  wsl.enable = true;
-  wsl.defaultUser = "dan";
+  wsl.enable = false;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  #wsl = {
-  #  enable = true;
-    # NOTE: updated from default "NixOS", and the ran the commands documented at url below
-    # DOC: https://github.com/nix-community/NixOS-WSL/pull/406/files/379af73917816dd3d153b5862e648df3ba77ad32
 
-    # extraBin = with pkgs; [
-    #   { src = "${coreutils}/bin/uname"; }
-    #   { src = "${coreutils}/bin/dirname"; }
-    #   { src = "${coreutils}/bin/readlink"; }
-    # ];
-  #};
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+    ];
 
   # allow dynamically linked programs to be loaded
   programs.nix-ld = {
@@ -32,14 +21,6 @@
     # ];
     package = inputs.nix-ld-rs.packages."${pkgs.system}".nix-ld-rs;
   };
-
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
-    #flake = "/home/user/my-nixos-config";
-  };
-
 
 
   time.timeZone = "Europe/Amsterdam";
@@ -60,11 +41,9 @@
     gcc
     ripgrep
     git
-
     tlrc # tldr in rust
-    nh # nix helper CLI
 
-    # nvim lsp
+    # nvim lsp 
     yaml-language-server
     unzip
     tree-sitter
@@ -142,14 +121,17 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-   users.users.dan = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+  users.users.dan = {
+    isNormalUser = true;
+    description = "Dan G";
+    extraGroups = [ "wheel" "networkmanager" "vboxsf" ]; # Enable ‘sudo’ for the user.
      #packages = with pkgs; [
      #  firefox
      #  tree
      #];
-   };
+  };
+
+  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
