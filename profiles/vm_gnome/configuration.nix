@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../system/wm/gnome.nix
+      ../../system/security/sshd.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

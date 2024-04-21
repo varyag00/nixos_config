@@ -15,8 +15,6 @@
  #  ../../user/shell/k8s.nix
     ../../user/packages/lsp.nix 
  #  ../../user/packages/nvim.nix
-    ../../system/wm/gnome.nix
-    ../../system/security/sshd.nix
   ];
 
   home.stateVersion = "23.11"; # Please read the comment before changing.
