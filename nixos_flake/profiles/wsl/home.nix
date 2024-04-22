@@ -7,12 +7,12 @@
 
   programs.home-manager.enable = true;
 
-  imports = [ 
-    ../../user/shell/sh.nix 
-    ../../user/shell/cli-apps.nix 
- #  ../../user/shell/k8s.nix
-    ../../user/packages/lsp.nix 
- #  ../../user/packages/nvim.nix
+  imports = [
+    ../../modules/user/shell/sh.nix
+    ../../modules/user/shell/cli-apps.nix
+    #  ../../modules/user/shell/k8s.nix
+    ../../modules/user/packages/lsp.nix
+    #  ../../modules/user/packages/nvim.nix
   ];
 
   home.stateVersion = "23.11"; # Please read the comment before changing.
