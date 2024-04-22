@@ -6,10 +6,12 @@
 
   programs.home-manager.enable = true;
 
-  imports = [
-    ../user/shell/sh.nix # shell
-    # ../../user/shell/cli-collection.nix # Useful CLI apps
-  ];
+  home.packages = with pkgs; [ bat dog zoxide lsd bottom fd bc direnv nix-direnv atuin fzf ];
+
+  programs.zsh = {
+    enable = true;
+    dotDir = ".config/zsh";
+  };
 
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
