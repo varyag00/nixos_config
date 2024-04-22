@@ -9,15 +9,15 @@
 
   #xdg.enable = true;
 
-  imports = [ 
-    ../../user/shell/sh.nix 
-    ../../user/shell/cli-apps.nix 
+  imports = [
+    ../../modules/user/shell/sh.nix
+    ../../modules/user/shell/cli-apps.nix
 
- #  ../../user/packages/k8s.nix
-    ../../user/packages/lsp.nix 
- #  ../../user/packages/nvim.nix
-    ../../user/packages/wezterm.nix
-    ../../user/packages/vivaldi.nix
+    #  ../../modules/user/packages/k8s.nix
+    ../../modules/user/packages/lsp.nix
+    #  ../../modules/user/packages/nvim.nix
+    ../../modules/user/packages/wezterm.nix
+    ../../modules/user/packages/vivaldi.nix
   ];
 
   home.stateVersion = "23.11"; # Please read the comment before changing.
