@@ -1,7 +1,12 @@
-# Nixos Dotfiles
+# Nixos Configuration
 
-This repo include several different flakes for managing dotfiles.
+_My personal ([nix flake](https://nixos.wiki/wiki/Flakes)-based) nixos configuration, as well as some personal docs and examples._
 
-I started with a basic working flake + nixos (including wsl support) in `00_minimal/`, then added home manager in `01_home-manager/`, then made the user config more module in `02_modular_home-manager/`.
+## Structure
 
-Note that `hardware_configuration.nix` is not used for nixos on wsl.
+- [nixos_flake/](./README.md): my current nixos configuration and dotfiles.
+- [examples/](./examples/README.md): contains some helpful examples to help illustrate the nix the different components being used here.
+- [docs/](./docs/README.md): contains some personal docs for using this repo.
+
+
+
