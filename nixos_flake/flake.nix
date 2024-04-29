@@ -25,7 +25,7 @@
       systemSettings = {
         system = "x86_64-linux"; # system arch
         # NOTE: set profile to desired profile before running `home-manager switch --flake .#dan`
-        profile = "";
+        profile = "wsl";
         timezone = "Europe/Stockholm"; # select timezone
         locale = "en_US.UTF-8"; # select locale
       };
@@ -42,11 +42,14 @@
 
       # SECTION: system-level configuration
       # NOTE: switch to this configuration using:
-      #   sudo nixos-rebuild switch --flake .
+      #   `sudo nixos-rebuild switch --flake .`
+      #   or
+      #   `nh os switch .`
       #   in the dir containing this file
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit systemSettings;
+          inherit userSettings;
           inherit inputs;
         };
         system = systemSettings.system;
@@ -60,9 +63,9 @@
       # SECTION: user-level configuration (i.e. dotfiles)
       homeConfigurations = {
         # NOTE: switch to this home-manager configuration using:
-        #   home-manager switch --flake .#dan
+        #   `home-manager switch --flake .#dan`
         #   or
-        #   home-manager switch --flake
+        #   `nh home switch -c dan .`
         dan = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {

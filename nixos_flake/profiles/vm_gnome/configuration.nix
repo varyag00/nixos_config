@@ -11,6 +11,7 @@
       ./hardware-configuration.nix
       ../../modules/system/wm/gnome.nix
       ../../modules/system/security/sshd.nix
+      ../../modules/system/programs/helpers.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -96,13 +97,6 @@
     vimAlias = true;
   };
 
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
-    #flake = "/home/user/my-nixos-config";
-  };
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -114,7 +108,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

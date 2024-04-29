@@ -10,6 +10,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/system/security/sshd.nix
+      ../../modules/system/programs/helpers.nix
     ];
 
   # allow dynamically linked programs to be loaded
@@ -22,6 +24,7 @@
     package = inputs.nix-ld-rs.packages."${pkgs.system}".nix-ld-rs;
   };
 
+  nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "Europe/Amsterdam";
 
@@ -43,26 +46,18 @@
     git
     tlrc # tldr in rust
 
-    # nvim lsp 
+    # nvim lsp
     yaml-language-server
     unzip
     tree-sitter
-    nodejs_21 
+    nodejs_21
     luajitPackages.luarocks-nix # lua package manager
     cargo # rust package manager
 
     # alejandra
     nixfmt-rfc-style
-    # TODO: add back
-    #powerlevel10k
     # TODO: move these to user/shell/cli-apps.nix
     neovim
-    #lsd
-    #fzf
-    #direnv
-    #bat
-    #dog
-    #zoxide
   ];
 
   programs.neovim = {
@@ -73,19 +68,19 @@
 
   # SECTION: services
 
-  services.openssh = {
-    enable = true;
-    # require public key authentication for better security
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
-    #settings.PermitRootLogin = "yes";
-  };
-  users.users."dan".openssh.authorizedKeys.keys = [
-    # dan-wks-3080 windows key
-    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDIdjUmRaJCKDBRZHI6VyKKOOdWD08Ezg5Aqa+u3cL8ZNdAzPudikv5x6RPemcjWg4Pj0s8nXsFl9UYJmDW7tgCdaf6m20aWu/0R3tGjOc+O+MfGnGkbdvH0gl9gm7OtGeywn1BO777SlmXnu788+69DLcXftjgf4za/AW3mP/LnPPp2TKgONi/+4nKQSC/20H0yAZib7u4cav4QBHTy2u7UvmDLHKPGfP4OwINVVub2LI+bzMrbTqs2LrZzG9JyfdNTojZh6lszubkVQ9cNojsWcmovn2iswruTgtjvzxeENEWHk6VdJUKr1bSDusIQ0ucDTuqbJqA80bP9l4m+GqSZfTMjNC+m/gljSW33oDmkiXgW5VZb6RZV3gktqngDT8ghfkFkHi3JfRtGy1THWEOskGz+fGQ5w9j9Q9tB9WBGqfMxE0u6P/65a+bnmypntGv649RpxD3nJ7e7FwPzy9Ekcoy7IZffDuoTvqbqjIcAfyHOT9iLFPg233KuYMxGi0= dgonz@dan-wks-3080"
-    # note: ssh-copy-id will add user@your-machine after the public key
-    # but we can remove the "@your-machine" part
-  ];
+  # services.openssh = {
+  #   enable = true;
+  #   # require public key authentication for better security
+  #   settings.PasswordAuthentication = false;
+  #   settings.KbdInteractiveAuthentication = false;
+  #   #settings.PermitRootLogin = "yes";
+  # };
+  # users.users."dan".openssh.authorizedKeys.keys = [
+  #   # dan-wks-3080 windows key
+  #   "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDIdjUmRaJCKDBRZHI6VyKKOOdWD08Ezg5Aqa+u3cL8ZNdAzPudikv5x6RPemcjWg4Pj0s8nXsFl9UYJmDW7tgCdaf6m20aWu/0R3tGjOc+O+MfGnGkbdvH0gl9gm7OtGeywn1BO777SlmXnu788+69DLcXftjgf4za/AW3mP/LnPPp2TKgONi/+4nKQSC/20H0yAZib7u4cav4QBHTy2u7UvmDLHKPGfP4OwINVVub2LI+bzMrbTqs2LrZzG9JyfdNTojZh6lszubkVQ9cNojsWcmovn2iswruTgtjvzxeENEWHk6VdJUKr1bSDusIQ0ucDTuqbJqA80bP9l4m+GqSZfTMjNC+m/gljSW33oDmkiXgW5VZb6RZV3gktqngDT8ghfkFkHi3JfRtGy1THWEOskGz+fGQ5w9j9Q9tB9WBGqfMxE0u6P/65a+bnmypntGv649RpxD3nJ7e7FwPzy9Ekcoy7IZffDuoTvqbqjIcAfyHOT9iLFPg233KuYMxGi0= dgonz@dan-wks-3080"
+  #   # note: ssh-copy-id will add user@your-machine after the public key
+  #   # but we can remove the "@your-machine" part
+  # ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -149,9 +144,6 @@
   # };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

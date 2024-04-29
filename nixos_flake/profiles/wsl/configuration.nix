@@ -28,6 +28,7 @@
     # ];
   #};
 
+  nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "Europe/Amsterdam";
 
@@ -38,7 +39,7 @@
   users.defaultUserShell = pkgs.zsh;
   users.users.dan.shell = pkgs.zsh;
 
-
+  # TODO: move these to respective system/ module
   environment.systemPackages = with pkgs;
   [
     home-manager
@@ -51,18 +52,22 @@
     tlrc # tldr in rust
     nh # nix helper CLI
 
+    procs # better ps
+
     # nvim lsp
     yaml-language-server
     unzip
     tree-sitter
-    nodejs_21
+    # nodejs_21
+    nodejs
     luajitPackages.luarocks-nix # lua package manager
     cargo # rust package manager
 
-    # alejandra
     nixfmt-rfc-style
-    # TODO: move these to user/shell/cli-apps.nix
+
+    # TODO: move to user/packages/nvim.nix
     neovim
+    vimPlugins.codeium-nvim
   ];
 
   programs.neovim = {
@@ -70,6 +75,7 @@
     viAlias = true;
     vimAlias = true;
   };
+
 
   # SECTION: services
 

@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, userSettings, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
   # allow dynamically linked programs to be loaded

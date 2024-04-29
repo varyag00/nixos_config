@@ -74,6 +74,8 @@ in
       ];
     };
 
+    # BUG: atuin does not replace C-r even thouugh it should by default _and_ is set in .zshrc-slim
+
     #initExtra = ''
     #  source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
     #'';
@@ -85,7 +87,7 @@ in
     # [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
     # '';
 
-    # TODO: entire .zshrc, plugins, aliases
+    # TODO: review entire .zshrc, plugins, aliases
     # plugins, see https://github.com/mickours/nixos-config/blob/6694179962931efc54e802a61c7bff5b51ff8329/config/my_vim_plugins.nix
   };
   programs.bash = {

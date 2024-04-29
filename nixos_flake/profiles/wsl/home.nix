@@ -12,7 +12,7 @@
     ../../modules/user/shell/cli-apps.nix
     #  ../../modules/user/shell/k8s.nix
     ../../modules/user/packages/lsp.nix
-    #  ../../modules/user/packages/nvim.nix
+     ../../modules/user/packages/nvim.nix
   ];
 
   home.stateVersion = "23.11"; # Please read the comment before changing.
