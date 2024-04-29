@@ -20,13 +20,11 @@ if [ -e $ZSH_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 
 	source $ZSH_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 fi
 
-# TODO: add fzf-tab to zplug plugins
+# TODO: add fzf-tab to zplug plugins (if it's better than default tab completion)
 # fzf-tab
 if [ -e $ZSH_PLUGINS/fzf-tab/fzf-tab.plugin.zsh ]; then
 	source $ZSH_PLUGINS/fzf-tab/fzf-tab.plugin.zsh
 fi
-
-# TODO perhaps kubectx and kubectl oh-my-zsh plugins 
 
 # plugins=(
 # git
@@ -40,8 +38,6 @@ fi
 # for plugin in $plugins; do
 # 	source $ZSH_PLUGINS/$plugin*.zsh
 # done
-
-
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -87,7 +83,9 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
-# TODO: doesn't work
 # ctrl- arrow keys
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
+
+# TODO: move to atuin config if possible
+bindkey '^r' atuin-search
