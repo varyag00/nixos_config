@@ -10,6 +10,16 @@ _My personal [flake](https://nixos.wiki/wiki/Flakes)-based NixOS configuration, 
 
 ## Info
 
+### Usage
+
+Use the [taskfile](https://taskfile.dev) targets to get started. Note that on first run, `task` will not be installed so use `nix-shell -p go-task` to temporarily install it.
+
+```sh
+task install
+```
+
+Afterwards, use `task rebuild` to reload configuration.
+
 ### Why NixOS?
 
 1. **Stability**: NixOS never breaks in day-to-day operation, and when it _does_ break while applying system changes, by design [_you always have an easily-recoverable backup_](https://nixos.wiki/wiki/Nixos-rebuild).

@@ -9,6 +9,7 @@
     [
       ../../modules/system/security/sshd.nix
       ../../modules/system/programs/helpers.nix
+      ../../modules/system/programs/shell.nix
     ];
   # NOTE: see options https://mynixos.com/search?q=nixpkgs%2Foption
 
@@ -54,10 +55,12 @@
 
     procs # better ps
 
+    # TODO: extract to module
     # nvim lsp
     yaml-language-server
     unzip
     tree-sitter
+    markdownlint-cli
     # nodejs_21
     nodejs
     luajitPackages.luarocks-nix # lua package manager

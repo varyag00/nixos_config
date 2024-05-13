@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+vars:
+  PROFILE: "wsl"
+  USER: "dan"
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+    silent: true
+
+  rebuild:nixos:
+    cmds:
+      - nh os switch {{ .FLAKE }}
+    env:
+      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
+    desc: "Use nix-helper to rebuild the nixos system configuration and switch to it"
+
+  rebuild:hm:
+    cmds:
+      - nh home switch -c {{ .USER }} {{ .FLAKE }}
+    env:
+      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
+    desc: "Use nix-helper to rebuild the home-manager user configuration and switch to it"
+
+  rebuild:
+    desc: "Rebuild and switch to the latest nixos and home-manager configs"
+    deps:
+      - rebuild:nixos
+      - rebuild:hm
+
+  install:nixos:
+    cmds:
+      - sudo nixos-rebuild switch --flake {{ .FLAKE }}
+    env:
+      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}#{{ .USER }}"
+    desc: "Rebuild the nixos system configuration and switch to it"
+
+  install:hm:
+    cmds:
+      - home-manager switch --flake {{ .FLAKE }}
+    env:
+      #FLAKE: ".#dan"
+      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}#{{ .USER }}"
+    desc: "Rebuild the home-manager configuration and switch to it"
+
+  install:
+    desc: "Build and switch to the nixos and home-manager configs"
+    deps:
+      - install:nixos
+      - install:hm
