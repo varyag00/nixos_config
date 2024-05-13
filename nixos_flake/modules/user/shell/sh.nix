@@ -31,6 +31,7 @@ in
     lsd
     bottom
     fd
+    jq yq
     bc
     direnv
     nix-direnv
