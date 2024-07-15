@@ -5,11 +5,12 @@ version: "3"
 vars:
   PROFILE: "wsl"
   USER: "dan"
+  FLAKE: "./nixos_flake"
 
 tasks:
   default:
     cmds:
-      - task --list-all
+      - task --list-all --order alphanumeric
     silent: true
 
   rebuild:nixos:
@@ -28,27 +29,24 @@ tasks:
 
   rebuild:
     desc: "Rebuild and switch to the latest nixos and home-manager configs"
-    deps:
-      - rebuild:nixos
-      - rebuild:hm
+    cmds:
+      - task: rebuild:nixos
+      - task: rebuild:hm
 
   install:nixos:
     cmds:
       - sudo nixos-rebuild switch --flake {{ .FLAKE }}
-    env:
-      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}#{{ .USER }}"
     desc: "Rebuild the nixos system configuration and switch to it"
 
   install:hm:
     cmds:
-      - home-manager switch --flake {{ .FLAKE }}
-    env:
-      #FLAKE: ".#dan"
-      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}#{{ .USER }}"
+      - home-manager switch --flake {{ .FLAKE }}#{{ .USER }}
     desc: "Rebuild the home-manager configuration and switch to it"
 
   install:
-    desc: "Build and switch to the nixos and home-manager configs"
-    deps:
-      - install:nixos
-      - install:hm
+    desc: "Build and switch to the latest nixos and home-manager configs"
+    cmds:
+      - task: install:nixos
+      - task: install:hm
+
+# TODO: add prepare command to copy /etc/nixos/hardware-config.nix to $FLAKE/
