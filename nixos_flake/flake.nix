@@ -3,6 +3,8 @@
   description = "Nixos config flake";
 
   inputs = {
+    # TODO: strongly consider switching nixpkgs to stable and creating nixpkgs-unstable
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
@@ -12,14 +14,13 @@
       url = "github:nix-community/nix-ld-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixos-wsl, home-manager, ... }@inputs:
     let
       # SECTION: system settings
       systemSettings = {
