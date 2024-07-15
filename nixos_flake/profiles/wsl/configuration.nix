@@ -2,11 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, pkgs-unstable, inputs, ... }:
 
 {
   imports =
     [
+      ../../modules/common.nix
       ../../modules/system/security/sshd.nix
       ../../modules/system/programs/helpers.nix
       ../../modules/system/programs/shell.nix
@@ -15,59 +16,6 @@
 
   wsl.enable = true;
   wsl.defaultUser = "dan";
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  #wsl = {
-  #  enable = true;
-    # NOTE: updated from default "NixOS", and the ran the commands documented at url below
-    # DOC: https://github.com/nix-community/NixOS-WSL/pull/406/files/379af73917816dd3d153b5862e648df3ba77ad32
-
-    # extraBin = with pkgs; [
-    #   { src = "${coreutils}/bin/uname"; }
-    #   { src = "${coreutils}/bin/dirname"; }
-    #   { src = "${coreutils}/bin/readlink"; }
-    # ];
-  #};
-
-  nixpkgs.config.allowUnfree = true;
-
-  time.timeZone = "Europe/Amsterdam";
-
-  # make zsh the default shell
-  programs.zsh.enable = true;
-  environment.shells = with pkgs; [ zsh ];
-
-  users.defaultUserShell = pkgs.zsh;
-  users.users.dan.shell = pkgs.zsh;
-
-  # TODO: move these to respective system/ module
-  environment.systemPackages = with pkgs;
-  [
-    home-manager
-    zsh
-    wget
-    gcc
-    ripgrep
-    git
-
-    tlrc # tldr in rust
-    nh # nix helper CLI
-
-    procs # better ps
-
-    # TODO: disable nvim lsp stuff and manage in its own nix flake
-    # nvim lsp
-    yaml-language-server
-    unzip
-    tree-sitter
-    markdownlint-cli
-    # nodejs_21
-    nodejs
-    luajitPackages.luarocks-nix # lua package manager
-    cargo # rust package manager
-
-    nixfmt-rfc-style
-  ];
 
   # SECTION: services
 
@@ -83,56 +31,10 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  # Enable the X11 windowing system.
+  # X11
   # services.xserver.enable = true;
-
-  # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # hardware.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-   users.users.dan = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-     #packages = with pkgs; [
-     #  firefox
-     #  tree
-     #];
-   };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -145,7 +47,9 @@
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
 
-  #
+
+
+
   # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
   # and migrated your data accordingly.
   #

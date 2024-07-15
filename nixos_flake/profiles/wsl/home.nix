@@ -1,4 +1,4 @@
-{ config, pkgs, userSettings, ... }:
+{ config, pkgs, pkgs-unstable, userSettings, ... }:
 
 {
   # NOTE: see https://mynixos.com/search?q=home-manager%2Foption for options
@@ -13,6 +13,7 @@
     #  ../../modules/user/shell/k8s.nix
     ../../modules/user/packages/lsp.nix
      ../../modules/user/packages/nvim.nix
+    #  ../../modules/user/packages/python-packages.nix
   ];
 
   home.stateVersion = "23.11"; # Please read the comment before changing.
