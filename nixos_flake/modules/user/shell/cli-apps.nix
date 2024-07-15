@@ -1,12 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
-  home.packages = with pkgs; [
-    zellij
-    delta
+  home.packages = (with pkgs; [
     lazygit
     lazydocker
     thefuck
-  ];
+    nap
+    hurl
+    go-task
+    tre-command
+  ]) ++ (with pkgs-unstable; [
+    lazysql
+  ]);
   programs.git = {
     enable = true;
     # TODO: take and use userSetting config
@@ -55,8 +59,5 @@
     settings = {
       theme = "catppuccin-macchiato";
     };
-  };
-  programs.thefuck = {
-    enable = true;
   };
 }

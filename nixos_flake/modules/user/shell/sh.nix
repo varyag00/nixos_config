@@ -16,6 +16,7 @@ let
     tf = "terraform";
     lgit = "lazygit";
     ldoc = "lazydocker";
+    lsql = "lazysql";
     glg = "git lg";
     # TODO: move to k8s module if possible
     k = "kubectl";
@@ -71,6 +72,7 @@ in
           ];
         } # Installations with additional options. For the list of options, please refer to Zplug README.
         { name = "jeffreytse/zsh-vi-mode"; }
+        { name = "Berger91/taskfile-zsh-autocompletion"; }
         #{ name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
       ];
     };

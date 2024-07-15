@@ -3,9 +3,8 @@
   description = "Nixos config flake";
 
   inputs = {
-    # TODO: strongly consider switching nixpkgs to stable and creating nixpkgs-unstable
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,12 +19,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixos-wsl, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-wsl, home-manager, ... }@inputs:
     let
       # SECTION: system settings
       systemSettings = {
         system = "x86_64-linux"; # system arch
-        # NOTE: set profile to desired profile before running `home-manager switch --flake .#dan`
+        # NOTE: set profile to desired profile before running:
+        # sudo nixos-rebuild switch --flake ./nixos_flake
+        # home-manager switch --flake ./nixos_flake#dan
         profile = "wsl";
         timezone = "Europe/Stockholm"; # select timezone
         locale = "en_US.UTF-8"; # select locale
@@ -37,10 +38,11 @@
         name = "Dan G";
       };
 
+      # nixpkg channel configuration
       pkgs = nixpkgs.legacyPackages.${systemSettings.system};
+      pkgs-unstable = nixpkgs-unstable.legacyPackages.${systemSettings.system};
     in
     {
-
       # SECTION: system-level configuration
       # NOTE: switch to this configuration using:
       #   `sudo nixos-rebuild switch --flake .`
@@ -71,6 +73,7 @@
           inherit pkgs;
           extraSpecialArgs = {
             inherit userSettings;
+            inherit pkgs-unstable;
           };
           # system = systemSettings.system;
           modules = [
