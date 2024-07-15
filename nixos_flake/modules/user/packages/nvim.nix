@@ -1,12 +1,19 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
-  # NOTE: home-manager switch complains about collissions
-  # home.packages = with pkgs; [ neovim ];
-  # programs.neovim = {
-  #   # see options https://mynixos.com/home-manager/options/programs.neovim
-  #   enable = true;
-  #   defaultEditor = true;
-  # };
+  programs.neovim = {
+    # see options https://mynixos.com/home-manager/options/programs.neovim
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+  };
+
+  # create a symlink to nvim binary for vscode-neovim
+  home.activation.createNvimVsCodeLink = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    mkdir -p $HOME/.local/bin
+    ln -sf ${pkgs.neovim}/bin/nvim $HOME/.local/bin/nvim_vscode
+  '';
 
   # create a symlink of existing nvim config
   home.file.".config/nvim" = {

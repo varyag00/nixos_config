@@ -55,7 +55,7 @@
 
     procs # better ps
 
-    # TODO: extract to module
+    # TODO: disable nvim lsp stuff and manage in its own nix flake
     # nvim lsp
     yaml-language-server
     unzip
@@ -67,18 +67,7 @@
     cargo # rust package manager
 
     nixfmt-rfc-style
-
-    # TODO: move to user/packages/nvim.nix
-    neovim
-    vimPlugins.codeium-nvim
   ];
-
-  programs.neovim = {
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-  };
-
 
   # SECTION: services
 
