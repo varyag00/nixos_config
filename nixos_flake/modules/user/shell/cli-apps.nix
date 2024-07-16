@@ -60,4 +60,8 @@
       theme = "catppuccin-macchiato";
     };
   };
+  programs.yazi = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }

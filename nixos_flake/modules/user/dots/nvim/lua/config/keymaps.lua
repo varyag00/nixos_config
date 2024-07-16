@@ -35,10 +35,15 @@ vim.keymap.set("v", "<leader>CY", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set({ "v", "n" }, "<leader>CP", '"+p', { desc = "Paste from system clipboard" })
 
 -- BUG: Fix for the weird "n" behaviour.... however I am quite sure I introduced this bug by set setting "n" in keys somewhere...
--- TODO: find the culprit
-vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
-vim.keymap.set({ "o", "x" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+-- TODO: find the culprit --
+-- update: it appears to be this code I added below...
+-- vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
+-- vim.keymap.set({ "o", "x" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
 
 -- same as ss
 -- aerial
 -- vim.keymap.set({ "n", "i" }, "<C->>", )
+-- -- -- ---
+
+-- ctrl-backspace to delete previous word
+vim.keymap.set("i", "", "<C-W>")
