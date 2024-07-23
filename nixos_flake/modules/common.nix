@@ -1,6 +1,16 @@
-{ config, lib, pkgs, pkgs-unstable, inputs, ... }:
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  config,
+  lib,
+  pkgs,
+  pkgs-unstable,
+  inputs,
+  ...
+}:
+{
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -15,7 +25,9 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dan = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel" # Enable ‘sudo’ for the user.
+    ];
     #packages = with pkgs; [
     #  firefox
     #  tree
@@ -24,8 +36,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs;
-  [
+  environment.systemPackages = with pkgs; [
     home-manager
     zsh
     wget
