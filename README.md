@@ -12,6 +12,12 @@ _My personal [flake](https://nixos.wiki/wiki/Flakes)-based NixOS configuration, 
 
 ### Usage
 
+`$NIXOS_CONFIG_PROFILE` must be set to one of the available [profiles](./nixos_flake/profiles/):
+
+- wsl
+- headless
+- gnome
+
 Use the [taskfile](https://taskfile.dev) targets to get started. Note that on first run, `task` will not be installed so use `nix-shell -p go-task` to temporarily install it.
 
 ```sh

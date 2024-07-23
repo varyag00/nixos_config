@@ -3,9 +3,12 @@
 version: "3"
 
 vars:
-  PROFILE: "wsl"
+  # NOTE: env must be set; see README
+  PROFILE: "{{ .NIXOS_CONFIG_PROFILE }}"
   USER: "dan"
   FLAKE: "./nixos_flake"
+  # NOTE: --impure is used to load env var in flake.nix
+  OPTIONS: "--impure"
 
 tasks:
   default:
@@ -13,16 +16,33 @@ tasks:
       - task --list-all --order alphanumeric
     silent: true
 
+  check:
+    cmds:
+      - |
+        if [[ -z "{{ .PROFILE }}" ]]; then
+          echo "Error: NIXOS_CONFIG_PROFILE must be set. See README."
+          exit 1
+        fi
+    silent: true
+
+# TODO: add prepare command to copy /etc/nixos/hardware-config.nix to $FLAKE/
+  copy-hardwareconfig:
+    cmds:
+      - echo "noop"
+    desc: "Generate and copy a hardware-configuration.nix into the flake dir"
+
   rebuild:nixos:
     cmds:
-      - nh os switch {{ .FLAKE }}
+      - task: check
+      - nh os switch {{ .FLAKE }} -- {{ .OPTIONS }}
     env:
       FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
     desc: "Use nix-helper to rebuild the nixos system configuration and switch to it"
 
   rebuild:hm:
     cmds:
-      - nh home switch -c {{ .USER }} {{ .FLAKE }}
+      - task: check
+      - nh home switch -c {{ .USER }} {{ .FLAKE }} -- {{ .OPTIONS }}
     env:
       FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
     desc: "Use nix-helper to rebuild the home-manager user configuration and switch to it"
@@ -30,17 +50,20 @@ tasks:
   rebuild:
     desc: "Rebuild and switch to the latest nixos and home-manager configs"
     cmds:
+      - task: check
       - task: rebuild:nixos
       - task: rebuild:hm
 
   install:nixos:
     cmds:
-      - sudo nixos-rebuild switch --flake {{ .FLAKE }}
+      - task: check
+      - sudo nixos-rebuild switch --flake {{ .FLAKE }} {{ .OPTIONS }}
     desc: "Rebuild the nixos system configuration and switch to it"
 
   install:hm:
     cmds:
-      - home-manager switch --flake {{ .FLAKE }}#{{ .USER }}
+      - task: check
+      - home-manager switch --flake {{ .FLAKE }}#{{ .USER }} {{ .OPTIONS }}
     desc: "Rebuild the home-manager configuration and switch to it"
 
   install:
@@ -48,5 +71,3 @@ tasks:
     cmds:
       - task: install:nixos
       - task: install:hm
-
-# TODO: add prepare command to copy /etc/nixos/hardware-config.nix to $FLAKE/

@@ -15,11 +15,11 @@
 {
   imports = [
     ../../modules/common.nix
-    ../../modules/system/programs/wsl.nix
-    ../../modules/system/security/sshd.nix
+    ../../modules/system/features/wsl.nix
+    ../../modules/system/features/sshd.nix
+    ../../modules/system/features/docker.nix
     ../../modules/system/programs/helpers.nix
     ../../modules/system/programs/shell.nix
-    ../../modules/system/programs/docker.nix
   ];
   # NOTE: see options https://mynixos.com/search?q=nixpkgs%2Foption
 

@@ -54,9 +54,9 @@ if [ -e $HOME/pls-gitignore-wks.sh ]; then
 fi
 
 # aliases
-if [ -e $ZDOTDIR/aliases.sh ]; then
-	source $ZDOTDIR/aliases.sh
-fi
+# if [ -e $ZDOTDIR/aliases.sh ]; then
+# 	source $ZDOTDIR/aliases.sh
+# fi
 
 if [ -e $HOME/.profile ]; then
 	source $HOME/.profile
@@ -88,4 +88,12 @@ bindkey '^[[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
 
 # TODO: move to atuin config if possible
-bindkey '^r' atuin-search
+# BUG: vi-mode plugin messes with atuin.enableZshIntegration, so use function below
+# https://mynixos.com/home-manager/option/programs.atuin.enableZshIntegration
+function zvm_after_lazy_keybindings() {
+  # lazyload these keybindings:
+  # https://github.com/jeffreytse/zsh-vi-mode?tab=readme-ov-file#custom-widgets-and-keybindings
+  bindkey '^r' atuin-search
+  zvm_bindkey vicmd '^r' atuin-search
+  zvm_bindkey visual '^r' atuin-search
+}

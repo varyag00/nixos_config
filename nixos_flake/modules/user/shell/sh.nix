@@ -4,41 +4,9 @@
 # https://github.com/mickours/nixos-config/blob/6694179962931efc54e802a61c7bff5b51ff8329/config/home.nix#L3
 
 let
-  myAliases = {
-    ls = "lsd";
-    la = "lsd -lah";
-    ll = "lsd -l";
-    cd = "z";
-    cdi = "zi";
-    cat = "bat";
-    vim = "nvim";
-    vi = "nvim";
-    tf = "terraform";
-    lgit = "lazygit";
-    ldoc = "lazydocker";
-    lsql = "lazysql";
-    glg = "git lg";
-    # TODO: move to k8s module if possible
-    k = "kubectl";
-    ktx = "kubectx";
-    kns = "kubens";
-  };
+  myAliases = import ./aliases.nix;
 in
 {
-  home.packages = with pkgs; [
-    bat
-    dog
-    zoxide
-    lsd
-    bottom
-    fd
-    jq yq
-    bc
-    direnv
-    nix-direnv
-    atuin
-    fzf
-  ];
   # p10k config
   home.file.".config/zsh/.p10k.zsh".text = builtins.readFile ../dots/zsh/.p10k.zsh;
 
@@ -49,12 +17,11 @@ in
       export KEYTIMEOUT=1
     '';
 
-    # TODO: .zshrc from dotfiles repo, see top of file
     initExtraBeforeCompInit = builtins.readFile ../dots/zsh/init_p10k.zsh;
 
-    # TODO: think about what i actually need from my .zshrc
     initExtra = builtins.readFile ../dots/zsh/.zshrc-slim;
 
+    # this is very ugly
     # autosuggestion.highlight = "fg=#ff00ff,bg=cyan,bold,underline";
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
@@ -77,8 +44,6 @@ in
       ];
     };
 
-    # BUG: atuin does not replace C-r even thouugh it should by default _and_ is set in .zshrc-slim
-
     #initExtra = ''
     #  source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
     #'';
@@ -97,34 +62,5 @@ in
     enable = true;
     enableCompletion = true;
     shellAliases = myAliases;
-  };
-
-  programs.atuin = {
-    enable = true;
-    enableZshIntegration = true;
-    settings = {
-      show_preview = false;
-      inline_height = 25;
-    };
-  };
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    nix-direnv.enable = true;
-  };
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-    # TODO: add fzf custom functions from dotfiles
-  };
-  programs.bat = {
-    enable = true;
-    config = {
-      theme = "base16";
-    };
   };
 }

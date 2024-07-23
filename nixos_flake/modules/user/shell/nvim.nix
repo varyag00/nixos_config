@@ -11,6 +11,7 @@
       # unconfigurated stable packages
       pkgs.lua51Packages.lua
       pkgs.tree-sitter
+      pkgs.marksman
     ])
     ++ (with pkgs-unstable; [
       # unconfigurated unstable packages

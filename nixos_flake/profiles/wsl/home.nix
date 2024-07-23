@@ -16,10 +16,11 @@
   imports = [
     ../../modules/user/shell/sh.nix
     ../../modules/user/shell/cli-apps.nix
-    #  ../../modules/user/shell/k8s.nix
-    ../../modules/user/packages/lsp.nix
-    ../../modules/user/packages/nvim.nix
-    #  ../../modules/user/packages/python-packages.nix
+    ../../modules/user/shell/nvim.nix
+    ../../modules/user/features/k8s.nix
+    ../../modules/user/features/lsp.nix
+    ../../modules/user/features/catppuccin.nix
+    # ../../modules/user/features/nix-shells.nix
   ];
 
   home.stateVersion = "23.11"; # Please read the comment before changing.

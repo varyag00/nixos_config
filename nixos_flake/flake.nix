@@ -17,25 +17,36 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-wsl, home-manager, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      nixos-wsl,
+      home-manager,
+      catppuccin,
+      ...
+    }@inputs:
     let
       # SECTION: system settings
       systemSettings = {
-        system = "x86_64-linux"; # system arch
-        # NOTE: set profile to desired profile before running:
+        system = "x86_64-linux";
         # sudo nixos-rebuild switch --flake ./nixos_flake
         # home-manager switch --flake ./nixos_flake#dan
-        profile = "wsl";
-        timezone = "Europe/Stockholm"; # select timezone
-        locale = "en_US.UTF-8"; # select locale
+        # NOTE: set $NIXOS_CONFIG_PROFILE to desired profile before running
+        profile = builtins.getEnv "NIXOS_CONFIG_PROFILE";
+        timezone = "Europe/Stockholm";
+        locale = "en_US.UTF-8";
       };
 
       # SECTION: user settings
       userSettings = {
         username = "dan";
-        name = "Dan G";
+        name = "Dan Gonzalez";
+        email = "jdgonzal@proton.me";
       };
 
       # nixpkg channel configuration
@@ -79,6 +90,7 @@
           modules = [
             # load {systemSettings.profile}/home.nix
             (./profiles + ("/" + systemSettings.profile) + "/home.nix")
+            catppuccin.homeManagerModules.catppuccin
           ];
         };
       };

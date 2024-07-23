@@ -1,21 +1,44 @@
-{ pkgs, pkgs-unstable, ... }:
 {
-  home.packages = (with pkgs; [
-    lazygit
-    lazydocker
-    thefuck
-    nap
-    hurl
-    go-task
-    tre-command
-  ]) ++ (with pkgs-unstable; [
-    lazysql
-  ]);
+  config,
+  pkgs,
+  pkgs-unstable,
+  userSettings,
+  ...
+}:
+
+{
+  home.packages =
+    (with pkgs; [
+      dog
+      lsd
+      bottom
+      fd
+      jq
+      yq
+      bc
+      lazygit
+      lazydocker
+      thefuck
+      # code snippets TUI
+      nap
+      hurl
+      go-task
+      tre-command
+    ])
+    ++ (with pkgs-unstable; [
+      # simpler nix-shell
+      devbox
+      # sql TUI
+      lazysql
+      # http API testing TUI
+      slumber
+      # standalone magit TUI
+      gitu
+    ]);
   programs.git = {
     enable = true;
-    # TODO: take and use userSetting config
-    userName = "Dan Gonzalez";
-    userEmail = "jdgonzal@proton.me";
+    userName = userSettings.name;
+    userEmail = userSettings.email;
     extraConfig = {
       core = {
         editor = "nvim";
@@ -48,8 +71,8 @@
       options = {
         navigate = true;
         line-numbers = true;
-        syntax-theme = "base16";
-        dark = true;
+        # overridden by catppuccin.nix
+        # dark = true;
       };
     };
   };
@@ -63,5 +86,59 @@
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
+  };
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      show_preview = false;
+      inline_height = 25;
+    };
+  };
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+    # TODO: add fzf custom functions from dotfiles
+  };
+  programs.bat = {
+    enable = true;
+    config = {
+      # theme = "base16";
+    };
+  };
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      # catppuccin macchiato lavender:
+      # https://github.com/catppuccin/lazygit/blob/21a25afd92327ddea8446ab9171ca7039b431e9e/themes-mergable/macchiato/lavender.yml
+      gui = {
+        theme = {
+          activeBorderColor = [
+            "#b7bdf8"
+            "bold"
+          ];
+          inactiveBorderColor = [ "#a5adcb" ];
+          optionsTextColor = [ "#8aadf4" ];
+          selectedLineBgColor = [ "#363a4f" ];
+          cherryPickedCommitBgColor = [ "#494d64" ];
+          cherryPickedCommitFgColor = [ "#b7bdf8" ];
+          unstagedChangesColor = [ "#ed8796" ];
+          defaultFgColor = [ "#cad3f5" ];
+          searchingActiveBorderColor = [ "#eed49f" ];
+        };
+        authorColors = {
+          "*" = "#b7bdf8";
+        };
+      };
+    };
   };
 }
