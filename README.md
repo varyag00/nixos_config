@@ -12,6 +12,8 @@ _My personal [flake](https://nixos.wiki/wiki/Flakes)-based NixOS configuration, 
 
 ### Usage
 
+Ensure that this repo is cloned into `$HOME`.
+
 `$NIXOS_CONFIG_PROFILE` must be set to one of the available [profiles](./nixos_flake/profiles/):
 
 - wsl

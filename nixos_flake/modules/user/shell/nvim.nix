@@ -3,6 +3,8 @@
   pkgs,
   pkgs-unstable,
   lib,
+  systemSettings,
+  envVars,
   ...
 }:
 {
@@ -26,7 +28,7 @@
       # manually install LSP packages instead of using mason-lspconfig
       pkgs.yaml-language-server
       pkgs.luajitPackages.luarocks-nix
-      pkgs.markdownlint-cli
+      pkgs.markdownlint-cli2
       pkgs.unzip
       pkgs.gopls
       pkgs.ruff-lsp
@@ -43,10 +45,15 @@
     ln -sf ${pkgs-unstable.neovim}/bin/nvim $HOME/.local/bin/nvim_vscode
   '';
 
-  # create a symlink to lazyvim config
+  # create a symlink to lazyvim config inside the git repo
   home.activation.createNvimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sf ${../dots/nvim}/dots/nvim $HOME/.config/nvim
+    rm -rf $HOME/.config/nvim
+    ln -sf ${envVars.NIX_DOTS}/nvim $HOME/.config/nvim
   '';
+  # ln -sf $HOME/nixos_config/nixos_flake/modules/user/dots/nvim $HOME/.config/nvim
+  # NOTE: these don't work because relpaths point to the nix store flake path (read-only)
+  # ln -sf ${../../../dots/nvim} $HOME/.config/nvim
+  # ln -sf ${self}/dots/nvim $HOME/.config/nvim
 
   # environment.systemPackages = with pkgs;
   # [

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, envVars, ... }:
 
 # TODO: pull dotfiles from dotfiles dir, see
 # https://github.com/mickours/nixos-config/blob/6694179962931efc54e802a61c7bff5b51ff8329/config/home.nix#L3
@@ -8,18 +8,21 @@ let
 in
 {
   # p10k config
-  home.file.".config/zsh/.p10k.zsh".text = builtins.readFile ../dots/zsh/.p10k.zsh;
+  home.file.".config/zsh/.p10k.zsh".text = builtins.readFile ../../../dots/zsh/.p10k.zsh;
 
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
     envExtra = ''
       export KEYTIMEOUT=1
+
+      export NAP_HOME="$HOME/.config/nap/snippets";
+      export NAP_CONFIG="$HOME/.config/nap/config.yaml";
     '';
 
-    initExtraBeforeCompInit = builtins.readFile ../dots/zsh/init_p10k.zsh;
+    initExtraBeforeCompInit = builtins.readFile ../../../dots/zsh/init_p10k.zsh;
 
-    initExtra = builtins.readFile ../dots/zsh/.zshrc-slim;
+    initExtra = builtins.readFile ../../../dots/zsh/.zshrc-slim;
 
     # this is very ugly
     # autosuggestion.highlight = "fg=#ff00ff,bg=cyan,bold,underline";

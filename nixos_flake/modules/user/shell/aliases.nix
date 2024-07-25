@@ -5,6 +5,8 @@
   cd = "z";
   cdi = "zi";
   cat = "bat";
+  ping = "gping";
+  dig = "doggo";
 
   tf = "terraform";
   lgit = "lazygit";

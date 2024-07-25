@@ -3,7 +3,7 @@ local Util = require("lazyvim.util")
 local M = {
   -- NOTE: disable mason-lspconfig to prevent LSP server downloads
   { "williamboman/mason-lspconfig.nvim", enabled = false },
-  -- { "williamboman/mason.nvim", enabled = false },
+  { "williamboman/mason.nvim", enabled = false },
   {
     "telescope.nvim",
     dependencies = {

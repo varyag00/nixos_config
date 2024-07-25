@@ -1,8 +1,11 @@
 {
+  lib,
   config,
   pkgs,
   pkgs-unstable,
   userSettings,
+  systemSettings,
+  envVars,
   ...
 }:
 
@@ -24,6 +27,7 @@
       hurl
       go-task
       tre-command
+      gping
     ])
     ++ (with pkgs-unstable; [
       # simpler nix-shell
@@ -34,6 +38,8 @@
       slumber
       # standalone magit TUI
       gitu
+      # better dig (dns)
+      doggo
     ]);
   programs.git = {
     enable = true;
@@ -141,4 +147,10 @@
       };
     };
   };
+  # NOTE: nap snippets configurations; replace with home-manager when implemented
+  # NOTE: sh.nix sets NAP_HOME and NAP_CONFIG nap env vars
+  home.activation.configureNapSnippets = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    rm -rf $HOME/.config/nap
+    ln -sf ${envVars.NIX_DOTS}/nap $HOME/.config/nap
+  '';
 }

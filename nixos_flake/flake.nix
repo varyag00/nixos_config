@@ -34,8 +34,6 @@
       # SECTION: system settings
       systemSettings = {
         system = "x86_64-linux";
-        # sudo nixos-rebuild switch --flake ./nixos_flake
-        # home-manager switch --flake ./nixos_flake#dan
         # NOTE: set $NIXOS_CONFIG_PROFILE to desired profile before running
         profile = builtins.getEnv "NIXOS_CONFIG_PROFILE";
         timezone = "Europe/Stockholm";
@@ -47,6 +45,12 @@
         username = "dan";
         name = "Dan Gonzalez";
         email = "jdgonzal@proton.me";
+      };
+
+      # SECTION: env vars
+      envVars = {
+        # TODO: allow overriding this via env var
+        NIX_DOTS = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/dots";
       };
 
       # nixpkg channel configuration
@@ -64,6 +68,7 @@
         specialArgs = {
           inherit systemSettings;
           inherit userSettings;
+          inherit envVars;
           inherit inputs;
         };
         system = systemSettings.system;
@@ -84,6 +89,8 @@
           inherit pkgs;
           extraSpecialArgs = {
             inherit userSettings;
+            inherit systemSettings;
+            inherit envVars;
             inherit pkgs-unstable;
           };
           # system = systemSettings.system;
