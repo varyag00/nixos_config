@@ -55,7 +55,14 @@
 
       # nixpkg channel configuration
       pkgs = nixpkgs.legacyPackages.${systemSettings.system};
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${systemSettings.system};
+
+      pkgs-unstable = import nixpkgs-unstable {
+        system = systemSettings.system;
+        config = {
+          allowUnfree = true;
+          allowUnfreePredicate = (_: true);
+        };
+      };
     in
     {
       # SECTION: system-level configuration
@@ -70,6 +77,7 @@
           inherit userSettings;
           inherit envVars;
           inherit inputs;
+          inherit pkgs-unstable;
         };
         system = systemSettings.system;
         modules = [
