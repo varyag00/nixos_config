@@ -17,9 +17,10 @@
     ../../modules/common.nix
     ../../modules/system/features/wsl.nix
     ../../modules/system/features/sshd.nix
-    ../../modules/system/features/docker.nix
     ../../modules/system/programs/helpers.nix
     ../../modules/system/programs/shell.nix
+    ../../modules/system/features/docker.nix
+    # ../../modules/system/features/ollama.nix
   ];
   # NOTE: see options https://mynixos.com/search?q=nixpkgs%2Foption
 
