@@ -1,10 +1,8 @@
 {
-  # config,
-  # lib,
   envVars,
   pkgs,
   pkgs-unstable,
-  nh_darwin,
+  # nh_darwin,
   ...
 }:
 {
@@ -17,8 +15,8 @@
       # TODO: look into builtins.currentSystem, which gives you the currently set system
       if envVars.system.isLinux then
         [
-          # pkgs-unstable.nh # in helpers.nix
-          # pkgs.clair container static analysis
+          pkgs-unstable.nh # in helpers.nix
+          pkgs.clair # container static analysis
         ]
       else if envVars.system.isDarwin then
         [

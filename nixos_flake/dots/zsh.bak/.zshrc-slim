@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# TODO: add to envExtra
+export SRC="/usr/local/src"
+# export WORK="$SRC/work"
+export WORK_CONFIG="$HOME/.config/work"
+export DOTSDIR="$HOME/.config"
+export ZSH_PLUGINS="$ZDOTDIR/plugins"
+export ZSH_EXTRAS_CONFIG="$ZDOTDIR/extras"
+export KUBECONFIG="$HOME/.kube/config"
+
+# Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
+export KEYTIMEOUT=1
+
+# NOTE: See https://github.com/catppuccin/zsh-syntax-highlighting
+# tl;dr if present, it must be sourced before loading zsh-syntax-highlighting
+# add a new `themes/selected_theme` dir and copy selected theme
+if [ -e $ZSH_PLUGINS/catppuccin-zsh-syntax-highlighting.zsh ]; then
+	source $ZSH_PLUGINS/catppuccin-zsh-syntax-highlighting.zsh
+fi
+if [ -e $ZSH_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]; then
+	source $ZSH_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+fi
+
+# TODO: add fzf-tab to zplug plugins (if it's better than default tab completion)
+# fzf-tab
+if [ -e $ZSH_PLUGINS/fzf-tab/fzf-tab.plugin.zsh ]; then
+	source $ZSH_PLUGINS/fzf-tab/fzf-tab.plugin.zsh
+fi
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nvim'
+else
+  export EDITOR='nvim'
+fi
+
+
+# NOTE: legacy: aliases are now handled by home-manager, in aliases.nix
+if [ -e $ZDOTDIR/aliases.sh ]; then
+	source $ZDOTDIR/aliases.sh
+fi
+
+if [ -e $HOME/.profile ]; then
+	source $HOME/.profile
+fi
+
+if [ -e $HOME/.ssh_hosts ]; then
+	source $HOME/.ssh_hosts
+fi
+
+# source anything in $WORK_CONFIG
+if [ -e $WORK_CONFIG ]; then
+ for f in $WORK_CONFIG/*.sh; do source $f; done
+fi
+
+# source anything in $ZSH_EXTRAS_CONFIG
+if [ -e $ZSH_EXTRAS_CONFIG ]; then
+ for f in $ZSH_EXTRAS_CONFIG/*.sh; do source $f; done
+fi
+
+# TODO: fzf custom extensions
+#	[ -f $ZDOTDIR/fzf-custom.zsh ] && source $ZDOTDIR/fzf-custom.zsh
+#fi
+
+# NOTE: fzf-tab completions config
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# preview directory's content with lsd when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+
+# ctrl- arrow keys
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
+
+# TODO: move to atuin config if possible
+# BUG: vi-mode plugin messes with atuin.enableZshIntegration, so use function below
+# https://mynixos.com/home-manager/option/programs.atuin.enableZshIntegration
+function zvm_after_lazy_keybindings() {
+  # lazyload these keybindings:
+  # https://github.com/jeffreytse/zsh-vi-mode?tab=readme-ov-file#custom-widgets-and-keybindings
+  bindkey '^r' atuin-search
+  zvm_bindkey vicmd '^r' atuin-search
+  zvm_bindkey visual '^r' atuin-search
+}

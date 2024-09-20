@@ -1,0 +1,51 @@
+layout name="notes" {
+  tab name="work-notes" cwd="~/work/work-notes" hide_floating_panes=true {
+    pane size=1 borderless=true {
+      plugin location="tab-bar"
+    }
+    pane name="nvim" {
+      command "nvim"
+      args "."
+    }
+    floating_panes {
+      pane name="zsh" {
+          width "70%"
+          height "70%"
+          x "15%"
+          y "15%"
+      }
+    }
+    pane size=2 borderless=true {
+      plugin location="status-bar"
+    }
+  }
+  tab name="personal-notes" cwd="~/obsidian/obsidian_tasks" hide_floating_panes=true {
+    pane size=1 borderless=true {
+      plugin location="tab-bar"
+    }
+    pane name="nvim" {
+      command "nvim"
+      args "."
+    }
+    floating_panes {
+      pane name="zsh" {
+        width "70%"
+        height "70%"
+        x "15%"
+        y "15%"
+      }
+    }
+    pane size=2 borderless=true {
+      plugin location="status-bar"
+    }
+  }
+}
+// Add keybindings to switch between tabs
+keybinds {
+  shared {
+    bind "Alt 1" { GoToTab 1; }
+    bind "Alt 2" { GoToTab 2; }
+    bind "Alt 3" { GoToTab 3; }
+  }
+}
+

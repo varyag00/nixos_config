@@ -9,6 +9,8 @@
   cat = "bat";
   ping = "gping";
   dig = "doggo";
+  man = "batman";
+  top = "btop";
 
   tf = "terraform";
   lgit = "lazygit";

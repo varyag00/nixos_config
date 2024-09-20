@@ -18,6 +18,7 @@
     ../../modules/user/nvim
     ../../modules/user/features/k8s.nix
     ../../modules/user/features/lsp.nix
+    ../../modules/user/features/codeium.nix
     ../../modules/user/features/catppuccin.nix
     # ../../modules/user/features/nix-shells.nix
   ];

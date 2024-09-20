@@ -66,12 +66,6 @@
       mods # CLI chatbot interface: https://github.com/charmbracelet/mods
       vhs # code gif recording utility: https://github.com/charmbracelet/vhs
       charm-freeze # code screenshot utility: https://github.com/charmbracelet/freeze
-
-      # technically not a cli app
-      neovide
-
-      # use this only in linux systems (in helpers.nix)
-      # nh
     ])
     ++ (
       if envVars.system.isLinux then
@@ -196,9 +190,6 @@
     #     file = "themes/Catppuccin Macchiato.tmTheme";
     #   };
     # };
-  };
-  programs.zsh.shellAliases = {
-    man = "batman";
   };
   # FIXME: annoying conflict in ~/.config/gh/config.yml
   # programs.gh = {

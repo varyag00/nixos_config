@@ -1,0 +1,23 @@
+layout {
+    tab name="nix-darwin" hide_floating_panes=true cwd="~/nix-darwin-kickstarter" {
+
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        pane name="nvim" {
+            command "nvim"
+            args "."
+        }
+        floating_panes cwd="~/nix-darwin-kickstarter" {
+            pane name="zsh" {
+                width "70%"
+                height "70%"
+                x "15%"
+                y "15%"
+            }
+        }
+        pane size=2 borderless=true {
+            plugin location="status-bar"
+        }
+    }
+}

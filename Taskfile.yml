@@ -4,7 +4,7 @@ version: "3"
 
 vars:
   # NOTE: env must be set; see README
-  PROFILE: "{{ .NIXOS_CONFIG_PROFILE }}"
+  PROFILE: "{{ .nixos_profile }}"
   USER: "dan"
   FLAKE: "./nixos_flake"
   # NOTE: --impure is used to load env var in flake.nix
@@ -20,12 +20,12 @@ tasks:
     cmds:
       - |
         if [[ -z "{{ .PROFILE }}" ]]; then
-          echo "Error: NIXOS_CONFIG_PROFILE must be set. See README."
+          echo "Error: set and source .envrc before running. See README."
           exit 1
         fi
     silent: true
 
-# TODO: add prepare command to copy /etc/nixos/hardware-config.nix to $FLAKE/
+  # TODO: add prepare command to copy /etc/nixos/hardware-config.nix to $FLAKE/
   copy-hardwareconfig:
     cmds:
       - echo "noop"

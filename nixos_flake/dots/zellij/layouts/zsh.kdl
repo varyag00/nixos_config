@@ -1,0 +1,22 @@
+layout {
+
+    tab name="zsh" hide_floating_panes=true {
+
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        pane name="zsh" {
+        }
+        floating_panes {
+            pane name="zsh" {
+                width "70%"
+                height "70%"
+                x "15%"
+                y "15%"
+            }
+        }
+        pane size=2 borderless=true {
+            plugin location="status-bar"
+        }
+    }
+}

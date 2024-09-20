@@ -1,0 +1,42 @@
+theme "catppuccin-macchiato"
+default_mode "locked"
+// default_layout "welcome" // pretty session picker
+support_kitty_keyboard_protocol true // supported in wezterm and nvim
+simplified_ui false // no arrow fonts
+
+// NOTE: look into zjstatus plugin, which some neat community themes
+// https://github.com/dj95/zjstatus/discussions/44
+
+// stay in locked mode (now default) 
+keybinds {
+	unbind "Ctrl q" "Ctrl h" "Ctrl o"
+
+	normal {
+		unbind "Alt j" "Alt k" "Alt h" "Alt l"
+
+    bind "Ctrl w" { SwitchToMode "move"; }
+    bind "Ctrl f" { SwitchToMode "entersearch"; }
+    bind "Ctrl s" { SwitchToMode "session"; }
+	}
+  // global (shared) commands available in all modes, including locked
+	shared {
+		bind "Alt i" { MoveFocusOrTab "Left"; }
+		bind "Alt o" { MoveFocusOrTab "Right"; }
+		bind "Alt Down" { MoveFocus "Down"; }
+		bind "Alt Up" { MoveFocus "Up"; }
+		bind "Alt Left" { MoveFocusOrTab "Left"; }
+		bind "Alt Right" { MoveFocusOrTab "Right"; }
+		bind "Alt t" { ToggleFloatingPanes; }
+    bind "Alt f" { SwitchToMode "entersearch"; }
+
+    bind "Alt 1" { GoToTab 1; }
+    bind "Alt 2" { GoToTab 2; }
+    bind "Alt 3" { GoToTab 3; }
+    bind "Alt 4" { GoToTab 4; }
+    bind "Alt 5" { GoToTab 5; }
+	}
+  session {
+    bind "Ctrl x" { Quit; }
+  }
+}
+

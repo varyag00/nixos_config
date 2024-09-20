@@ -22,8 +22,6 @@
     #     accent = "lavender";
     #   };
     # }
-
-
   };
 
   programs.neovim.catppuccin.enable = false;
