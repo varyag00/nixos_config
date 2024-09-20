@@ -31,6 +31,16 @@
       ...
     }@inputs:
     let
+      # CRIT: set system vars in .envrc (and source) before applying flake
+
+      # SECTION: .envrc imports
+      username = builtins.getEnv "username";
+      useremail = builtins.getEnv "useremail";
+      system = builtins.getEnv "system";
+      hostname = builtins.getEnv "hostname";
+      systemFlake = builtins.getEnv "system_flake";
+      is_work = builtins.getEnv "is_work";
+
       # SECTION: system settings
       systemSettings = {
         system = "x86_64-linux";
@@ -51,6 +61,19 @@
       envVars = {
         # TODO: allow overriding this via env var
         NIX_DOTS = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/dots";
+
+        # TODO: fetch these from an .envrc file with direnv? what about for first install?
+        user = {
+          name = username;
+          email = useremail;
+        };
+        system = {
+          archname = system;
+          hostname = hostname;
+          isDarwin = builtins.elem envVars.system.archname [ "aarch64-darwin" ];
+          isLinux = builtins.elem envVars.system.archname [ "x86_64-linux" ];
+          isWork = is_work; # TODO: set from env var
+        };
       };
 
       # nixpkg channel configuration
@@ -109,5 +132,10 @@
           ];
         };
       };
+
+      # nix code formatter
+      # formatter.${envVars.system.archname} = nixpkgs.legacyPackages.${envVars.system.archname}.alejandra;
+      formatter.${envVars.system.archname} =
+        nixpkgs.legacyPackages.${envVars.system.archname}.nixfmt-rfc-style;
     };
 }
