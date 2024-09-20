@@ -1,4 +1,6 @@
 {
+  reload = "source $ZDOTDIR/.zshrc";
+
   ls = "lsd";
   la = "lsd -lah";
   ll = "lsd -l";
@@ -14,13 +16,15 @@
   lsql = "lazysql";
   glg = "git lg";
   gst = "git status";
-
-  # TODO: move to k8s module if possible
-  k = "kubectl";
-  ktx = "kubectx";
-  kns = "kubens";
+  gco = "git checkout";
 
   db = "devbox";
   dbs = "devbox shell";
   dbr = "devbox run";
+
+  # nix manual aliases
+
+  man-nix = "man 5 configuration.nix";
+  # NOTE: nix-darwin replaces this when installed
+  man-nix-hm = "man 5 home-configuration.nix";
 }

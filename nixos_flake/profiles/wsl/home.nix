@@ -14,8 +14,7 @@
   programs.home-manager.enable = true;
 
   imports = [
-    ../../modules/user/shell/sh.nix
-    ../../modules/user/shell/cli-apps.nix
+    ../../modules/user/shell
     ../../modules/user/nvim
     ../../modules/user/features/k8s.nix
     ../../modules/user/features/lsp.nix

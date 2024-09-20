@@ -2,9 +2,18 @@
 {
   home.packages = with pkgs; [
     kubectl
+    kubectl-explore
     kubernetes-helm
-    k9s
     kind
     kubectx
   ];
+  programs.k9s = {
+    enable = true;
+    catppuccin.enable = true;
+  };
+  programs.zsh.shellAliases = {
+    k = "kubectl";
+    ktx = "kubectx";
+    kns = "kubens";
+  };
 }
