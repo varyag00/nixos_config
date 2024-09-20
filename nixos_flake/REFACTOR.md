@@ -2,19 +2,21 @@
 
 ## Important & Urgent
 
-- [/] migrate nvim config to this flake
+- [x] migrate nvim config to this flake
   - [x] commit
-  - [ ] test
-- [/] migrate zsh to this flake
+  - [x] test
+  - [x] migrate language configs
+- [x] migrate zsh to this flake
   - [x] commit
-  - [ ] test
-- [/] migrate zellij to this flake
+  - [x] test
+  - [x] fix line endings (see .zsh.bak)
+- [x] migrate zellij to this flake
   - [x] commit
-  - [ ] test
+  - [x] test
+  - [x] add back extras
 - [x] migrate shell/ to this flake
   - [x] commit
-  - [ ] test
-- [ ] migrate language configs
+  - [x] test
 
 ## Non-important & Non-urgent
 

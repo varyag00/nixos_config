@@ -2,9 +2,11 @@
 
 # TODO: add to envExtra
 export SRC="/usr/local/src"
-export WORK="$SRC/work"
+# export WORK="$SRC/work"
+export WORK_CONFIG="$HOME/.config/work"
 export DOTSDIR="$HOME/.config"
 export ZSH_PLUGINS="$ZDOTDIR/plugins"
+export ZSH_EXTRAS_CONFIG="$ZDOTDIR/extras"
 export KUBECONFIG="$HOME/.kube/config"
 
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
@@ -26,19 +28,6 @@ if [ -e $ZSH_PLUGINS/fzf-tab/fzf-tab.plugin.zsh ]; then
 	source $ZSH_PLUGINS/fzf-tab/fzf-tab.plugin.zsh
 fi
 
-# plugins=(
-# git
-# vi-mode
-# command-not-found
-# sudo
-# zsh-autosuggestions
-# kubectx
-# kubectl
-# )
-# for plugin in $plugins; do
-# 	source $ZSH_PLUGINS/$plugin*.zsh
-# done
-
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
@@ -47,16 +36,10 @@ else
 fi
 
 
-# NOTE: NOT VERSION CONTROLLED
-# current workstation-specific configuration
-if [ -e $HOME/pls-gitignore-wks.sh ]; then
-	source $HOME/pls-gitignore-wks.sh
+# NOTE: legacy: aliases are now handled by home-manager, in aliases.nix
+if [ -e $ZDOTDIR/aliases.sh ]; then
+	source $ZDOTDIR/aliases.sh
 fi
-
-# aliases
-# if [ -e $ZDOTDIR/aliases.sh ]; then
-# 	source $ZDOTDIR/aliases.sh
-# fi
 
 if [ -e $HOME/.profile ]; then
 	source $HOME/.profile
@@ -66,6 +49,15 @@ if [ -e $HOME/.ssh_hosts ]; then
 	source $HOME/.ssh_hosts
 fi
 
+# source anything in $WORK_CONFIG
+if [ -e $WORK_CONFIG ]; then
+ for f in $WORK_CONFIG/*.sh; do source $f; done
+fi
+
+# source anything in $ZSH_EXTRAS_CONFIG
+if [ -e $ZSH_EXTRAS_CONFIG ]; then
+ for f in $ZSH_EXTRAS_CONFIG/*.sh; do source $f; done
+fi
 
 # TODO: fzf custom extensions
 #	[ -f $ZDOTDIR/fzf-custom.zsh ] && source $ZDOTDIR/fzf-custom.zsh
