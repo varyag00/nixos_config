@@ -21,8 +21,10 @@ vim.keymap.set("n", "<A-l>", "<cmd>BufferLineCycleNext<cr>")
 vim.keymap.set({ "n", "i", "v" }, "<A-j>", "<nop>")
 vim.keymap.set({ "n", "i", "v" }, "<A-k>", "<nop>")
 
-vim.keymap.set("i", "jk", "<Esc><cr>")
-vim.keymap.set("i", "kj", "<Esc><cr>")
+vim.keymap.set("i", "jk", "<Esc>")
+vim.keymap.set("i", "kj", "<Esc>")
+-- vim.keymap.set("i", "jk", "<Esc><cr>")
+-- vim.keymap.set("i", "kj", "<Esc><cr>")
 
 vim.keymap.set("n", "<c-\\>", require("lazyvim.util").terminal.open, { desc = "Terminal (root dir)" })
 vim.keymap.set("t", "<C-\\>", "<cmd>close<cr>", { desc = "Hide Terminal" })
@@ -31,19 +33,17 @@ vim.keymap.set("t", "<C-\\>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 vim.keymap.set("v", "p", '"_dP')
 
 -- System clipboard helpers
-vim.keymap.set("v", "<leader>CY", '"+y', { desc = "Yank to system clipboard" })
+vim.keymap.set({ "v" }, "<leader>CY", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set({ "v", "n" }, "<leader>CP", '"+p', { desc = "Paste from system clipboard" })
 
 -- BUG: Fix for the weird "n" behaviour.... however I am quite sure I introduced this bug by set setting "n" in keys somewhere...
--- TODO: find the culprit --
--- update: it appears to be this code I added below...
--- vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
--- vim.keymap.set({ "o", "x" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-
--- same as ss
--- aerial
--- vim.keymap.set({ "n", "i" }, "<C->>", )
--- -- -- ---
+vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
+vim.keymap.set({ "o", "x" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
 
 -- ctrl-backspace to delete previous word
 vim.keymap.set("i", "", "<C-W>")
+
+-- comment on c-/
+-- BUG: doesn't work
+-- vim.api.nvim_set_keymap("v", "<C-/>", ":lua require('Comment.api').toggle.linewise.vsplit()<CR>",
+--   { noremap = true, silent = true })

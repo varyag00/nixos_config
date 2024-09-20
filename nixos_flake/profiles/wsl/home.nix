@@ -16,7 +16,7 @@
   imports = [
     ../../modules/user/shell/sh.nix
     ../../modules/user/shell/cli-apps.nix
-    ../../modules/user/shell/nvim.nix
+    ../../modules/user/nvim
     ../../modules/user/features/k8s.nix
     ../../modules/user/features/lsp.nix
     ../../modules/user/features/catppuccin.nix

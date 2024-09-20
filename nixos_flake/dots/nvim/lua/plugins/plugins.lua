@@ -1,26 +1,9 @@
 local Util = require("lazyvim.util")
 
 local M = {
-  -- NOTE: disable mason-lspconfig to prevent LSP server downloads
+  -- NOTE: for nix configuration, disable mason-lspconfig to prevent LSP server download errors
   { "williamboman/mason-lspconfig.nvim", enabled = false },
   { "williamboman/mason.nvim", enabled = false },
-  {
-    "telescope.nvim",
-    dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      config = function()
-        require("telescope").load_extension("fzf")
-      end,
-    },
-  },
-  -- NOTE: not worth using since aerial extra was added
-  -- {
-  --   "simrat39/symbols-outline.nvim",
-  --   cmd = "SymbolsOutline",
-  --   keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-  --   config = true,
-  -- },
 
   -- add more treesitter parsers (extend the default)
   {
@@ -33,60 +16,83 @@ local M = {
       })
     end,
   },
-
-  -- add any tools you want to have installed below
   {
-    "williamboman/mason.nvim",
+    -- extending the aerial lazy extra
+    "stevearc/aerial.nvim",
     opts = {
-      ensure_installed = {
-        "stylua",
-        "shellcheck",
-        "shfmt",
-        "flake8",
-      },
+      on_attach = function(bufnr)
+        -- extend default aerial keybindings
+        vim.keymap.set("n", "[[", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+        vim.keymap.set("n", "]]", "<cmd>AerialNext<CR>", { buffer = bufnr })
+      end,
     },
   },
 
-  -- magit
-  --
+  -- SECTION: neogit
   {
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim", -- required
       "nvim-telescope/telescope.nvim", -- optional
       "sindrets/diffview.nvim", -- optional
-      "ibhagwan/fzf-lua", -- optional
     },
     opts = {
       integrations = {
         diffview = true,
         telescope = true,
       },
+      mappings = {
+        popup = {
+          ["p"] = "PullPopup",
+          ["F"] = "PullPopup",
+        },
+      },
     },
     keys = {
       -- NOTE: decide kind={ tab, floating }
-      { "<leader>gg", "<cmd>Neogit kind=tab<cr>", desc = "Magit Status" },
+      { "<leader>gg", "<cmd>cd %:h<cr><cmd> Neogit kind=tab<cr>", desc = "Magit Status (current file)" },
+      -- BUG:: these didn't work, despite being in the docs
+      -- BUG: Also, neogit seems to behave strangely when invoked directly via lua
+      -- local function open_neogit_in_current_dir()
+      --   -- Get the current buffer's file path
+      --   local filepath = vim.api.nvim_buf_get_name(0)
+      --     -- Check if the file exists
+      --   if filepath == "" then
+      --       print("No file is currently open.")
+      --       return
+      --   end
+      --   -- Get the directory of the file
+      --   local dir = vim.fn.fnamemodify(filepath, ":h")
+      --   -- Open Neogit in the specified directory
+      --   require('neogit').open({ cwd = dir })
+      -- end
+      -- -- Create a command to call the function
+      -- vim.api.nvim_create_user_command('NeogitCurrentDir', open_neogit_in_current_dir, {})
+
+      -- remap default lazygit keybindings
       {
-        "n",
-        "<leader>gs",
-        function()
-          Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
-        end,
-        { desc = "Lazygit (root dir)" },
-      },
-      {
-        "n",
-        "<leader>gG",
+        "<leader>gt",
         function()
           Util.terminal({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false })
         end,
-        { desc = "Lazygit (cwd)" },
+        desc = "Lazygit (cwd)",
+      },
+      {
+        "<leader>gT",
+        function()
+          Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false })
+        end,
+        desc = "Lazygit (root dir)",
       },
     },
+
+    -- NOTE: `config = true` call `neogit.setup(opts)` by default, so if you want to override with a
+    -- function (`config = function() ... end`), you must include `require('neogit').setup({YOUR OPTS})`
     config = true,
     -- enabled = vim.g.vscode ~= nil,
     vscode = false,
   },
+  -- END_SECTION: neogit
   {
     "folke/zen-mode.nvim",
     keys = {
@@ -136,16 +142,16 @@ local M = {
   --     { "<leader>f/", "<cmd>Telescope frecency<cr>", desc = "Telescope Frecency" },
   --   },
   -- },
-  {
-    "lukas-reineke/headlines.nvim",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    opts = {
-      markdown = {
-        -- NOTE: needed for https://github.com/lukas-reineke/headlines.nvim/issues/41
-        fat_headline_lower_string = "▔",
-      },
-    },
-  },
+  -- {
+  --   "lukas-reineke/headlines.nvim",
+  --   dependencies = "nvim-treesitter/nvim-treesitter",
+  --   opts = {
+  --     markdown = {
+  --       -- NOTE: needed for https://github.com/lukas-reineke/headlines.nvim/issues/41
+  --       fat_headline_lower_string = "▔",
+  --     },
+  --   },
+  -- },
   {
     "someone-stole-my-name/yaml-companion.nvim",
     ft = { "yaml" },
@@ -172,10 +178,17 @@ local M = {
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local cmp = require("cmp")
+      -- add a border to nvim-cmp
+      local win_opt = {
+        col_offset = 0,
+        side_padding = 1,
+        -- not needed:
+        -- winhighlight = "Normal:PopMenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+      }
+
       -- BUG: table.insert doesn't work, so for now I have to overrride entire opts.mappings
       -- table.insert(opts.mapping, { ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) })
       -- table.insert(opts.mapping, { ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) })
-
       opts.mapping = cmp.mapping.preset.insert({
         -- add C-j, C-k, tab, S-tab
         ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -199,6 +212,10 @@ local M = {
           fallback()
         end,
       })
+      opts.window = {
+        completion = cmp.config.window.bordered(win_opt),
+        documentation = cmp.config.window.bordered(win_opt),
+      }
     end,
   },
 }
@@ -224,14 +241,15 @@ if vim.fn.has("nvim-0.10") == 1 then
           desc = "Winbar pick",
         },
         {
-          "<leader>D",
+          "<leader>.",
           function()
-            require("dropbar.api").pick()
+            -- TODO: fix that this can't navigate up the hierarchy (beyond where it started) with "h"
+            require("dropbar.api").select_next_context()
           end,
-          desc = "Winbar pick",
+          desc = "Winbar nav",
         },
         {
-          "<leader>.",
+          "<leader>c.",
           function()
             -- TODO: fix that this can't navigate up the hierarchy (beyond where it started) with "h"
             require("dropbar.api").select_next_context()
