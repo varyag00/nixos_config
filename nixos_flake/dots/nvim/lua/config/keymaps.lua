@@ -33,6 +33,7 @@ vim.keymap.set("t", "<C-\\>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 vim.keymap.set("v", "p", '"_dP')
 
 -- System clipboard helpers
+vim.keymap.set({ "v", "n" }, "<leader>C", "", { desc = "+clipboard" })
 vim.keymap.set({ "v" }, "<leader>CY", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set({ "v", "n" }, "<leader>CP", '"+p', { desc = "Paste from system clipboard" })
 

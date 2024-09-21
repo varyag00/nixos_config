@@ -12,7 +12,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out,                            "WarningMsg" },
+      { out, "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
     vim.fn.getchar()
@@ -21,10 +21,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 local spec = {
   -- add LazyVim and import its plugins
-  { "LazyVim/LazyVim",                                     import = "lazyvim.plugins" },
+  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
   -- import any extras modules here
   { import = "lazyvim.plugins.extras.dap.core" },
   -- debug nvim's lua
@@ -97,13 +96,16 @@ local spec = {
 
 -- SECTION: conditional plugins
 
+-- NOTE: always use copilot and never use codeium atm
+table.insert(spec, { import = "lazyvim.plugins.extras.coding.copilot" })
+table.insert(spec, { import = "lazyvim.plugins.extras.coding.copilot-chat" })
 -- NOTE: neovide doesn't source .zshrc, so these need to go in $ZDOTDIR/.zshenv
-if os.getenv("WORK_ENV") then
-  table.insert(spec, { import = "lazyvim.plugins.extras.coding.copilot" })
-  table.insert(spec, { import = "lazyvim.plugins.extras.coding.copilot-chat" })
-elseif os.getenv("HOME_ENV") then
-  table.insert(spec, { import = "lazyvim.plugins.extras.coding.codeium" })
-end
+-- if os.getenv("WORK_ENV") == "1" then
+--   table.insert(spec, { import = "lazyvim.plugins.extras.coding.copilot" })
+--   table.insert(spec, { import = "lazyvim.plugins.extras.coding.copilot-chat" })
+--   -- elseif os.getenv("WORK_ENV") == "0" then
+--   --   table.insert(spec, { import = "lazyvim.plugins.extras.coding.codeium" })
+-- end
 
 -- mini animate and neovide cause graphical glitches
 if not vim.g.neovide then
@@ -127,8 +129,8 @@ require("lazy").setup({
   checker = {
     enabled = true,
     frequency = 86400, -- check for updates every DAY
-    notify = false,    -- stop the spam
-  },                   -- automatically check for plugin updates
+    notify = false, -- stop the spam
+  }, -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins
@@ -145,7 +147,6 @@ require("lazy").setup({
     },
   },
 })
-
 
 -- SECTION: Custom Modules
 
