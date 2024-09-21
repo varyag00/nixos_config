@@ -20,6 +20,7 @@
 
 ## Non-important & Non-urgent
 
+- [ ] use `envVars.isWSL` flag to enable below tasks
 - [ ] migrate qutebrowser to this flake
   - must allow targeting a dir (for windows: `/mnt/c/...`)
 - [ ] migrate wezterm to this flake

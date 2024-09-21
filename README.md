@@ -14,11 +14,7 @@ _My personal [flake](https://nixos.wiki/wiki/Flakes)-based NixOS configuration, 
 
 Ensure that this repo is cloned into `$HOME`.
 
-`$NIXOS_CONFIG_PROFILE` must be set to one of the available [profiles](./nixos_flake/profiles/):
-
-- wsl
-- headless
-- gnome
+Open [.envrc](./envrc) and ensure the proper options are set. `$nixos_profile` must be set to one of the available [profiles](./nixos_flake/profiles/) for `task` to run.
 
 Use the [taskfile](https://taskfile.dev) targets to get started. Note that on first run, `task` will not be installed so use `nix-shell -p go-task` to temporarily install it.
 
@@ -39,4 +35,5 @@ Afterwards, use `task rebuild` to reload configuration.
 1. **Documentation**: Docs vary greatly in quality, freshness, and availability; it's also hard to know _where_ to look for documentation for a specific topic.
 1. **Error messages**: By default, NixOS has awful error messages. This problem can be remedied using tools like [nh (nix-helper)](https://github.com/viperML/nh).
 1. **The elephant in the room, [Nix language](https://nixos.org/manual/nix/stable/language/index.html)**: The Nix DSL is very well suited to its intended purpose of creating NixOS derivations. However, the fact that Nix lang is a declarative, functional, domain-specific language with a difficult learning curve is a big turn-off for some people. This is not helped by the fact that there are many different patterns to accomplish the same end goal, with vastly different tradeoffs that are not immediately clear, and with little standardization by the community, and the situation becomes confusing.
-  - e.g. **user package management**: `environment.systemPackages` in `configuration.nix` vs. `home-manager` vs `configuration.nix` AND `home-manager` vs `nix-env` vs ...
+
+- e.g. **user package management**: `environment.systemPackages` in `configuration.nix` vs. `home-manager` vs `configuration.nix` AND `home-manager` vs `nix-env` vs ...
