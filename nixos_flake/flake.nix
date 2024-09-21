@@ -44,6 +44,7 @@
       systemFlake = builtins.getEnv "system_flake";
       isWork = builtins.getEnv "is_work" == "true";
       isGUI = builtins.getEnv "is_gui" == "true";
+      isWSL = builtins.getEnv "is_wsl" == "true";
 
       # SECTION: system settings
       systemSettings = {
@@ -78,6 +79,7 @@
           isLinux = builtins.elem envVars.system.archname [ "x86_64-linux" ];
           isWork = isWork;
           isGUI = isGUI;
+          isWSL = isWSL;
         };
       };
       # END_SECTION: env vars
@@ -87,6 +89,9 @@
         SYSTEM_FLAKE = systemFlake;
         NIX_DOTS = envVars.NIX_DOTS;
         # WORK = builtins.getEnv "HOME" + "/work";
+        # FIXME: these are kinda redundant; only using in lazyvim config
+        # HOME_ENV = if !isWork then 1 else 0;
+        WORK_ENV = if isWork then 1 else 0;
 
         # NOTE: cli apps don't always use this on mac, but it's worth setting for those that do
         # XDG_CONFIG_HOME = builtins.getEnv "HOME" + "/.config";
@@ -155,7 +160,8 @@
           # load {systemSettings.profile}/home.nix
           (./profiles + ("/" + systemSettings.profile) + "/configuration.nix")
           nixos-wsl.nixosModules.wsl
-        ];
+        ]; # TODO: try this
+        # ] ++ (if envVars.isWSL then [ nixos-wsl.nixosModules.wsl ] else [ ]);
       };
 
       # SECTION: user-level configuration (i.e. dotfiles)
