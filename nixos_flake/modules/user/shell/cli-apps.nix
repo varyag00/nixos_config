@@ -41,8 +41,10 @@
       # browser bookmarks
       buku
 
-      # encryption tool w/ great UX; pairs great with portal
+      # encryption tool w/ great UX
       age
+      # secrets operations
+      sops
       # easy file transfer tool; pairs great with age
       portal
     ])

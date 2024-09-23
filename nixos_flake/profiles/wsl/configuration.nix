@@ -21,8 +21,19 @@
     ../../modules/system/programs/shell.nix
     ../../modules/system/features/docker.nix
     # ../../modules/system/features/ollama.nix
+
+    inputs.sops-nix.nixosModules.sops
   ];
   # NOTE: see options https://mynixos.com/search?q=nixpkgs%2Foption
+
+  # SECTION: secrets (sops)
+
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+
+  sops.age.keyFile = "/home/dan/.config/sops/age/keys.txt";
+
+  # END_SECTION: secrets (sops)
 
   # SECTION: services
 
