@@ -102,8 +102,6 @@
         XDG_CONFIG_HOME = builtins.getEnv "HOME" + "/.config";
         XDG_DATA_HOME = builtins.getEnv "HOME" + "/.local/share";
         XDG_CACHE_HOME = builtins.getEnv "HOME" + "/.cache";
-        # CONFIG = builtins.elem myEnvVars.XDG_CONFIG_HOME;
-        # CFG = builtins.elem myEnvVars.XDG_CONFIG_HOME;
         CONFIG = shellVars.XDG_CONFIG_HOME;
         CFG = shellVars.XDG_CONFIG_HOME;
 

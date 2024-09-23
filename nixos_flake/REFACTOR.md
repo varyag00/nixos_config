@@ -32,3 +32,5 @@
 
 - [ ] create a macos profile and macos hm modules
 - [ ] migrate macos-specific system modules
+- [ ] use [charm/melt](https://github.com/charmbracelet/melt) for ssh-key restore
+- [ ] use sops-nix for this flake's secrets management
