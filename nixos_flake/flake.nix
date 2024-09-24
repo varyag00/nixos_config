@@ -84,8 +84,9 @@
       envVars = {
         # TODO: allow overriding this via env var
         NIX_DOTS = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/dots";
+        FLAKE_DOTS = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/dots";
+        FLAKE_MODULES = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/modules";
 
-        # TODO: fetch these from an .envrc file with direnv? what about for first install?
         user = {
           name = username;
           email = useremail;

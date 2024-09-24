@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  userSettings,
+  envVars,
   ...
 }:
 
@@ -9,8 +9,8 @@
   # NOTE: see https://mynixos.com/search?q=home-manager%2Foption for options
 
   home = {
-    username = userSettings.username;
-    homeDirectory = "/Users/${userSettings.username}";
+    username = envVars.user.name;
+    homeDirectory = "/Users/${envVars.user.name}";
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
@@ -26,18 +26,16 @@
   programs.home-manager.enable = true;
 
   imports = [
-    ../../modules/user/shell
-    ../../modules/user/nvim
-    ../../modules/user/features/k8s.nix
-    ../../modules/user/features/lsp.nix
-    ../../modules/user/features/gui.nix
-    ../../modules/user/features/catppuccin.nix
+    "${envVars.FLAKE_MODULES}/user/shell"
+    "${envVars.FLAKE_MODULES}/user/nvim"
+    "${envVars.FLAKE_MODULES}/user/features/k8s.nix"
+    "${envVars.FLAKE_MODULES}/user/features/lsp.nix"
+    "${envVars.FLAKE_MODULES}/user/features/gui.nix"
+    "${envVars.FLAKE_MODULES}/user/features/catppuccin.nix"
+
     # TODO: this should not live under shell (maybe?)
-    ../../modules/user/shell/work.nix
-    ../../modules/user/shell/mac_core.nix
-    ../../modules/user/shell/mac_dots.nix
+    "${envVars.FLAKE_MODULES}/user/shell/work.nix"
+    "${envVars.FLAKE_MODULES}/user/shell/mac_core.nix"
+    "${envVars.FLAKE_MODULES}/user/shell/mac_dots.nix"
   ];
-
-  # home.stateVersion = "23.11"; # Please read the comment before changing.
-
 }
