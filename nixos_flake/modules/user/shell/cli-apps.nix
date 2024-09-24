@@ -3,7 +3,7 @@
   config,
   pkgs,
   pkgs-unstable,
-  # nh_darwin, # TODO: uncomment when this gets added back
+  nh_darwin, # TODO: uncomment when this gets added back
   envVars,
   ...
 }:
@@ -83,7 +83,7 @@
 
           # TODO: uncomment when this gets added back
           # need to install nh as system module because home-manager is acting strange
-          # nh_darwin.packages.${pkgs.stdenv.hostPlatform.system}.default 
+          nh_darwin.packages.${pkgs.stdenv.hostPlatform.system}.default
         ]
       else
         [ ]

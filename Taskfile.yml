@@ -13,7 +13,7 @@ vars:
 tasks:
   default:
     cmds:
-      - task --list-all --order alphanumeric
+      - task --list-all --sort alphanumeric
     silent: true
 
   check:
@@ -71,3 +71,35 @@ tasks:
     cmds:
       - task: install:nixos
       - task: install:hm
+
+  darwin:build:
+    cmds:
+      - task: check
+      # - nix build .#darwinConfigurations.SE-K7N2N4QLGP.system --extra-experimental-features 'nix-command flakes' --impure
+      - |
+        if command -v nh &> /dev/null
+        then
+          nh os build {{ .FLAKE }} -o result -- impure 
+        else
+          nix build .#darwinConfigurations.SE-K7N2N4QLGP.system --extra-experimental-features 'nix-command flakes' --impure
+        fi
+    dir: ./nixos_flake
+    env:
+      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
+    desc: "Build the nix-darwin configuration"
+
+  darwin:switch:
+    cmds:
+      - task: check
+      - ./result/sw/bin/darwin-rebuild switch --flake .#SE-K7N2N4QLGP --impure
+    dir: ./nixos_flake
+    env:
+      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
+    desc: "Switch to the latest built darwin system configuration"
+
+  darwin:build-switch:
+    cmds:
+      - task: check
+      - task: darwin:build
+      - task: darwin:switch
+    desc: "Build the darwin system configuration and switch to it"

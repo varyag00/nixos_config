@@ -1,4 +1,11 @@
-{ config, inputs, pkgs, pkgs-unstable, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  pkgs-unstable,
+  nh_darwin,
+  ...
+}:
 
 {
   # allow dynamically linked programs to be loaded
@@ -7,14 +14,16 @@
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-    # NOTE: Add any missing dynamic libraries for unpackaged programs
-    # here, NOT in environment.systemPackages
+      # NOTE: Add any missing dynamic libraries for unpackaged programs
+      # here, NOT in environment.systemPackages
 
       # maybe?
       # pipx
     ];
     package = inputs.nix-ld-rs.packages."${pkgs.system}".nix-ld-rs;
   };
+
+  # NOTE: doesn't exist on nixpkgs-darwin
 
   # nix helper
   programs.nh = {

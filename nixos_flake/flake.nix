@@ -7,6 +7,13 @@
     # lock nixpkgs-unstable to commit
     nixpkgs-unstable.url = "github:nixos/nixpkgs/294eb5975def0caa718fca92dc5a9d656ae392a9"; # 2024/20/09
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+    # nh, but for darwin systems
+    nh_darwin.url = "github:ToyVo/nh_darwin";
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,8 +37,10 @@
     {
       self,
       nixpkgs,
+      nixpkgs-darwin,
       nixpkgs-unstable,
       nixos-wsl,
+      darwin,
       home-manager,
       catppuccin,
       ...
@@ -52,7 +61,8 @@
 
       # SECTION: system settings
       systemSettings = {
-        system = "x86_64-linux";
+        # system = "x86_64-linux";
+        system = system;
         # NOTE: set $NIXOS_CONFIG_PROFILE to desired profile before running
         profile = profile;
         timezone = "Europe/Stockholm";
@@ -60,10 +70,14 @@
       };
 
       # SECTION: user settings
+      # TODO: refactor into envVars
       userSettings = {
-        username = "dan";
+        # username = "dan";
+        # name = "Dan Gonzalez";
+        # email = "jdgonzal@proton.me";
+        username = username;
         name = "Dan Gonzalez";
-        email = "jdgonzal@proton.me";
+        email = useremail;
       };
 
       # SECTION: env vars
@@ -112,13 +126,34 @@
       };
       # END_SECTION: shellVars
 
-      pkgs = import nixpkgs {
+      # TODO: clean this up;
+      #   use EITHER nixpkgs-stable or nixpkgs-darwin-stable
+      nixpkgs-system = if envVars.system.isDarwin then nixpkgs-darwin else nixpkgs;
+
+      # pkgs-darwin = import nixpkgs-darwin {
+      pkgs = import nixpkgs-system {
         system = systemSettings.system;
         config = {
           allowUnfree = true;
           allowUnfreePredicate = (_: true);
         };
       };
+      # pkgs-nixos = import nixpkgs {
+      #   system = systemsettings.system;
+      #   config = {
+      #     allowunfree = true;
+      #     allowunfreepredicate = (_: true);
+      #   };
+      # };
+      # pkgs = if envVars.system.isDarwin then pkgs-darwin else pkgs-nixos;
+
+      #   import nixpkgs {
+      #   system = systemSettings.system;
+      #   config = {
+      #     allowUnfree = true;
+      #     allowUnfreePredicate = (_: true);
+      #   };
+      # };
       pkgs-unstable = import nixpkgs-unstable {
         system = systemSettings.system;
         config = {
@@ -146,51 +181,104 @@
       #   or
       #   `nh os switch .`
       #   in the dir containing this file
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        # specialArgs = {
-        #   inherit systemSettings;
-        #   inherit userSettings;
-        #   inherit envVars;
-        #   inherit shellVars;
-        #   inherit inputs;
-        #   inherit pkgs;
-        #   inherit pkgs-unstable;
-        # };
-        specialArgs = specialArgs;
-        # OR: inherit specialArgs
-        system = systemSettings.system;
-        modules = [
-          # load {systemSettings.profile}/home.nix
-          (./profiles + ("/" + systemSettings.profile) + "/configuration.nix")
-          nixos-wsl.nixosModules.wsl
-        ]; # TODO: try this
-        # ] ++ (if envVars.isWSL then [ nixos-wsl.nixosModules.wsl ] else [ ]);
-      };
+      nixosConfigurations =
+        if envVars.system.isLinux then
+          {
+            nixos = nixpkgs.lib.nixosSystem {
+              # specialArgs = {
+              #   inherit systemSettings;
+              #   inherit userSettings;
+              #   inherit envVars;
+              #   inherit shellVars;
+              #   inherit inputs;
+              #   inherit pkgs;
+              #   inherit pkgs-unstable;
+              # };
+              specialArgs = specialArgs;
+              # OR: inherit specialArgs
+              system = systemSettings.system;
+              modules = [
+                # load {systemSettings.profile}/home.nix
+                (./profiles + ("/" + systemSettings.profile) + "/configuration.nix")
+                nixos-wsl.nixosModules.wsl
+              ]; # TODO: try this
+              # ] ++ (if envVars.isWSL then [ nixos-wsl.nixosModules.wsl ] else [ ]);
+            };
+          }
+        else
+          { };
 
       # SECTION: user-level configuration (i.e. dotfiles)
-      homeConfigurations = {
-        # NOTE: switch to this home-manager configuration using:
-        #   `home-manager switch --flake .#dan`
-        #   or
-        #   `nh home switch -c dan .`
-        dan = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          # extraSpecialArgs = {
-          #   inherit userSettings;
-          #   inherit systemSettings;
-          #   inherit envVars;
-          #   inherit pkgs;
-          #   inherit pkgs-unstable;
-          # };
-          extraSpecialArgs = specialArgs;
-          # system = systemSettings.system;
-          modules = [
-            # load {systemSettings.profile}/home.nix
-            (./profiles + ("/" + systemSettings.profile) + "/home.nix")
-            catppuccin.homeManagerModules.catppuccin
-          ];
-        };
-      };
+      homeConfigurations =
+        if envVars.system.isLinux then
+          {
+            # NOTE: switch to this home-manager configuration using:
+            #   `home-manager switch --flake .#dan`
+            #   or
+            #   `nh home switch -c dan .`
+            dan = home-manager.lib.homeManagerConfiguration {
+              inherit pkgs;
+              # extraSpecialArgs = {
+              #   inherit userSettings;
+              #   inherit systemSettings;
+              #   inherit envVars;
+              #   inherit pkgs;
+              #   inherit pkgs-unstable;
+              # };
+              extraSpecialArgs = specialArgs;
+              # system = systemSettings.system;
+              modules = [
+                # load {systemSettings.profile}/home.nix
+                (./profiles + ("/" + systemSettings.profile) + "/home.nix")
+                catppuccin.homeManagerModules.catppuccin
+              ];
+            };
+          }
+        else
+          { };
+
+      darwinConfigurations =
+        if envVars.system.isDarwin then
+          {
+            "${envVars.system.hostname}" = darwin.lib.darwinSystem {
+
+              inherit specialArgs;
+              system = envVars.system.archname;
+              modules = [
+                # ./modules/nix-core.nix
+                # ./modules/system.nix
+                # ./modules/mac-apps.nix
+                # #./modules/homebrew-mirror.nix # comment this line if you don't need a homebrew mirror
+                # ./modules/host-users.nix
+
+                # BUG: home-manager programs.nh.package does not exist error...
+                # probably need to update home-manager?
+                # inputs.nh_darwin.nixDarwinModules.default
+
+                # TODO: catppuccin flake for nixos
+                # inputs.catppuccin.nixosModules.catppuccin
+
+                (./profiles + ("/" + systemSettings.profile) + "/configuration.nix")
+
+                # home manager
+                home-manager.darwinModules.home-manager
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.extraSpecialArgs = specialArgs;
+                  home-manager.users.${envVars.user.name} = {
+                    imports = [
+                      # ./home
+                      (./profiles + ("/" + systemSettings.profile) + "/home.nix")
+                      inputs.catppuccin.homeManagerModules.catppuccin
+                    ];
+                  };
+                }
+              ];
+            };
+          }
+        else
+          { };
 
       # nix code formatter
       formatter.${envVars.system.archname} =

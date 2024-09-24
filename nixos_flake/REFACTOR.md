@@ -30,7 +30,14 @@
 
 ## Important & Non-urgent
 
-- [ ] create a macos profile and macos hm modules
-- [ ] migrate macos-specific system modules
+- [/] create a macos profile and macos hm modules
+- [/] migrate macos-specific system modules
 - [ ] use [charm/melt](https://github.com/charmbracelet/melt) for ssh-key restore
-- [ ] use sops-nix for this flake's secrets management
+- [x] use sops-nix for this flake's secrets management
+- [ ] add enVars entries for MODULES=nixos_flake/modules
+  - [ ] rename `modules/system/` to `nixos`
+  - [ ] rename `modules/user/` to `hm`
+  - [ ] rename `modules/macos/` to `darwin`
+- [ ] `.envrc` and `Taskfile` updates
+  - [ ] `.envrc`: edit `FLAKE` to point to the actual flake
+  - [ ] `Taskfile`: remove most of (?) `FLAKE` env
