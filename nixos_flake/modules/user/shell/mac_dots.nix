@@ -37,7 +37,7 @@
 
   # set wallpaper
   home.activation.setWallpaper = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    /usr/local/bin/desktoppr ${envVars.NIX_DOTS}/mac/wallpapers/nixos-catppuccin-macchiato.png
+    /usr/local/bin/desktoppr ${envVars.NIX_DOTS}/wallpapers/nixos-catppuccin-macchiato.png
   '';
 
   # karabiner-elements (single file)

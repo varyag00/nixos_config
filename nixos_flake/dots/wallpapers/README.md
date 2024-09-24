@@ -15,7 +15,7 @@ To re-generate, or generate a new wallpaper:
 nix build --impure --expr '(builtins.getFlake "github:lunik1/nix-wallpaper").packages.${builtins.currentSystem}.default.override { preset = "catppuccin-macchiato"; }'
 ```
 
-To set the wallpaper programmatically:
+To set the wallpaper programmatically (macOS):
 
 ```sh
 desktoppr "$NIX_DOTS/mac/wallpapers/nixos-catppuccin-macchiato.png"
