@@ -1,3 +1,4 @@
+# TODO: move to modules/macos/ ?
 {
   envVars,
   lib,
@@ -46,6 +47,8 @@
     ln -sf ${envVars.NIX_DOTS}/mac/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json
   '';
 
+  # TODO: move these to another module
+
   # wezterm
   home.activation.weztermConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     rm -rf $HOME/.config/wezterm
@@ -59,5 +62,4 @@
     rm -rf $HOME/.qutebrowser
     ln -sf ${envVars.NIX_DOTS}/qutebrowser $HOME/.qutebrowser
   '';
-
 }

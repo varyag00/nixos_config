@@ -1,0 +1,5 @@
+config:
+  # disable annoying rules
+  line-length: false
+  no-multiple-blanks: false
+  blanks-around-lists: false

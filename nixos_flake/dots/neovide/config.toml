@@ -1,0 +1,18 @@
+# TODO: use this config file!
+
+fork = true       # detach if called from terminal (so don't die when terminal is killed)
+frame = "full"
+idle = true
+maximized = false
+# neovim-bin = "/usr/bin/nvim" # in reality found dynamically on $PATH if unset
+no-multigrid = false # TODO: try playing with this option
+srgb = false
+tabs = true
+theme = "auto"
+title-hidden = true
+vsync = true
+wsl = false
+
+[font]
+normal = ["SauceCodePro Nerd Font Mono"]
+size = 13.0

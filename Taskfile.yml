@@ -75,26 +75,24 @@ tasks:
   darwin:build:
     cmds:
       - task: check
-      # - nix build .#darwinConfigurations.SE-K7N2N4QLGP.system --extra-experimental-features 'nix-command flakes' --impure
       - |
-        if command -v nh &> /dev/null
+        if command -v nh_darwin &> /dev/null
         then
-          nh os build {{ .FLAKE }} -o result -- impure 
+          # default target is SYSTEM_FLAKE
+          # nh_darwin os build {{ .SYSTEM_FLAKE }} -o result -- --impure 
+          nh_darwin os build -o result -- --impure 
         else
           nix build .#darwinConfigurations.SE-K7N2N4QLGP.system --extra-experimental-features 'nix-command flakes' --impure
         fi
-    dir: ./nixos_flake
-    env:
-      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
     desc: "Build the nix-darwin configuration"
 
   darwin:switch:
     cmds:
       - task: check
       - ./result/sw/bin/darwin-rebuild switch --flake .#SE-K7N2N4QLGP --impure
-    dir: ./nixos_flake
-    env:
-      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
+    # dir: ./nixos_flake
+    # env:
+    #   FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
     desc: "Switch to the latest built darwin system configuration"
 
   darwin:build-switch:

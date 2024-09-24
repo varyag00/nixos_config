@@ -54,7 +54,7 @@
       system = builtins.getEnv "system";
       hostname = builtins.getEnv "hostname";
       profile = builtins.getEnv "nixos_profile";
-      systemFlake = builtins.getEnv "system_flake";
+      flake = builtins.getEnv "FLAKE";
       isWork = builtins.getEnv "is_work" == "true";
       isGUI = builtins.getEnv "is_gui" == "true";
       isWSL = builtins.getEnv "is_wsl" == "true";
@@ -104,7 +104,7 @@
 
       # SECTION: shell vars
       shellVars = {
-        SYSTEM_FLAKE = systemFlake;
+        FLAKE = flake;
         NIX_DOTS = envVars.NIX_DOTS;
         # WORK = builtins.getEnv "HOME" + "/work";
         # FIXME: these are kinda redundant; only using in lazyvim config

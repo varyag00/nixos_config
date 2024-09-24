@@ -32,6 +32,10 @@
     ../../modules/user/features/lsp.nix
     ../../modules/user/features/gui.nix
     ../../modules/user/features/catppuccin.nix
+    # TODO: this should not live under shell (maybe?)
+    ../../modules/user/shell/work.nix
+    ../../modules/user/shell/mac_core.nix
+    ../../modules/user/shell/mac_dots.nix
   ];
 
   # home.stateVersion = "23.11"; # Please read the comment before changing.

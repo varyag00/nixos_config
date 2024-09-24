@@ -1,0 +1,4 @@
+# FIXME: says it's being read (:help version) but settings aren't being respected
+auto_save:
+  session: true
+colors.webpage.darkmode.enabled: true
