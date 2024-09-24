@@ -30,10 +30,11 @@
 
 ## Important & Non-urgent
 
-- [/] create a macos profile and macos hm modules
-- [/] migrate macos-specific system modules
+- [x] create a macos profile and macos hm modules
+- [x] migrate macos-specific system modules
 - [ ] use [charm/melt](https://github.com/charmbracelet/melt) for ssh-key restore
 - [x] use sops-nix for this flake's secrets management
+- [ ] pull userSettings and systemSettings up into envVars
 - [ ] add enVars entries for MODULES=nixos_flake/modules
   - [ ] rename `modules/system/` to `nixos`
   - [ ] rename `modules/user/` to `hm`
