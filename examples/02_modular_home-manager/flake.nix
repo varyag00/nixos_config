@@ -39,7 +39,7 @@
       name = "Dan G";
     };
 
-    pkgs = nixpkgs.legacyPackages.${systemSettings.system};
+    pkgs = nixpkgs.legacyPackages.${flakeVars.system.archname};
   in {
 
     # SECTION: system-level configuration
@@ -48,7 +48,7 @@
         inherit systemSettings;
         inherit inputs;
       };
-      system = systemSettings.system;
+      system = flakeVars.system.archname;
       modules = [
         # load {systemSettings.profile}/home.nix
         (./. + "/../profile/configuration.nix")

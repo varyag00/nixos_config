@@ -2,13 +2,10 @@
   config,
   inputs,
   pkgs-unstable,
-  userSettings,
   ...
 }:
-
 {
   imports = [ ./docker.nix ];
-
 
   # nixpkgs.config.cudaSupport = true;
   # # virtualisation.docker.enableNvidia = true;

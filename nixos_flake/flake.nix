@@ -61,22 +61,6 @@
       isDarwin = builtins.elem system [ "aarch64-darwin" ];
       isLinux = builtins.elem system [ "x86_64-linux" ];
 
-      # SECTION: system settings
-      systemSettings = {
-        system = system;
-        profile = profile;
-        timezone = "Europe/Stockholm";
-        locale = "en_US.UTF-8";
-      };
-
-      # SECTION: user settings
-      # TODO: refactor into flakeVars
-      userSettings = {
-        username = username;
-        name = "Dan Gonzalez";
-        email = useremail;
-      };
-
       # SECTION: flake variables -- used in nix code
       flakeVars = {
         FLAKE_DOTS = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/dots";
@@ -84,9 +68,13 @@
 
         user = {
           name = username;
+          fullname = "Dan Gonzalez";
           email = useremail;
         };
         system = {
+          profile = profile;
+          timezone = "Europe/Stockholm";
+          locale = "en_US.UTF-8";
           archname = system;
           hostname = hostname;
           isDarwin = isDarwin;
@@ -114,7 +102,8 @@
         CONFIG = shellVars.XDG_CONFIG_HOME;
         CFG = shellVars.XDG_CONFIG_HOME;
 
-        # TODO: optional; on windows I may just use obsidian
+        # TODO: optional; on windows I may just use obsidian.
+        # consider settings in .envrc
         MY_NOTES = builtins.getEnv "HOME" + "/obsidian/obsidian-tasks";
       };
       # END_SECTION: shell vars
@@ -122,14 +111,14 @@
       nixpkgs-system = if flakeVars.system.isDarwin then nixpkgs-darwin else nixpkgs;
 
       pkgs = import nixpkgs-system {
-        system = systemSettings.system;
+        system = system;
         config = {
           allowUnfree = true;
           allowUnfreePredicate = (_: true);
         };
       };
       pkgs-unstable = import nixpkgs-unstable {
-        system = systemSettings.system;
+        system = system;
         config = {
           allowUnfree = true;
           allowUnfreePredicate = (_: true);
@@ -138,8 +127,6 @@
 
       specialArgs = inputs // {
         inherit
-          systemSettings
-          userSettings
           pkgs
           pkgs-unstable
           flakeVars
@@ -160,10 +147,10 @@
           {
             nixos = nixpkgs.lib.nixosSystem {
               specialArgs = specialArgs;
-              system = systemSettings.system;
+              system = system;
               modules = [
-                # load {systemSettings.profile}/home.nix
-                (./profiles + ("/" + systemSettings.profile) + "/configuration.nix")
+                # load profile's configuration.nix
+                (./profiles + ("/" + flakeVars.system.profile) + "/configuration.nix")
                 nixos-wsl.nixosModules.wsl
               ];
             };
@@ -184,8 +171,8 @@
               extraSpecialArgs = specialArgs;
               # system = systemSettings.system;
               modules = [
-                # load {systemSettings.profile}/home.nix
-                (./profiles + ("/" + systemSettings.profile) + "/home.nix")
+                # load profile's home.nix
+                (./profiles + ("/" + flakeVars.system.profile) + "/home.nix")
                 catppuccin.homeManagerModules.catppuccin
               ];
             };
@@ -200,7 +187,6 @@
               specialArgs = specialArgs;
               system = flakeVars.system.archname;
               modules = [
-
                 # BUG: home-manager programs.nh.package does not exist error...
                 # probably need to update home-manager?
                 # inputs.nh_darwin.nixDarwinModules.default
@@ -208,7 +194,7 @@
                 # TODO: catppuccin flake for nixos
                 # inputs.catppuccin.nixosModules.catppuccin
 
-                (./profiles + ("/" + systemSettings.profile) + "/configuration.nix")
+                (./profiles + ("/" + flakeVars.system.profile) + "/configuration.nix")
 
                 # home manager
                 home-manager.darwinModules.home-manager
@@ -218,7 +204,7 @@
                   home-manager.extraSpecialArgs = specialArgs;
                   home-manager.users.${flakeVars.user.name} = {
                     imports = [
-                      (./profiles + ("/" + systemSettings.profile) + "/home.nix")
+                      (./profiles + ("/" + flakeVars.system.profile) + "/home.nix")
                       inputs.catppuccin.homeManagerModules.catppuccin
                     ];
                   };

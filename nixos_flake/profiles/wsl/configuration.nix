@@ -8,7 +8,6 @@
   pkgs,
   pkgs-unstable,
   inputs,
-  userSettings,
   ...
 }:
 

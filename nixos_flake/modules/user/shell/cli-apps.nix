@@ -65,7 +65,7 @@
       # better dig (dns)
       doggo
       # ssh TUI
-      sshs
+      sshs # TODO: sshs or wishlist?
 
       # charm.sh packages
       gum # better shell scripts: https://github.com/charmbracelet/gum
@@ -73,6 +73,8 @@
       vhs # code gif recording utility: https://github.com/charmbracelet/vhs
       charm-freeze # code screenshot utility: https://github.com/charmbracelet/freeze
       glow # markdown previewer tui
+      melt # ssh key restore
+      wishlist # ssh TUI
     ])
     ++ (
       if flakeVars.system.isLinux then
