@@ -18,5 +18,5 @@ nix build --impure --expr '(builtins.getFlake "github:lunik1/nix-wallpaper").pac
 To set the wallpaper programmatically (macOS):
 
 ```sh
-desktoppr "$NIX_DOTS/mac/wallpapers/nixos-catppuccin-macchiato.png"
+desktoppr "$FLAKE_DOTS/wallpapers/nixos-catppuccin-macchiato.png"
 ```

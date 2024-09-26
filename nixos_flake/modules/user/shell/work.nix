@@ -38,7 +38,7 @@ if envVars.system.isWork then
       lib.hm.dag.entryAfter [ "writeBoundary" ] # sh
         ''
           rm -rf $HOME/.config/work
-          ln -sf ${envVars.NIX_DOTS}/work $HOME/.config/work
+          ln -sf ${envVars.FLAKE_DOTS}/work $HOME/.config/work
         '';
 
     programs.zsh.sessionVariables = {

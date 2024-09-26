@@ -16,6 +16,6 @@
       ''
         mkdir -p "$HOME/.config/lsp"
         rm -rf "$HOME/.config/lsp/markdownlint-cli2.yaml"
-        ln -sf ${envVars.NIX_DOTS}/lsp/markdownlint-cli2.yaml "$HOME/.config/lsp/markdownlint-cli2.yaml"
+        ln -sf ${envVars.FLAKE_DOTS}/lsp/markdownlint-cli2.yaml "$HOME/.config/lsp/markdownlint-cli2.yaml"
       '';
 }

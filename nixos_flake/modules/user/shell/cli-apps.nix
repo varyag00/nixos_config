@@ -253,7 +253,7 @@
     lib.hm.dag.entryAfter [ "writeBoundary" ] # sh
       ''
         rm -rf $HOME/.config/nap
-        ln -sf ${envVars.NIX_DOTS}/nap $HOME/.config/nap
+        ln -sf ${envVars.FLAKE_DOTS}/nap $HOME/.config/nap
       '';
   programs.zsh.sessionVariables = {
     NAP_HOME = "$HOME/.config/nap/snippets";

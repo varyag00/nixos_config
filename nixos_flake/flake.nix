@@ -58,6 +58,8 @@
       isWork = builtins.getEnv "is_work" == "true";
       isGUI = builtins.getEnv "is_gui" == "true";
       isWSL = builtins.getEnv "is_wsl" == "true";
+      isDarwin = builtins.elem system [ "aarch64-darwin" ];
+      isLinux = builtins.elem system [ "x86_64-linux" ];
 
       # SECTION: system settings
       systemSettings = {
@@ -77,8 +79,6 @@
 
       # SECTION: env vars
       envVars = {
-        # TODO: %s/NIX_DOTS/FLAKE_DOTS/g
-        NIX_DOTS = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/dots";
         FLAKE_DOTS = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/dots";
         FLAKE_MODULES = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/modules";
 
@@ -89,8 +89,8 @@
         system = {
           archname = system;
           hostname = hostname;
-          isDarwin = builtins.elem envVars.system.archname [ "aarch64-darwin" ];
-          isLinux = builtins.elem envVars.system.archname [ "x86_64-linux" ];
+          isDarwin = isDarwin;
+          isLinux = isLinux;
           isWork = isWork;
           isGUI = isGUI;
           isWSL = isWSL;
@@ -101,10 +101,8 @@
       # SECTION: shell vars
       shellVars = {
         FLAKE = flake;
-        NIX_DOTS = envVars.NIX_DOTS;
+        FLAKE_DOTS = envVars.FLAKE_DOTS;
         WORK = builtins.getEnv "HOME" + "/work";
-        # FIXME: these are kinda redundant; only using in lazyvim config
-        # HOME_ENV = if !isWork then 1 else 0;
         WORK_ENV = if isWork then 1 else 0;
 
         # NOTE: cli apps don't always use this on mac, but it's worth setting for those that do

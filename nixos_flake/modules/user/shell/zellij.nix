@@ -20,7 +20,7 @@
     lib.hm.dag.entryAfter [ "writeBoundary" ] # sh
       ''
         rm -rf $HOME/.config/zellij
-        ln -sf ${envVars.NIX_DOTS}/zellij $HOME/.config/zellij
+        ln -sf ${envVars.FLAKE_DOTS}/zellij $HOME/.config/zellij
       '';
 
   programs.zsh.shellAliases = {
