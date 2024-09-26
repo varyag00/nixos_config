@@ -61,9 +61,7 @@
 
       # SECTION: system settings
       systemSettings = {
-        # system = "x86_64-linux";
         system = system;
-        # NOTE: set $NIXOS_CONFIG_PROFILE to desired profile before running
         profile = profile;
         timezone = "Europe/Stockholm";
         locale = "en_US.UTF-8";
@@ -72,9 +70,6 @@
       # SECTION: user settings
       # TODO: refactor into envVars
       userSettings = {
-        # username = "dan";
-        # name = "Dan Gonzalez";
-        # email = "jdgonzal@proton.me";
         username = username;
         name = "Dan Gonzalez";
         email = useremail;
@@ -82,7 +77,7 @@
 
       # SECTION: env vars
       envVars = {
-        # TODO: allow overriding this via env var
+        # TODO: %s/NIX_DOTS/FLAKE_DOTS/g
         NIX_DOTS = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/dots";
         FLAKE_DOTS = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/dots";
         FLAKE_MODULES = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/modules";
@@ -107,7 +102,7 @@
       shellVars = {
         FLAKE = flake;
         NIX_DOTS = envVars.NIX_DOTS;
-        # WORK = builtins.getEnv "HOME" + "/work";
+        WORK = builtins.getEnv "HOME" + "/work";
         # FIXME: these are kinda redundant; only using in lazyvim config
         # HOME_ENV = if !isWork then 1 else 0;
         WORK_ENV = if isWork then 1 else 0;
@@ -127,11 +122,8 @@
       };
       # END_SECTION: shellVars
 
-      # TODO: clean this up;
-      #   use EITHER nixpkgs-stable or nixpkgs-darwin-stable
       nixpkgs-system = if envVars.system.isDarwin then nixpkgs-darwin else nixpkgs;
 
-      # pkgs-darwin = import nixpkgs-darwin {
       pkgs = import nixpkgs-system {
         system = systemSettings.system;
         config = {
@@ -139,22 +131,6 @@
           allowUnfreePredicate = (_: true);
         };
       };
-      # pkgs-nixos = import nixpkgs {
-      #   system = systemsettings.system;
-      #   config = {
-      #     allowunfree = true;
-      #     allowunfreepredicate = (_: true);
-      #   };
-      # };
-      # pkgs = if envVars.system.isDarwin then pkgs-darwin else pkgs-nixos;
-
-      #   import nixpkgs {
-      #   system = systemSettings.system;
-      #   config = {
-      #     allowUnfree = true;
-      #     allowUnfreePredicate = (_: true);
-      #   };
-      # };
       pkgs-unstable = import nixpkgs-unstable {
         system = systemSettings.system;
         config = {

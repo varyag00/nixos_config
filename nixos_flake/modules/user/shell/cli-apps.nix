@@ -56,8 +56,12 @@
       dblab
       # http API testing TUI
       slumber
+      # github cli
+      gh
       # standalone magit TUI
       gitu
+      # git absorb = better git fixups
+      git-absorb
       # better dig (dns)
       doggo
       # ssh TUI
@@ -68,6 +72,7 @@
       mods # CLI chatbot interface: https://github.com/charmbracelet/mods
       vhs # code gif recording utility: https://github.com/charmbracelet/vhs
       charm-freeze # code screenshot utility: https://github.com/charmbracelet/freeze
+      glow # markdown previewer tui
     ])
     ++ (
       if envVars.system.isLinux then
@@ -84,6 +89,36 @@
           # TODO: uncomment when this gets added back
           # need to install nh as system module because home-manager is acting strange
           nh_darwin.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+          # from mac_core.nix
+
+          # archives
+          pkgs.zip
+          pkgs.xz
+          pkgs.unzip
+          pkgs.p7zip
+
+          # utils
+          # ripgrep # recursively searches directories for a regex pattern
+          # jq # A lightweight and flexible command-line JSON processor
+          # yq-go # yaml processer https://github.com/mikefarah/yq
+          # fzf # A command-line fuzzy finder
+
+          pkgs.aria2 # A lightweight multi-protocol & multi-source command-line download utility
+          pkgs.socat # replacement of openbsd-netcat
+          pkgs.nmap # A utility for network discovery and security auditing
+
+          # misc
+          pkgs.cowsay
+          pkgs.file
+          pkgs.which
+          # tree
+          pkgs.gnused
+          pkgs.gnutar
+          pkgs.gawk
+          pkgs.zstd
+          pkgs.caddy
+          pkgs.gnupg
         ]
       else
         [ ]

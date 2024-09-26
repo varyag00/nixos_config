@@ -32,10 +32,6 @@
     "${envVars.FLAKE_MODULES}/user/features/lsp.nix"
     "${envVars.FLAKE_MODULES}/user/features/gui.nix"
     "${envVars.FLAKE_MODULES}/user/features/catppuccin.nix"
-
-    # TODO: this should not live under shell (maybe?)
-    "${envVars.FLAKE_MODULES}/user/shell/work.nix"
-    "${envVars.FLAKE_MODULES}/user/shell/mac_core.nix"
-    "${envVars.FLAKE_MODULES}/user/shell/mac_dots.nix"
+    "${envVars.FLAKE_MODULES}/user/features/symlink-dots.nix"
   ];
 }

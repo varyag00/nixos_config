@@ -19,6 +19,7 @@
   glg = "git lg";
   gst = "git status";
   gco = "git checkout";
+  ghc = "gh copilot";
 
   db = "devbox";
   dbs = "devbox shell";
