@@ -4,12 +4,12 @@
   programs.zsh.sessionVariables = shellVars; # env vars exported in .zshrc
   home.sessionVariables = shellVars; # global env vars, set on user login
   # {
-  #   FLAKE_DOTS = "${envVars.FLAKE_DOTS}";
-  #   XDG_CONFIG_HOME = "${envVars.XDG_CONFIG_HOME}";
-  #   CONFIG = "${envVars.XDG_CONFIG_HOME}";
-  #   CFG = "${envVars.XDG_CONFIG_HOME}";
+  #   FLAKE_DOTS = "${flakeVars.FLAKE_DOTS}";
+  #   XDG_CONFIG_HOME = "${flakeVars.XDG_CONFIG_HOME}";
+  #   CONFIG = "${flakeVars.XDG_CONFIG_HOME}";
+  #   CFG = "${flakeVars.XDG_CONFIG_HOME}";
   #
-  #   WORK_NOTES = "${envVars.envVars.WORK_NOTES}";
-  #   MY_NOTES = "${envVars.envVars.MY_NOTES}";
+  #   WORK_NOTES = "${flakeVars.flakeVars.WORK_NOTES}";
+  #   MY_NOTES = "${flakeVars.flakeVars.MY_NOTES}";
   # };
 }

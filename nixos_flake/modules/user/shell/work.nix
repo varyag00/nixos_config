@@ -1,7 +1,7 @@
 # TODO: move this elsewhere
 {
   lib,
-  envVars,
+  flakeVars,
   pkgs,
   pkgs-unstable,
   ...
@@ -12,7 +12,7 @@ let
     with pkgs.google-cloud-sdk.components; [ gke-gcloud-auth-plugin ]
   );
 in
-if envVars.system.isWork then
+if flakeVars.system.isWork then
   {
     home.packages =
       (with pkgs; [
@@ -38,12 +38,12 @@ if envVars.system.isWork then
       lib.hm.dag.entryAfter [ "writeBoundary" ] # sh
         ''
           rm -rf $HOME/.config/work
-          ln -sf ${envVars.FLAKE_DOTS}/work $HOME/.config/work
+          ln -sf ${flakeVars.FLAKE_DOTS}/work $HOME/.config/work
         '';
 
     programs.zsh.sessionVariables = {
-      WORK_ENV = if envVars.system.isWork then "1" else "0";
-      HOME_ENV = if envVars.system.isWork then "0" else "1";
+      WORK_ENV = if flakeVars.system.isWork then "1" else "0";
+      HOME_ENV = if flakeVars.system.isWork then "0" else "1";
     };
   }
 else

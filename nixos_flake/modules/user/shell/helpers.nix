@@ -1,5 +1,5 @@
 {
-  envVars,
+  flakeVars,
   pkgs,
   pkgs-unstable,
   # nh_darwin,
@@ -13,12 +13,12 @@
     ]
     ++ (
       # TODO: look into builtins.currentSystem, which gives you the currently set system
-      if envVars.system.isLinux then
+      if flakeVars.system.isLinux then
         [
           pkgs-unstable.nh # in helpers.nix
           pkgs.clair # container static analysis
         ]
-      else if envVars.system.isDarwin then
+      else if flakeVars.system.isDarwin then
         [
           # pkgs-unstable.nh_darwin # doesn't exist; override 
         ]
@@ -28,12 +28,12 @@
 
   # # nh config
   # programs.nh =
-  #   if envVars.system.isLinux then
+  #   if flakeVars.system.isLinux then
   #     {
   #       enable = true;
   #       package = pkgs-unstable.nh;
   #     }
-  #   else if envVars.system.isDarwin then
+  #   else if flakeVars.system.isDarwin then
   #     {
   #       enable = true;
   #       # Installation option once https://github.com/LnL7/nix-darwin/pull/942 is merged:
@@ -43,9 +43,9 @@
   #     { };
 
   programs.zsh.shellAliases.nh =
-    if envVars.system.isLinux then
+    if flakeVars.system.isLinux then
       "nh"
-    else if envVars.system.isDarwin then
+    else if flakeVars.system.isDarwin then
       "nh_darwin"
     else
       null;

@@ -2,14 +2,14 @@
   config,
   inputs,
   pkgs,
-  envVars,
+  flakeVars,
   ...
 }:
-if envVars.system.isWSL then
+if flakeVars.system.isWSL then
   {
     # https://nix-community.github.io/NixOS-WSL/options.html
     wsl.enable = true;
-    wsl.defaultUser = envVars.user.name;
+    wsl.defaultUser = flakeVars.user.name;
     # use windows OpenGL driver; required for nvidia-container-toolkit (GPU containers)
     wsl.useWindowsDriver = true;
   }

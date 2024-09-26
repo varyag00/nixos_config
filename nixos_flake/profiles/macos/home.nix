@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  envVars,
+  flakeVars,
   ...
 }:
 
@@ -9,8 +9,8 @@
   # NOTE: see https://mynixos.com/search?q=home-manager%2Foption for options
 
   home = {
-    username = envVars.user.name;
-    homeDirectory = "/Users/${envVars.user.name}";
+    username = flakeVars.user.name;
+    homeDirectory = "/Users/${flakeVars.user.name}";
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
@@ -26,12 +26,12 @@
   programs.home-manager.enable = true;
 
   imports = [
-    "${envVars.FLAKE_MODULES}/user/shell"
-    "${envVars.FLAKE_MODULES}/user/nvim"
-    "${envVars.FLAKE_MODULES}/user/features/k8s.nix"
-    "${envVars.FLAKE_MODULES}/user/features/lsp.nix"
-    "${envVars.FLAKE_MODULES}/user/features/gui.nix"
-    "${envVars.FLAKE_MODULES}/user/features/catppuccin.nix"
-    "${envVars.FLAKE_MODULES}/user/features/symlink-dots.nix"
+    "${flakeVars.FLAKE_MODULES}/user/shell"
+    "${flakeVars.FLAKE_MODULES}/user/nvim"
+    "${flakeVars.FLAKE_MODULES}/user/features/k8s.nix"
+    "${flakeVars.FLAKE_MODULES}/user/features/lsp.nix"
+    "${flakeVars.FLAKE_MODULES}/user/features/gui.nix"
+    "${flakeVars.FLAKE_MODULES}/user/features/catppuccin.nix"
+    "${flakeVars.FLAKE_MODULES}/user/features/symlink-dots.nix"
   ];
 }

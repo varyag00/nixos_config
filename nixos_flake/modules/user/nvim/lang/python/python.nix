@@ -1,6 +1,6 @@
 {
   lib,
-  envVars,
+  flakeVars,
   pkgs,
   pkgs-unstable,
   ...

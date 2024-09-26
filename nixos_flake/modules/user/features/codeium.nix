@@ -1,7 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
-  envVars,
+  flakeVars,
   ...
 }:
 {
@@ -9,7 +9,7 @@
     (with pkgs; [ ])
     ++ (with pkgs-unstable; [ ])
     ++ (
-      if !envVars.system.isWork then
+      if !flakeVars.system.isWork then
         [
           pkgs-unstable.codeium # in helpers.nix
         ]

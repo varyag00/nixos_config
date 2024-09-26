@@ -4,7 +4,7 @@
   pkgs-unstable,
   lib,
   # systemSettings,
-  envVars,
+  flakeVars,
   ...
 }:
 {
@@ -72,7 +72,7 @@
     lib.hm.dag.entryAfter [ "writeBoundary" ] # sh
       ''
         rm -rf $HOME/.config/nvim
-        ln -sf ${envVars.FLAKE_DOTS}/nvim $HOME/.config/nvim
+        ln -sf ${flakeVars.FLAKE_DOTS}/nvim $HOME/.config/nvim
       '';
   # ln -sf $HOME/nixos_config/nixos_flake/modules/user/dots/nvim $HOME/.config/nvim
   # NOTE: these don't work because relpaths point to the nix store flake path (read-only)

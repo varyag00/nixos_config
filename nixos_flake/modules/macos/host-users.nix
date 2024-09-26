@@ -1,13 +1,13 @@
 # NOTE: A function that expects a set with required attributes x and y, and binds the whole set to args
-{ envVars, ... }@args:
+{ flakeVars, ... }@args:
 #############################################################
 #
 #  Host & Users configuration
 #
 #############################################################
 let
-  username = envVars.user.name;
-  hostname = envVars.system.hostname;
+  username = flakeVars.user.name;
+  hostname = flakeVars.system.hostname;
 in
 {
   networking.hostName = hostname;

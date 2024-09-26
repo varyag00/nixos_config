@@ -70,15 +70,15 @@
       };
 
       # SECTION: user settings
-      # TODO: refactor into envVars
+      # TODO: refactor into flakeVars
       userSettings = {
         username = username;
         name = "Dan Gonzalez";
         email = useremail;
       };
 
-      # SECTION: env vars
-      envVars = {
+      # SECTION: flake variables -- used in nix code
+      flakeVars = {
         FLAKE_DOTS = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/dots";
         FLAKE_MODULES = builtins.getEnv "HOME" + "/nixos_config/nixos_flake/modules";
 
@@ -97,12 +97,12 @@
           isGUI = isGUI;
         };
       };
-      # END_SECTION: env vars
+      # END_SECTION: flake vars
 
       # SECTION: shell vars -- will be added as shell aliases
       shellVars = {
         FLAKE = flake;
-        FLAKE_DOTS = envVars.FLAKE_DOTS;
+        FLAKE_DOTS = flakeVars.FLAKE_DOTS;
         WORK = builtins.getEnv "HOME" + "/work";
         WORK_NOTES = shellVars.WORK + "/notes";
         WORK_ENV = if isWork then 1 else 0;
@@ -117,9 +117,9 @@
         # TODO: optional; on windows I may just use obsidian
         MY_NOTES = builtins.getEnv "HOME" + "/obsidian/obsidian-tasks";
       };
-      # END_SECTION: shellVars
+      # END_SECTION: shell vars
 
-      nixpkgs-system = if envVars.system.isDarwin then nixpkgs-darwin else nixpkgs;
+      nixpkgs-system = if flakeVars.system.isDarwin then nixpkgs-darwin else nixpkgs;
 
       pkgs = import nixpkgs-system {
         system = systemSettings.system;
@@ -142,7 +142,7 @@
           userSettings
           pkgs
           pkgs-unstable
-          envVars
+          flakeVars
           shellVars
           inputs
           ;
@@ -156,7 +156,7 @@
       #   `nh os switch .`
       #   in the dir containing this file
       nixosConfigurations =
-        if envVars.system.isLinux then
+        if flakeVars.system.isLinux then
           {
             nixos = nixpkgs.lib.nixosSystem {
               specialArgs = specialArgs;
@@ -173,7 +173,7 @@
 
       # SECTION: user-level configuration (i.e. dotfiles)
       homeConfigurations =
-        if envVars.system.isLinux then
+        if flakeVars.system.isLinux then
           {
             # NOTE: switch to this home-manager configuration using:
             #   `home-manager switch --flake .#dan`
@@ -194,11 +194,11 @@
           { };
 
       darwinConfigurations =
-        if envVars.system.isDarwin then
+        if flakeVars.system.isDarwin then
           {
-            "${envVars.system.hostname}" = darwin.lib.darwinSystem {
+            "${flakeVars.system.hostname}" = darwin.lib.darwinSystem {
               specialArgs = specialArgs;
-              system = envVars.system.archname;
+              system = flakeVars.system.archname;
               modules = [
 
                 # BUG: home-manager programs.nh.package does not exist error...
@@ -216,7 +216,7 @@
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
                   home-manager.extraSpecialArgs = specialArgs;
-                  home-manager.users.${envVars.user.name} = {
+                  home-manager.users.${flakeVars.user.name} = {
                     imports = [
                       (./profiles + ("/" + systemSettings.profile) + "/home.nix")
                       inputs.catppuccin.homeManagerModules.catppuccin
@@ -230,7 +230,7 @@
           { };
 
       # nix code formatter
-      formatter.${envVars.system.archname} =
-        nixpkgs.legacyPackages.${envVars.system.archname}.nixfmt-rfc-style;
+      formatter.${flakeVars.system.archname} =
+        nixpkgs.legacyPackages.${flakeVars.system.archname}.nixfmt-rfc-style;
     };
 }

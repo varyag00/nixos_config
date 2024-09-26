@@ -3,7 +3,7 @@
   config,
   pkgs,
   pkgs-unstable,
-  envVars,
+  flakeVars,
   ...
 }:
 
@@ -20,7 +20,7 @@
     lib.hm.dag.entryAfter [ "writeBoundary" ] # sh
       ''
         rm -rf $HOME/.config/zellij
-        ln -sf ${envVars.FLAKE_DOTS}/zellij $HOME/.config/zellij
+        ln -sf ${flakeVars.FLAKE_DOTS}/zellij $HOME/.config/zellij
       '';
 
   programs.zsh.shellAliases = {

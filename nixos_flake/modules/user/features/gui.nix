@@ -1,5 +1,5 @@
 {
-  envVars,
+  flakeVars,
   pkgs,
   pkgs-unstable,
   ...
@@ -7,7 +7,7 @@
 {
 
   home.packages =
-    if envVars.system.isGUI then
+    if flakeVars.system.isGUI then
       [
         # 
         pkgs.neovide

@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  envVars,
+  flakeVars,
   ...
 }:
 
@@ -25,20 +25,20 @@ in
     lib.hm.dag.entryAfter [ "writeBoundary" ] # sh
       ''
         rm -rf $HOME/.config/zsh/extras
-        ln -sf ${envVars.FLAKE_DOTS}/zsh/extras $HOME/.config/zsh/extras
+        ln -sf ${flakeVars.FLAKE_DOTS}/zsh/extras $HOME/.config/zsh/extras
       '';
 
   # p10k config
-  home.file.".config/zsh/.p10k.zsh".text = builtins.readFile "${envVars.FLAKE_DOTS}/zsh/.p10k.zsh";
+  home.file.".config/zsh/.p10k.zsh".text = builtins.readFile "${flakeVars.FLAKE_DOTS}/zsh/.p10k.zsh";
 
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
     shellAliases = myAliases;
 
-    initExtraBeforeCompInit = builtins.readFile "${envVars.FLAKE_DOTS}/zsh/init_p10k.zsh";
+    initExtraBeforeCompInit = builtins.readFile "${flakeVars.FLAKE_DOTS}/zsh/init_p10k.zsh";
 
-    initExtra = builtins.readFile "${envVars.FLAKE_DOTS}/zsh/.zshrc-slim";
+    initExtra = builtins.readFile "${flakeVars.FLAKE_DOTS}/zsh/.zshrc-slim";
 
     # this is very ugly
     # autosuggestion.highlight = "fg=#ff00ff,bg=cyan,bold,underline";

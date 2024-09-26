@@ -20,7 +20,7 @@
 
 ## Non-important & Non-urgent
 
-- [ ] use `envVars.isWSL` flag to enable below tasks
+- [ ] use `flakeVars.isWSL` flag to enable below tasks
 - [ ] migrate qutebrowser to this flake
   - must allow targeting a dir (for windows: `/mnt/c/...`)
 - [ ] migrate wezterm to this flake
@@ -34,7 +34,7 @@
 - [x] migrate macos-specific system modules
 - [ ] use [charm/melt](https://github.com/charmbracelet/melt) for ssh-key restore
 - [x] use sops-nix for this flake's secrets management
-- [ ] pull userSettings and systemSettings up into envVars
+- [ ] pull userSettings and systemSettings up into flakeVars
 - [ ] add enVars entries for MODULES=nixos_flake/modules
   - [ ] rename `modules/system/` to `nixos`
   - [ ] rename `modules/user/` to `hm`

@@ -3,8 +3,8 @@
   config,
   pkgs,
   pkgs-unstable,
-  nh_darwin, # TODO: uncomment when this gets added back
-  envVars,
+  nh_darwin,
+  flakeVars,
   ...
 }:
 
@@ -75,12 +75,12 @@
       glow # markdown previewer tui
     ])
     ++ (
-      if envVars.system.isLinux then
+      if flakeVars.system.isLinux then
         [
           # pkgs-unstable.nh # in helpers.nix
           # pkgs.clair container static analysis
         ]
-      else if envVars.system.isDarwin then
+      else if flakeVars.system.isDarwin then
         [
           # docker VM on macos
           pkgs-unstable.colima
@@ -90,19 +90,11 @@
           # need to install nh as system module because home-manager is acting strange
           nh_darwin.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-          # from mac_core.nix
-
           # archives
           pkgs.zip
           pkgs.xz
           pkgs.unzip
           pkgs.p7zip
-
-          # utils
-          # ripgrep # recursively searches directories for a regex pattern
-          # jq # A lightweight and flexible command-line JSON processor
-          # yq-go # yaml processer https://github.com/mikefarah/yq
-          # fzf # A command-line fuzzy finder
 
           pkgs.aria2 # A lightweight multi-protocol & multi-source command-line download utility
           pkgs.socat # replacement of openbsd-netcat
@@ -112,7 +104,6 @@
           pkgs.cowsay
           pkgs.file
           pkgs.which
-          # tree
           pkgs.gnused
           pkgs.gnutar
           pkgs.gawk
@@ -126,8 +117,8 @@
 
   programs.git = {
     enable = true;
-    userName = envVars.user.name;
-    userEmail = envVars.user.email;
+    userName = flakeVars.user.name;
+    userEmail = flakeVars.user.email;
     extraConfig = {
       core = {
         editor = "nvim";
@@ -253,7 +244,7 @@
     lib.hm.dag.entryAfter [ "writeBoundary" ] # sh
       ''
         rm -rf $HOME/.config/nap
-        ln -sf ${envVars.FLAKE_DOTS}/nap $HOME/.config/nap
+        ln -sf ${flakeVars.FLAKE_DOTS}/nap $HOME/.config/nap
       '';
   programs.zsh.sessionVariables = {
     NAP_HOME = "$HOME/.config/nap/snippets";
