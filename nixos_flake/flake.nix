@@ -90,33 +90,32 @@
           archname = system;
           hostname = hostname;
           isDarwin = isDarwin;
+          # TODO: consider changing to isNixOS and/or isOtherLinux
           isLinux = isLinux;
+          isWSL = isWSL;
           isWork = isWork;
           isGUI = isGUI;
-          isWSL = isWSL;
         };
       };
       # END_SECTION: env vars
 
-      # SECTION: shell vars
+      # SECTION: shell vars -- will be added as shell aliases
       shellVars = {
         FLAKE = flake;
         FLAKE_DOTS = envVars.FLAKE_DOTS;
         WORK = builtins.getEnv "HOME" + "/work";
+        WORK_NOTES = shellVars.WORK + "/notes";
         WORK_ENV = if isWork then 1 else 0;
 
         # NOTE: cli apps don't always use this on mac, but it's worth setting for those that do
-        # XDG_CONFIG_HOME = builtins.getEnv "HOME" + "/.config";
         XDG_CONFIG_HOME = builtins.getEnv "HOME" + "/.config";
         XDG_DATA_HOME = builtins.getEnv "HOME" + "/.local/share";
         XDG_CACHE_HOME = builtins.getEnv "HOME" + "/.cache";
         CONFIG = shellVars.XDG_CONFIG_HOME;
         CFG = shellVars.XDG_CONFIG_HOME;
 
-        # WORK_NOTES = builtins.elem myEnvVars.WORK + "/notes";
-        # WORK_NOTES = myEnvVars.WORK + "/notes";
         # TODO: optional; on windows I may just use obsidian
-        # MY_NOTES = builtins.getEnv "HOME" + "/obsidian/obsidian-tasks";
+        MY_NOTES = builtins.getEnv "HOME" + "/obsidian/obsidian-tasks";
       };
       # END_SECTION: shellVars
 
@@ -160,24 +159,13 @@
         if envVars.system.isLinux then
           {
             nixos = nixpkgs.lib.nixosSystem {
-              # specialArgs = {
-              #   inherit systemSettings;
-              #   inherit userSettings;
-              #   inherit envVars;
-              #   inherit shellVars;
-              #   inherit inputs;
-              #   inherit pkgs;
-              #   inherit pkgs-unstable;
-              # };
               specialArgs = specialArgs;
-              # OR: inherit specialArgs
               system = systemSettings.system;
               modules = [
                 # load {systemSettings.profile}/home.nix
                 (./profiles + ("/" + systemSettings.profile) + "/configuration.nix")
                 nixos-wsl.nixosModules.wsl
-              ]; # TODO: try this
-              # ] ++ (if envVars.isWSL then [ nixos-wsl.nixosModules.wsl ] else [ ]);
+              ];
             };
           }
         else
@@ -193,13 +181,6 @@
             #   `nh home switch -c dan .`
             dan = home-manager.lib.homeManagerConfiguration {
               inherit pkgs;
-              # extraSpecialArgs = {
-              #   inherit userSettings;
-              #   inherit systemSettings;
-              #   inherit envVars;
-              #   inherit pkgs;
-              #   inherit pkgs-unstable;
-              # };
               extraSpecialArgs = specialArgs;
               # system = systemSettings.system;
               modules = [
@@ -216,15 +197,9 @@
         if envVars.system.isDarwin then
           {
             "${envVars.system.hostname}" = darwin.lib.darwinSystem {
-
-              inherit specialArgs;
+              specialArgs = specialArgs;
               system = envVars.system.archname;
               modules = [
-                # ./modules/nix-core.nix
-                # ./modules/system.nix
-                # ./modules/mac-apps.nix
-                # #./modules/homebrew-mirror.nix # comment this line if you don't need a homebrew mirror
-                # ./modules/host-users.nix
 
                 # BUG: home-manager programs.nh.package does not exist error...
                 # probably need to update home-manager?
@@ -243,7 +218,6 @@
                   home-manager.extraSpecialArgs = specialArgs;
                   home-manager.users.${envVars.user.name} = {
                     imports = [
-                      # ./home
                       (./profiles + ("/" + systemSettings.profile) + "/home.nix")
                       inputs.catppuccin.homeManagerModules.catppuccin
                     ];

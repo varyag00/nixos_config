@@ -46,6 +46,10 @@ if envVars.system.isDarwin then
       ln -sf ${envVars.FLAKE_DOTS}/qutebrowser $HOME/.qutebrowser
     '';
   }
+else if envVars.system.isWSL then
+  {
+    # TODO: symlink wezterm and qutebrowser to /mnt/c/... windows location
+  }
 else if envVars.system.isLinux then
   { }
 else
