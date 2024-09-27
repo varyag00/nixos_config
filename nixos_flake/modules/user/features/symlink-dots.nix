@@ -30,14 +30,6 @@ if flakeVars.system.isDarwin then
       ln -sf ${flakeVars.FLAKE_DOTS}/mac/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json
     '';
 
-    # TODO: move these to another module
-
-    # wezterm
-    home.activation.weztermConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      rm -rf $HOME/.config/wezterm
-      ln -sf ${flakeVars.FLAKE_DOTS}/wezterm $HOME/.config/wezterm
-    '';
-
     # qutebrowser
     # NOTE: qutebrowser uses $HOME/.qutebrowser on macOS and $HOME/.config/qutebrowser on Linux
     # NOTE: don't use home-manager module because I use this on windows too

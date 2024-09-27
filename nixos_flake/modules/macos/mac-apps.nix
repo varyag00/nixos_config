@@ -86,7 +86,7 @@
       [
         # NOTE: corresponding dots are in shell/mac_dots.nix
         # the intention is to migrate everything to being managed by home-manager 
-        "wezterm"
+
         "karabiner-elements"
 
         "maccy" # clipboard manager

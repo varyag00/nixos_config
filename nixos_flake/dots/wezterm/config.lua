@@ -1,5 +1,3 @@
--- TODO: use chezmoi to manage this config even for windows
-
 -- Pull in the wezterm API and config
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
@@ -15,6 +13,7 @@ end
 
 -- if this looks weird, try the official "Catppuccin Macchiato"
 config.color_scheme = "catppuccin-macchiato"
+-- config.color_scheme = "Catppuccin Macchiato"
 
 -- SECTION: font
 

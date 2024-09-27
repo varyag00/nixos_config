@@ -90,7 +90,7 @@ tasks:
     cmds:
       - task: check
       - ./result/sw/bin/darwin-rebuild switch --flake .#SE-K7N2N4QLGP --impure
-    # dir: ./nixos_flake
+    dir: ./nixos_flake
     # env:
     #   FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
     desc: "Switch to the latest built darwin system configuration"

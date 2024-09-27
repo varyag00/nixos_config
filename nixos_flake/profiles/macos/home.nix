@@ -33,5 +33,6 @@
     "${flakeVars.FLAKE_MODULES}/user/features/gui.nix"
     "${flakeVars.FLAKE_MODULES}/user/features/catppuccin.nix"
     "${flakeVars.FLAKE_MODULES}/user/features/symlink-dots.nix"
+    "${flakeVars.FLAKE_MODULES}/user/apps/wezterm.nix"
   ];
 }
