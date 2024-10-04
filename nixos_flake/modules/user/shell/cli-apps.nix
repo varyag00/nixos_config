@@ -20,7 +20,6 @@
       jq
       yq
       bc
-      terraform
       lazygit
       lazydocker
       thefuck
@@ -49,6 +48,8 @@
       portal
     ])
     ++ (with pkgs-unstable; [
+      # stable version is too old
+      terraform
       # simpler nix-shell
       devbox
       # sql TUIs
