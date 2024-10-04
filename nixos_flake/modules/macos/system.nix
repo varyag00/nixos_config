@@ -4,9 +4,9 @@
 #
 #  macOS's System configuration
 #
-#  All the configuration options are documented here:
+#  NOTE: All the configuration options are documented here:
 #    https://daiderd.com/nix-darwin/manual/index.html#sec-options
-#  Incomplete list of macOS `defaults` commands :
+#  Incomplete list of macOS `defaults` commands:
 #    https://github.com/yannbertrand/macos-defaults
 #
 ###################################################################################
@@ -31,6 +31,9 @@
         # NOTE: needed for amethyst
         # do NOT "automatically rearrange spaces based on most recent use"; default: true
         mru-spaces = false;
+
+        magnification = true;
+        largesize = 96;
 
         # customize Hot Corners
         # wvous-tl-corner = 2; # top-left - Mission Control
@@ -64,6 +67,7 @@
         # `defaults read NSGlobalDomain "xxx"`
         "com.apple.swipescrolldirection" = true; # enable natural scrolling
         "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
+        "com.apple.trackpad.forceClick" = false; # disable "force click" (hold click)
         AppleInterfaceStyle = "Dark"; # dark mode
         AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
         ApplePressAndHoldEnabled = true; # enable press and hold

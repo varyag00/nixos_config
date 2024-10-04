@@ -62,8 +62,10 @@
 
     # `brew install`
     brews = [
-      "wget" # download tool
-      "curl" # no not install curl via nixpkgs, it's not working well on macOS!
+      # nixpkgs wget and curl don't work on macOS, so use brew's
+      "wget"
+      "curl"
+
       "aria2" # download tool
       "httpie" # http client
 
@@ -87,6 +89,7 @@
         # NOTE: corresponding dots are in shell/mac_dots.nix
         # the intention is to migrate everything to being managed by home-manager 
 
+        "devtoys"
         "karabiner-elements"
 
         "maccy" # clipboard manager
