@@ -185,6 +185,7 @@
   time.timeZone = "Europe/Stockholm";
 
   # Fonts
+  # TODO: migrate these to a common module
   fonts = {
     packages = with pkgs; [
       # icon fonts

@@ -46,6 +46,13 @@
       sops
       # easy file transfer tool; pairs great with age
       portal
+
+      # double-entry bookkeeping 
+      hledger
+      # hledger-ui # ledger tui
+      # hledger-web # ledger gui
+      # TODO: check out puffin hledge TUI (not in nixpkgs): 
+      # https://github.com/siddhantac/puffin
     ])
     ++ (with pkgs-unstable; [
       # stable version is too old
