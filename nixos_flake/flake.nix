@@ -5,7 +5,9 @@
   inputs = {
     # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # lock nixpkgs-unstable to commit
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/294eb5975def0caa718fca92dc5a9d656ae392a9"; # 2024/20/09
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/f85a2d005e83542784a755ca8da112f4f65c4aa4"; # 2024/10/07
+    # Use this input to allow me to only tick hc tools, since they take forever to build
+    nixpkgs-hashicorp.url = "github:nixos/nixpkgs/f85a2d005e83542784a755ca8da112f4f65c4aa4"; # 2024/10/07
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
     darwin = {
@@ -39,6 +41,7 @@
       nixpkgs,
       nixpkgs-darwin,
       nixpkgs-unstable,
+      nixpkgs-hashicorp,
       nixos-wsl,
       darwin,
       home-manager,
@@ -125,10 +128,19 @@
         };
       };
 
+      pkgs-hc = import nixpkgs-hashicorp {
+        system = system;
+        config = {
+          allowUnfree = true;
+          allowUnfreePredicate = (_: true);
+        };
+      };
+
       specialArgs = inputs // {
         inherit
           pkgs
           pkgs-unstable
+          pkgs-hc
           flakeVars
           shellVars
           inputs

@@ -45,7 +45,6 @@
 
   programs.neovim = {
     # Use neovim-unwrapped, see https://stackoverflow.com/a/77460220/1775420
-    # TODO: lock to specific commit
     package = pkgs-unstable.neovim-unwrapped;
     # see options https://mynixos.com/home-manager/options/programs.neovim
     enable = true;

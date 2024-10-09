@@ -206,6 +206,9 @@
           "Hack"
         ];
       })
+
+      monocraft # minecraft-inspired font
+      miracode # monocraft-like, but more readable
     ];
   };
 }

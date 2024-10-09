@@ -11,6 +11,12 @@ opt.clipboard = "unnamed" -- Do NOT sync with system clipboard
 
 vim.g.annoying_me = false
 
+-- NOTE: when set, python3_host_prog interferes with (overrides) python devshells
+-- clearing it fixes the problem, and seems to cause no issues outside of errors
+-- TODO: figure out where this is set in lazyvim (python extra?) or nix flake?
+-- TODO: check if this is still needed after nvim 0.10.2 introduced a fix
+vim.g.python3_host_prog = ""
+
 vim.g.lazyvim_python_ruff = "ruff"
 vim.g.lazyvim_python_lsp = "basedpyright"
 

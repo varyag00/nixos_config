@@ -22,7 +22,7 @@
       bc
       lazygit
       lazydocker
-      thefuck
+      # thefuck
       tealdeer # rust tldr client
       # tlrc # rust tldr client -- problems on macos
       # code snippets TUI
@@ -240,6 +240,11 @@
     settings = {
       client.tealdeer = true;
     };
+  };
+  programs.thefuck = {
+    enable = true;
+    enableZshIntegration = true;
+    enableInstantMode = false; # requires disabling zsh autocomplete
   };
 
   # NOTE: nap code snippets configurations; replace with home-manager when implemented
