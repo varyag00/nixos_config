@@ -9,6 +9,8 @@ local M = {
         -- kdl config lang for zellij
         "kdl",
         "latex",
+        -- TODO: ledger plugin, move to ledger.lua
+        "ledger",
       },
 
       -- SECTION: filetype mappings
@@ -18,6 +20,7 @@ local M = {
         -- },
         filename = {
           [".envrc"] = "sh",
+          [".journal"] = "ledger",
         },
       }),
       -- END_SECTION:

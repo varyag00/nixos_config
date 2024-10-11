@@ -28,7 +28,7 @@
     # yaml
     pkgs.yaml-language-server
     #json
-    pkgs.nodePackages_latest.vscode-json-languageserver
+    pkgs.vscode-langservers-extracted
     # toml
     pkgs.taplo
     # sql

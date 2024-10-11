@@ -203,7 +203,7 @@ local M = {
             },
             attachments = {
               img_folder = "notes/images",
-            }
+            },
           },
         },
         {
@@ -234,7 +234,7 @@ local M = {
             },
             attachments = {
               img_folder = "notes/images",
-            }
+            },
           },
         },
         { name = "test", path = "~/obsidian-nvim-test/" },
@@ -409,7 +409,7 @@ local M = {
           --  same goes for directly adding the .markdownlint-cli2.yaml file to a markdown project dir.
           --  perhaps try markdownlint-cli and configure from CLI instead (the original)
           -- NOTE: file MUST be named ".markdownlint-cli2.yaml" (or the json equivalent)
-          -- args = { "--config", os.getenv("HOME") .. "/.config/lsp/.markdownlint-cli2.yaml", "--" },
+          args = { "--config", os.getenv("HOME") .. "/.config/lsp/config.markdownlint-cli2.yaml", "--" },
         },
       },
     },

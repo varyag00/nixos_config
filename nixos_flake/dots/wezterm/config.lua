@@ -11,6 +11,11 @@ local function get_hostname()
 	return hostname
 end
 
+local function is_weekend()
+	local day_of_week = os.date("%A")
+	return day_of_week == "Friday" or day_of_week == "Saturday" or day_of_week == "Sunday"
+end
+
 -- if this looks weird, try the official "Catppuccin Macchiato"
 config.color_scheme = "catppuccin-macchiato"
 -- config.color_scheme = "Catppuccin Macchiato"
@@ -88,6 +93,14 @@ local function font_and_rules_scp()
 	-- config.font_rules = {}
 end
 
+local function font_and_rules_pixel()
+	config.font = font_with_fallback({ family = "Monocraft Nerd Font" })
+	-- like Monocraft, but a little more readable
+	-- config.font = font_with_fallback({ family = "Miracode" })
+	config.font_size = 12
+	-- config.font_rules = {}
+end
+
 local function font_and_rules_jetbrains()
 	config.font = font_with_fallback({ family = "JetBrainsMono Nerd Font" })
 	config.font_size = 13
@@ -97,12 +110,18 @@ end
 local machine_name = os.getenv("MACHINE_NAME") or get_hostname()
 
 if machine_name == "SE-K7N2N4QLGP" then
-	font_and_rules_scp()
+	-- fun friday font
+	if is_weekend() then
+		font_and_rules_pixel()
+	else
+		font_and_rules_scp()
+	end
 elseif machine_name == "dan-pop" then
 	font_and_rules_iosevka()
 else
 	-- default font
-	font_and_rules_jetbrains()
+	font_and_rules_scp()
+	-- font_and_rules_jetbrains()
 end
 
 -- END_SECTION: Font

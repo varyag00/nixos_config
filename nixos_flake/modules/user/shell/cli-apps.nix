@@ -49,8 +49,8 @@
 
       # double-entry bookkeeping 
       hledger
-      # hledger-ui # ledger tui
-      # hledger-web # ledger gui
+      hledger-ui # ledger tui
+      # hledger-web # ledger gui; this is like 3 GB of packages...
       # TODO: check out puffin hledge TUI (not in nixpkgs): 
       # https://github.com/siddhantac/puffin
     ])
