@@ -38,21 +38,21 @@ else if flakeVars.system.isLinux || flakeVars.system.isWSL then
       pkgs.clair # container static analysis
     ];
 
-    # nh config
-    programs.nh = {
-      enable = true;
-      package = pkgs-unstable.nh;
-    };
-    programs.zsh.shellAliases.nh = "nh";
-
-    programs.nix-ld = {
-      enable = true;
-      libraries = [
-        # pkgs-unstable.libc
-        # pkgs.something
-      ];
-      package = pkgs-unstable.nix-ld-rs;
-    };
+    # # nh config
+    # programs.nh = {
+    #   enable = true;
+    #   package = pkgs-unstable.nh;
+    # };
+    # programs.zsh.shellAliases.nh = "nh";
+    #
+    # programs.nix-ld = {
+    #   enable = true;
+    #   libraries = [
+    #     # pkgs-unstable.libc
+    #     # pkgs.something
+    #   ];
+    #   package = pkgs-unstable.nix-ld-rs;
+    # };
   }
 else
   { }

@@ -172,7 +172,9 @@
 
       # SECTION: user-level configuration (i.e. dotfiles)
       homeConfigurations =
-        if flakeVars.system.isLinux then
+        # if flakeVars.system.isLinux or flakeVars.system.isWSL then
+        # FIXME: this should be truthy... does it even matter if they're all declared?
+        if true then
           {
             # NOTE: switch to this home-manager configuration using:
             #   `home-manager switch --flake .#dan`

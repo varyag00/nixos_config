@@ -10,6 +10,7 @@ fi
 
 # used by nh to build the flake
 export FLAKE="$PWD"
+export SYSTEM_FLAKE="$PWD/nixos_flake"
 
 export username="dan"
 export useremail="jdgonzal@proton.me"

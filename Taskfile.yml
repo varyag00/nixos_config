@@ -43,8 +43,6 @@ tasks:
     cmds:
       - task: check
       - nh home switch -c {{ .USER }} {{ .FLAKE }} -- {{ .OPTIONS }}
-    env:
-      FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
     desc: "Use nix-helper to rebuild the home-manager user configuration and switch to it"
 
   rebuild:
