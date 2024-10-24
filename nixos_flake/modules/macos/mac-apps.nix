@@ -98,6 +98,8 @@
 
         "bitwarden" # NOTE: brew package doesn't support touchID
 
+        # "deskpad" # screensharing
+
         # Development
         #"insomnia" # REST client
         #"wireshark" # network analyzer

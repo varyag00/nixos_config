@@ -57,6 +57,7 @@
     ++ (with pkgs-unstable; [
       # stable version is too old
       terraform
+      tftui
       # simpler nix-shell
       devbox
       # sql TUIs

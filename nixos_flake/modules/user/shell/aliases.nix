@@ -7,9 +7,9 @@
   cd = "z";
   cdi = "zi";
   cat = "bat";
+  man = "batman";
   ping = "gping";
   dig = "doggo";
-  man = "batman";
   top = "btop";
 
   tf = "terraform";
@@ -20,6 +20,7 @@
   gst = "git status";
   gco = "git checkout";
   ghc = "gh copilot";
+  "git open" = "gh browse";
 
   db = "devbox";
   dbs = "devbox shell";

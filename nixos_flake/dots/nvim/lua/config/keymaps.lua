@@ -48,3 +48,20 @@ vim.keymap.set("i", "", "<C-W>")
 -- BUG: doesn't work
 -- vim.api.nvim_set_keymap("v", "<C-/>", ":lua require('Comment.api').toggle.linewise.vsplit()<CR>",
 --   { noremap = true, silent = true })
+
+-- SECTION: macros
+-- FIXME: macros don't get set
+
+-- idea from https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
+-- require("which-key").add({
+--   -- "<leader>@m",
+--   "<leader>m",
+--   "",
+--   icon = { icon = "󰍔", color = "purple" },
+--   desc = "+markdown",
+--   group = "markdown",
+--   mode = { "n", "v" },
+-- })
+--
+-- -- vim.keymap.set({ "v" }, "<leader>@mbv", "viwc****hP", { desc = "bold visual selection" })
+-- vim.keymap.set({ "v" }, "<leader>mbv", "viwc****hP", { desc = "bold visual selection" })
