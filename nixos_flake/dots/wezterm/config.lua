@@ -130,7 +130,11 @@ end
 
 -- NOTE: I die a little every time I hear this bell sound
 config.audible_bell = "Disabled"
--- config.max_fps = 144
+
+-- performance tweaks
+config.front_end = "WebGpu"
+config.max_fps = 120
+config.animation_fps = 120
 
 -- <C-T> = new tab
 config.hide_tab_bar_if_only_one_tab = true

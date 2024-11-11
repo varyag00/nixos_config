@@ -38,16 +38,45 @@ vim.keymap.set({ "v" }, "<leader>CY", '"+y', { desc = "Yank to system clipboard"
 vim.keymap.set({ "v", "n" }, "<leader>CP", '"+p', { desc = "Paste from system clipboard" })
 
 -- BUG: Fix for the weird "n" behaviour.... however I am quite sure I introduced this bug by set setting "n" in keys somewhere...
-vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
-vim.keymap.set({ "o", "x" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+-- observation: seems to re-break between updates
+-- observation: seems to only happen in specific files, and the file remains broken consistently regardless of nvim restarts
+--    example: ~/obsidian/obsidian_tasks/journal/2024-11-05.md
+-- BUG: doesn't work; gets overwritten by "undo" somwhere
+-- re-set "n" searchforward keybind
+-- from: https://github.com/LazyVim/LazyVim/blob/75750be1c0493659c9fbc60ff5e06dba053ef528/lua/lazyvim/config/keymaps.lua#L55
+-- vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
+-- vim.keymap.set({ "o", "x" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+-- same thing:
+vim.keymap.set({ "n" }, "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
+vim.keymap.set({ "x" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+vim.keymap.set({ "o" }, "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+-- BUG: if the above doesn't work, try this C-n mapping
+-- add <C-n> as next search result
+vim.keymap.set({ "n" }, "<C-n>", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
+vim.keymap.set({ "x" }, "<C-n>", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+vim.keymap.set({ "o" }, "<C-n>", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
 
 -- ctrl-backspace to delete previous word
 vim.keymap.set("i", "", "<C-W>")
+vim.keymap.set({ "n" }, "<C-n>", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
 
 -- comment on c-/
 -- BUG: doesn't work
 -- vim.api.nvim_set_keymap("v", "<C-/>", ":lua require('Comment.api').toggle.linewise.vsplit()<CR>",
 --   { noremap = true, silent = true })
+
+-- telecope buffers list;
+-- NOTE: must not be lazy loaded in telecope.lua
+-- > these are used alongside the keybinds declared in telescope.lua
+-- TODO: make it a normal mode keybind, perhaps something like ",b" or "\b" or "Shift-H" when I'm happy with it (and remove tab bar)
+local tele_buffers_cmd = "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>"
+vim.keymap.set("n", "<leader>B", tele_buffers_cmd, { desc = "Show Buffers" })
+vim.keymap.set("n", "<localleader>b", tele_buffers_cmd, { desc = "Show Buffers" })
+-- possible keybinds
+vim.keymap.set("n", "<S-h>", tele_buffers_cmd, { desc = "Show Buffers" })
+vim.keymap.set("n", "<S-l>", tele_buffers_cmd, { desc = "Show Buffers" })
+-- because normal-mode t and T are kinda useless
+vim.keymap.set("n", "<S-t>", tele_buffers_cmd, { desc = "Show Buffers" })
 
 -- SECTION: macros
 -- FIXME: macros don't get set

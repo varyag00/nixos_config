@@ -108,6 +108,8 @@
         # TODO: optional; on windows I may just use obsidian.
         # consider settings in .envrc
         MY_NOTES = builtins.getEnv "HOME" + "/obsidian/obsidian-tasks";
+
+        POWERLEVEL9K_INSTANT_PROMPT = "quiet";
       };
       # END_SECTION: shell vars
 

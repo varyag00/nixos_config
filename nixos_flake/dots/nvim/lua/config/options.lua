@@ -9,6 +9,7 @@ opt.pumblend = 0
 
 opt.clipboard = "unnamed" -- Do NOT sync with system clipboard
 
+-- see workflow.lua @ pomo
 vim.g.annoying_me = false
 
 -- NOTE: when set, python3_host_prog interferes with (overrides) python devshells

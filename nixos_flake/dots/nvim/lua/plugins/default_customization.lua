@@ -31,10 +31,24 @@ M = {
         -- error or bright purple
         critical = { "ErrorMsg", "#CA33FF" },
       },
+      highlight = {
+        -- default is multiline_pattern = "^.",
+        -- NOTE: match all comment lines starting with " >" followed by text
+        multiline_pattern = "^>.",
+        -- TODO: test
+        -- more test
+        -- TODO: test
+        -- > fsdfds
+        -- TODO: test
+        --> fsdfds
+        -- TODO: test
+        -- | fsdfds
+      },
     },
   },
   -- END_SECTION:
   -- SECTION: edgy.nvim
+  -- TODO: try disabling this to see if it's really needed
   {
     "folke/edgy.nvim",
     event = "VeryLazy",

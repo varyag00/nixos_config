@@ -97,4 +97,8 @@ in
     enableCompletion = true;
     shellAliases = myAliases;
   };
+  programs.nushell = {
+    enable = true;
+    shellAliases = myAliases;
+  };
 }
