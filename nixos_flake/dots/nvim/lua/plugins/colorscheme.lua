@@ -58,22 +58,22 @@ local M = {
   --     },
   --   },
   -- },
-  {
-    "catppuccin/nvim",
-    opts = {
-      flavour = "macchiato",
-      term_colors = true,
-      integrations = {
-        neogit = true,
-      },
-    }
-  },
+  -- {
+  --   "catppuccin/nvim",
+  --   opts = {
+  --     flavour = "macchiato",
+  --     term_colors = true,
+  --     integrations = {
+  --       neogit = true,
+  --     },
+  --   }
+  -- },
   -- Configure LazyVim to load catppuccin-macchiato: https://github.com/catppuccin/nvim#usage
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
-      -- colorscheme = "catppuccin-macchiato",
+      -- colorscheme = "catppuccin",
+      colorscheme = "catppuccin-macchiato",
       -- colorscheme = "tokyonight-storm",
     },
   },

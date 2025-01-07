@@ -36,6 +36,12 @@ local spec = {
   { import = "lazyvim.plugins.extras.coding.mini-surround" },
   { import = "lazyvim.plugins.extras.coding.yanky" },
 
+  -- FIXME: use blink.nvim (new default) for completion, but watch out for bugs
+  -- > Bugs observed: obsidian.nvim: https://github.com/epwalsh/obsidian.nvim/issues/793
+  -- >  - triaged in ../plugins/markdown-obsidian.lua
+  -- { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
+  { import = "lazyvim.plugins.extras.coding.blink" },
+
   { import = "lazyvim.plugins.extras.lang.nix" },
   { import = "lazyvim.plugins.extras.lang.go" },
   { import = "lazyvim.plugins.extras.lang.python" },
@@ -67,8 +73,10 @@ local spec = {
   { import = "lazyvim.plugins.extras.util.project" },
   -- live preview for rename
   { import = "lazyvim.plugins.extras.editor.inc-rename" },
-  -- picker tool
-  { import = "lazyvim.plugins.extras.editor.telescope" },
+  -- FIXME: use fzf-lua (new default picker) instead of telescope, but watch out for bugs
+  { import = "lazyvim.plugins.extras.editor.fzf" },
+  -- { import = "lazyvim.plugins.extras.editor.telescope" },
+
   -- interesting refactoring
   { import = "lazyvim.plugins.extras.editor.refactoring" },
   -- buffer harpooning
@@ -97,8 +105,8 @@ local spec = {
 -- SECTION: conditional plugins
 
 -- NOTE: always use copilot and never use codeium atm
-table.insert(spec, { import = "lazyvim.plugins.extras.coding.copilot" })
-table.insert(spec, { import = "lazyvim.plugins.extras.coding.copilot-chat" })
+table.insert(spec, { import = "lazyvim.plugins.extras.ai.copilot" })
+table.insert(spec, { import = "lazyvim.plugins.extras.ai.copilot-chat" })
 -- NOTE: neovide doesn't source .zshrc, so these need to go in $ZDOTDIR/.zshenv
 -- if os.getenv("WORK_ENV") == "1" then
 --   table.insert(spec, { import = "lazyvim.plugins.extras.coding.copilot" })
@@ -107,9 +115,10 @@ table.insert(spec, { import = "lazyvim.plugins.extras.coding.copilot-chat" })
 --   --   table.insert(spec, { import = "lazyvim.plugins.extras.coding.codeium" })
 -- end
 
--- mini animate and neovide cause graphical glitches
+-- these cause graphical glitches inside neovide
 if not vim.g.neovide then
-  table.insert(spec, { import = "lazyvim.plugins.extras.ui.mini-animate" })
+  -- fancy animated cursor inside terminal
+  table.insert(spec, { import = "lazyvim.plugins.extras.ui.smear-cursor" })
 end
 
 -- END_SECTION: conditional plugins

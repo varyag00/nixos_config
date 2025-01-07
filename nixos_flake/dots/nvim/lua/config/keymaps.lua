@@ -26,7 +26,10 @@ vim.keymap.set("i", "kj", "<Esc>")
 -- vim.keymap.set("i", "jk", "<Esc><cr>")
 -- vim.keymap.set("i", "kj", "<Esc><cr>")
 
-vim.keymap.set("n", "<c-\\>", require("lazyvim.util").terminal.open, { desc = "Terminal (root dir)" })
+vim.keymap.set("n", "<c-\\>", function()
+  Snacks.terminal(nil)
+  -- Snacks.terminal(nil, { cwd = LazyVim.root() }
+end, { desc = "Terminal (Root Dir)" })
 vim.keymap.set("t", "<C-\\>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 
 -- Paste without replace clipboard
@@ -77,6 +80,11 @@ vim.keymap.set("n", "<S-h>", tele_buffers_cmd, { desc = "Show Buffers" })
 vim.keymap.set("n", "<S-l>", tele_buffers_cmd, { desc = "Show Buffers" })
 -- because normal-mode t and T are kinda useless
 vim.keymap.set("n", "<S-t>", tele_buffers_cmd, { desc = "Show Buffers" })
+
+-- yaml schema modeline
+vim.keymap.set("n", "<leader>cy", function()
+  require("custom.additional-schemas").init()
+end, { desc = "Set YAML schema" })
 
 -- SECTION: macros
 -- FIXME: macros don't get set

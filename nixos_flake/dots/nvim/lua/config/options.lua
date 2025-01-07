@@ -9,6 +9,9 @@ opt.pumblend = 0
 
 opt.clipboard = "unnamed" -- Do NOT sync with system clipboard
 
+vim.g.lazyvim_picker = "auto"
+-- vim.g.lazyvim_picker = "blink"
+
 -- see workflow.lua @ pomo
 vim.g.annoying_me = false
 

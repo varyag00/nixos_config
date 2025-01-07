@@ -18,6 +18,8 @@
       ast-grep # rg for codebases, with context
       fd
       jq
+      # interative jq
+      jid
       yq
       bc
       lazygit

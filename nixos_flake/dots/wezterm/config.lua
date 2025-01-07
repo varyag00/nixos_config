@@ -97,7 +97,7 @@ local function font_and_rules_pixel()
 	config.font = font_with_fallback({ family = "Monocraft Nerd Font" })
 	-- like Monocraft, but a little more readable
 	-- config.font = font_with_fallback({ family = "Miracode" })
-	config.font_size = 12
+	config.font_size = 14
 	-- config.font_rules = {}
 end
 
@@ -133,8 +133,8 @@ config.audible_bell = "Disabled"
 
 -- performance tweaks
 config.front_end = "WebGpu"
-config.max_fps = 120
-config.animation_fps = 120
+config.max_fps = 175
+config.animation_fps = 175
 
 -- <C-T> = new tab
 config.hide_tab_bar_if_only_one_tab = true

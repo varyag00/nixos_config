@@ -100,14 +100,14 @@ local M = {
     },
   },
   -- it ain't elisp, but it's something. fennel seems interesting (compile lisp to lua): https://fennel-lang.org
-  {
-    "rafcamlet/nvim-luapad",
-    keys = {
-      { "<leader>cb", ":Luapad<cr>", desc = "Lua Scratch buffer" },
-    },
-    -- last release is pretty old
-    version = false,
-  },
+  -- {
+  --   "rafcamlet/nvim-luapad",
+  --   keys = {
+  --     { "<leader>cb", ":Luapad<cr>", desc = "Lua Scratch buffer" },
+  --   },
+  --   -- last release is pretty old
+  --   version = false,
+  -- },
   -- NOTE: choose either this + navic extra in lazy.lua, OR dropbar
   -- {
   --   "SmiteshP/nvim-navbuddy",
@@ -152,71 +152,66 @@ local M = {
   --     },
   --   },
   -- },
-  {
-    "someone-stole-my-name/yaml-companion.nvim",
-    ft = { "yaml" },
-    opts = {
-      builtin_matchers = {
-        kubernetes = { enabled = true },
-      },
-    },
-    dependencies = {
-      { "neovim/nvim-lspconfig" },
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope.nvim" },
-    },
-    config = function(_, opts)
-      local cfg = require("yaml-companion").setup(opts)
-      require("lspconfig")["yamlls"].setup(cfg)
-      require("telescope").load_extension("yaml_schema")
-    end,
-  },
 
   -- -- extend nvim-cmp
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   ---@param opts cmp.ConfigSchema
+  --   opts = function(_, opts)
+  --     local cmp = require("cmp")
+  --     -- add a border to nvim-cmp
+  --     local win_opt = {
+  --       col_offset = 0,
+  --       side_padding = 1,
+  --       -- not needed:
+  --       -- winhighlight = "Normal:PopMenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+  --     }
+  --
+  --     -- BUG: table.insert doesn't work, so for now I have to overrride entire opts.mappings
+  --     -- table.insert(opts.mapping, { ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) })
+  --     -- table.insert(opts.mapping, { ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) })
+  --     opts.mapping = cmp.mapping.preset.insert({
+  --       -- add C-j, C-k, tab, S-tab
+  --       ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+  --       ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+  --       ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+  --       ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+  --       -- NOTE: rest below is lazyvim default mapping, see https://github.com/LazyVim/LazyVim/blob/68ff818a5bb7549f90b05e412b76fe448f605ffb/lua/lazyvim/plugins/coding.lua#L57
+  --       ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+  --       ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+  --       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+  --       ["<C-f>"] = cmp.mapping.scroll_docs(4),
+  --       ["<C-Space>"] = cmp.mapping.complete(),
+  --       ["<C-e>"] = cmp.mapping.abort(),
+  --       ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  --       ["<S-CR>"] = cmp.mapping.confirm({
+  --         behavior = cmp.ConfirmBehavior.Replace,
+  --         select = true,
+  --       }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  --       ["<C-CR>"] = function(fallback)
+  --         cmp.abort()
+  --         fallback()
+  --       end,
+  --     })
+  --     opts.window = {
+  --       completion = cmp.config.window.bordered(win_opt),
+  --       documentation = cmp.config.window.bordered(win_opt),
+  --     }
+  --   end,
+  -- },
   {
-    "hrsh7th/nvim-cmp",
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      -- add a border to nvim-cmp
-      local win_opt = {
-        col_offset = 0,
-        side_padding = 1,
-        -- not needed:
-        -- winhighlight = "Normal:PopMenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-      }
-
-      -- BUG: table.insert doesn't work, so for now I have to overrride entire opts.mappings
-      -- table.insert(opts.mapping, { ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) })
-      -- table.insert(opts.mapping, { ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) })
-      opts.mapping = cmp.mapping.preset.insert({
-        -- add C-j, C-k, tab, S-tab
-        ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        -- NOTE: rest below is lazyvim default mapping, see https://github.com/LazyVim/LazyVim/blob/68ff818a5bb7549f90b05e412b76fe448f605ffb/lua/lazyvim/plugins/coding.lua#L57
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<S-CR>"] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
-        }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<C-CR>"] = function(fallback)
-          cmp.abort()
-          fallback()
+    "yarospace/lua-console.nvim",
+    lazy = true,
+    keys = {
+      {
+        "<leader>cb",
+        function()
+          require("lua-console").toggle_console()
         end,
-      })
-      opts.window = {
-        completion = cmp.config.window.bordered(win_opt),
-        documentation = cmp.config.window.bordered(win_opt),
-      }
-    end,
+        desc = "Lua Console",
+      },
+    },
+    opts = {},
   },
 }
 

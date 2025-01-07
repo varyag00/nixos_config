@@ -10,6 +10,7 @@
     (with pkgs; [
       python312
       python312Packages.pip
+      python312Packages.debugpy
       # NOTE: don't install poetry system-wide, it's more stable in a devshell
     ])
     ++ (with pkgs-unstable; [

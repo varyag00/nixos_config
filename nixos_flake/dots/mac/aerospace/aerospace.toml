@@ -3,7 +3,7 @@
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
-# SECTION: sketchybar and jankyborders
+# SECTION: sketchybar & jankyborders
 #
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
@@ -20,7 +20,7 @@ after-startup-command = [
 
 exec-on-workspace-change = []
 
-# END_SECTION: sketchybar
+# END_SECTION: sketchybar & jankyborders
 
 # Start AeroSpace at login
 start-at-login = true
@@ -240,6 +240,17 @@ alt-shift-l = ['join-with right', 'mode main']
 # to prevent automatically moving new windows on certain workspaces, 
 # don't evaluate callback rules when working on numbered workspaces for numbered workspaces > 1 
 # (because 1 is the default workspace)
+
+# float finder
+[[on-window-detected]]
+if.app-name-regex-substring = 'finder'
+run = 'layout floating'
+
+# float finder
+[[on-window-detected]]
+if.app-name-regex-substring = 'stretchly'
+run = 'layout floating'
+
 # FIXME: 1 is the default workspace on startup so tiling is a little awkward on startup (i think)
 [[on-window-detected]]
 if.workspace = '2'
@@ -269,12 +280,12 @@ if.app-name-regex-substring = 'Youtube Music'
 run = "move-node-to-workspace M"
 
 # Browser
-[[on-window-detected]]
-if.app-id = 'com.microsoft.edgemac'
-run = "move-node-to-workspace B"
-[[on-window-detected]]
-if.app-id = 'com.brave.Browser'
-run = "move-node-to-workspace B"
+# [[on-window-detected]]
+# if.app-id = 'com.microsoft.edgemac'
+# run = "move-node-to-workspace B"
+# [[on-window-detected]]
+# if.app-id = 'com.brave.Browser'
+# run = "move-node-to-workspace B"
 
 # Code (WezTerm)
 [[on-window-detected]]

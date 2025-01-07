@@ -5,6 +5,39 @@
 --  - remove neo-tree buffers
 --  - remove neoo-tree git status
 local M = {
+  -- treesitter-based navigation
+  -- BUG: breaks nvim-cmp (and blink.nvim) prev/next... https://github.com/aaronik/treewalker.nvim/issues/3
+  {
+    "aaronik/treewalker.nvim",
+    opts = {
+      highlight = false,
+    },
+    keys = {
+      { "<Up>", ":Treewalker Up<cr>", noremap = true },
+      { "<Down>", ":Treewalker Down<cr>", noremap = true },
+      { "<Left>", ":Treewalker Left<cr>", noremap = true },
+      { "<Right>", ":Treewalker Right<cr>", noremap = true },
+    },
+  },
+  -- -- seems nice, but requires a bit of setup to be useful
+  -- {
+  --   "OXY2DEV/foldtext.nvim",
+  --   lazy = false,
+  --   -- enabled = false,
+  -- },
+  -- Smooth cursor movement.
+  -- {
+  --   "sphamba/smear-cursor.nvim",
+  --   opts = {},
+  -- },
+  -- Smooth scrolling.
+  -- {
+  --   "karb94/neoscroll.nvim",
+  --   config = function()
+  --     require("neoscroll").setup({})
+  --   end,
+  -- },
+  --
   -- TODO: deep dive into oil.nvim; for now it's just annoying on startup
   -- {
   --   'stevearc/oil.nvim',

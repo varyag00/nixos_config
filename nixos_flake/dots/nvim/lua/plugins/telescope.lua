@@ -1,3 +1,4 @@
+-- TODO: if possible, transition plugins to fzf-lua
 local M = {
   {
     "telescope.nvim",
@@ -7,6 +8,8 @@ local M = {
           -- show filename first, with path after ()
           path_display = {
             filename_first = {
+              -- looks a bit strange, but it works:
+              -- filename | dir/to/path/some/dan/~
               reverse_directories = true,
             },
           },

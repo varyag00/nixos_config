@@ -31,4 +31,5 @@
   man-nix = "man 5 configuration.nix";
   # NOTE: nix-darwin replaces this when installed
   man-nix-hm = "man 5 home-configuration.nix";
+  ff = "aerospace list-windows --all | fzf --bind 'enter:execute(bash -c \"aerospace focus --window-id {1}\")+abort'";
 }

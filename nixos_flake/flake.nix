@@ -4,11 +4,11 @@
 
   inputs = {
     # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # lock nixpkgs-unstable to commit
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/f85a2d005e83542784a755ca8da112f4f65c4aa4"; # 2024/10/07
+    # lock nixpkgs-unstable to commit for my own sanity
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/3566ab7246670a43abd2ffa913cc62dad9cdf7d5"; # 2024/12/18
     # Use this input to allow me to only tick hc tools, since they take forever to build
     nixpkgs-hashicorp.url = "github:nixos/nixpkgs/f85a2d005e83542784a755ca8da112f4f65c4aa4"; # 2024/10/07
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05"; # TODO: update to 24.11
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
     darwin = {
       url = "github:lnl7/nix-darwin";
@@ -196,6 +196,7 @@
         else
           { };
 
+      # TODO: look upto omerx's dots flake for separate hm config for darwin
       darwinConfigurations =
         if flakeVars.system.isDarwin then
           {

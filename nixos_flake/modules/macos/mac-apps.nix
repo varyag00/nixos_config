@@ -69,6 +69,7 @@
       "aria2" # download tool
       "httpie" # http client
 
+      "ffmpeg" # video processing
       "pngpaste" # paste images from clipboard to md docs
       "ollama"
       "screenresolution" # programmatically set screen resolution
@@ -93,12 +94,15 @@
         "karabiner-elements"
 
         "maccy" # clipboard manager
+        "stretchly" # break reminder, might require running "sudo xattr -r -d com.apple.quarantine /Applications/Stretchly.app"
+
         # TODO: add raycast plugins and settings to config flake
         "raycast" # (HotKey: alt/option + space)search, caculate and run scripts(with many plugins)
 
         "bitwarden" # NOTE: brew package doesn't support touchID
 
-        # "deskpad" # screensharing
+        # "deskpad" # screensharing sub-monitor
+        "obs" # open broadcasting software
 
         # Development
         #"insomnia" # REST client

@@ -27,7 +27,7 @@
     pkgs-unstable.shfmt
     # yaml
     pkgs.yaml-language-server
-    #json
+    # json
     pkgs.vscode-langservers-extracted
     # toml
     pkgs.taplo
@@ -36,6 +36,8 @@
     # tf
     pkgs.terraform-ls
     pkgs.tflint
+    # helm - active development
+    pkgs-unstable.helm-ls
 
     # NOTE: bigger lsp configs:
     # - ../lang/go

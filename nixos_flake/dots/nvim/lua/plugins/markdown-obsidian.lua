@@ -123,6 +123,10 @@ local M = {
       },
     },
     opts = {
+      completion = {
+        nvim_cmp = false,
+        min_chars = 2,
+      },
       new_notes_location = "current_dir",
       preferred_link_style = "wiki", -- or "markdown"
       wiki_link_func = "prepend_note_path",
