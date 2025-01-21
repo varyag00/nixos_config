@@ -100,6 +100,7 @@ local M = {
     },
   },
   -- it ain't elisp, but it's something. fennel seems interesting (compile lisp to lua): https://fennel-lang.org
+  -- NOTE: migrated to lua-console
   -- {
   --   "rafcamlet/nvim-luapad",
   --   keys = {
@@ -211,7 +212,16 @@ local M = {
         desc = "Lua Console",
       },
     },
-    opts = {},
+    opts = {
+      external_evaluators = {
+        python = {
+          cmd = { "python3", "-c" },
+          env = { PYTHONPATH = "~/projects" },
+          timeout = 100000,
+          -- formatter = function(result) do_something; return result end,
+        },
+      },
+    },
   },
 }
 

@@ -74,8 +74,10 @@ local spec = {
   -- live preview for rename
   { import = "lazyvim.plugins.extras.editor.inc-rename" },
   -- FIXME: use fzf-lua (new default picker) instead of telescope, but watch out for bugs
-  { import = "lazyvim.plugins.extras.editor.fzf" },
+  -- { import = "lazyvim.plugins.extras.editor.fzf" }, -- uncomment
   -- { import = "lazyvim.plugins.extras.editor.telescope" },
+  --
+  { import = "lazyvim.plugins.extras.editor.snacks_picker" }, --delete
 
   -- interesting refactoring
   { import = "lazyvim.plugins.extras.editor.refactoring" },

@@ -26,20 +26,7 @@ local M = {
       }
     end,
   },
-  {
-    "jvgrootveld/telescope-zoxide",
-    keys = {
-      {
-        "<leader>fz",
-        ":Telescope zoxide list<CR>",
-        noremap = true,
-        desc = "Zoxide Change Directory",
-      },
-    },
-    config = function()
-      require("telescope").load_extension("zoxide")
-    end,
-  },
+  -- TODO: check if snacks has an env var module
   {
     "LinArcX/telescope-env.nvim",
     keys = {

@@ -251,11 +251,16 @@ function profiles.apply_linux_config(config)
 	config.set_environment_variables = {}
 end
 
+function profiles.apply_generic_config(config)
+	config.enable_kitty_keyboard = true
+end
+
 if os.getenv("OS") == "Windows_NT" then
 	profiles.apply_windows_config(config)
 -- TODO: conditions for Darwin and Linux
 else
 	profiles.apply_linux_config(config)
+	profiles.apply_generic_config(config)
 end
 
 return config

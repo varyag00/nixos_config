@@ -29,95 +29,96 @@ local M = {
     keys = {
       -- Add these only if filetype is md (ft = "markdown")
       {
-        "<localleader>o",
-        "",
-        desc = "+Obsidian",
-        ft = "markdown",
-      },
-      {
-        "<localleader>o/",
+        "<localleader>/",
         "<cmd>ObsidianSearch<cr>",
         desc = "Obsidian Grep (Vault)",
         ft = "markdown",
       },
       {
-        "<localleader>o.",
+        "<localleader>.",
         "<cmd>ObsidianQuickSwitch<cr>",
         desc = "Obsidian Find Files",
         ft = "markdown",
       },
       {
-        "<localleader>oO",
+        "<localleader>O",
         "<cmd>ObsidianOpen<cr>",
         desc = "Open Obsidian.md",
         ft = "markdown",
       },
       {
-        "<localleader>oj",
+        "<localleader>j",
         "<cmd>ObsidianDailies<cr>",
         desc = "Open Obsidian Daily Notes",
         ft = "markdown",
       },
       {
-        "<localleader>on",
+        "<localleader>n",
         "<cmd>ObsidianNew<cr>",
         desc = "Create new Obsidian Document",
         ft = "markdown",
       },
       {
-        "<localleader>oN",
+        "<localleader>N",
         "<cmd>ObsidianNewFromTemplate<cr>",
         desc = "Create new Obsidian Document from Template",
         ft = "markdown",
       },
       {
-        "<localleader>op",
+        "<localleader>p",
         "<cmd>ObsidianPasteImg<cr>",
         desc = "Obsidian Paste Image",
         ft = "markdown",
       },
       {
-        "<localleader>or",
+        "<localleader>r",
         "<cmd>ObsidianRename<cr>",
         desc = "Obsidian Rename current note",
         ft = "markdown",
       },
       {
-        "<localleader>oR",
+        "<localleader>R",
         "<cmd>ObsidianLinks<cr>",
         desc = "See Obsidian Links",
         ft = "markdown",
       },
       {
-        "<localleader>ot",
+        "<localleader>t",
         "<cmd>ObsidianTemplate<cr>",
         desc = "Insert Obsidian Template into file",
         ft = "markdown",
       },
       {
-        "<localleader>oT",
+        "<localleader>T",
         "<cmd>ObsidianTags<cr>",
         desc = "Search Obsidian Tags",
         ft = "markdown",
       },
       {
-        "<localleader>o#",
+        "<localleader>#",
         "<cmd>ObsidianTags<cr>",
         desc = "Search Obsidian Tags",
         ft = "markdown",
       },
       -- visual maps
       {
-        "<localleader>ol",
+        "<localleader>i",
         "<cmd>ObsidianLink<cr>",
-        mode = { "n", "v" },
+        mode = { "v" },
         desc = "Obsidian Link",
         ft = "markdown",
       },
       {
-        "<localleader>oL",
+        "<localleader>l",
+        "<cmd>ObsidianLink<cr>",
+        mode = { "v" },
+        desc = "Obsidian Link",
+        ft = "markdown",
+      },
+      {
+        "<localleader>L",
         "<cmd>ObsidianLinkNew<cr>",
-        mode = { "n", "v" },
+        mode = { "v" },
         desc = "Obsidian Link (New Note)",
         ft = "markdown",
       },
@@ -276,7 +277,44 @@ local M = {
         },
       },
     },
+    -- FIXME: this is a workaround for missing blink.nvim completion
+    -- > see: https://github.com/epwalsh/obsidian.nvim/issues/770
+    -- > see: below for new required blink.cmp sources
+    config = function(_, opts)
+      require("obsidian").setup(opts)
+
+      -- HACK: fix error, disable completion.nvim_cmp option, manually register sources for blink.cmp below
+      local cmp = require("cmp")
+      cmp.register_source("obsidian", require("cmp_obsidian").new())
+      cmp.register_source("obsidian_new", require("cmp_obsidian_new").new())
+      cmp.register_source("obsidian_tags", require("cmp_obsidian_tags").new())
+    end,
   },
+  -- workaround for the same issue https://github.com/epwalsh/obsidian.nvim/issues/770#issuecomment-2557300925
+  {
+    "saghen/blink.cmp",
+    dependencies = { "saghen/blink.compat" },
+    opts = {
+      sources = {
+        default = { "obsidian", "obsidian_new", "obsidian_tags" },
+        providers = {
+          obsidian = {
+            name = "obsidian",
+            module = "blink.compat.source",
+          },
+          obsidian_new = {
+            name = "obsidian_new",
+            module = "blink.compat.source",
+          },
+          obsidian_tags = {
+            name = "obsidian_tags",
+            module = "blink.compat.source",
+          },
+        },
+      },
+    },
+  },
+
   -- END_SECTION: obsidian.nvim
   -- SECTION: markview.nvim
   {
@@ -382,7 +420,13 @@ local M = {
     --   })
     -- end,
     keys = {
-      { "n", "<leader>um", ":MarkviewToggle<CR>", desc = "Render Markdown", ft = { "markdown", "norg", "rmd", "org" } },
+      {
+        mode = "n",
+        "<leader>um",
+        ":Markview toggle<CR>",
+        desc = "Render Markdown",
+        ft = { "markdown", "norg", "rmd", "org" },
+      },
     },
   },
   -- END_SECTION: markview.nvim

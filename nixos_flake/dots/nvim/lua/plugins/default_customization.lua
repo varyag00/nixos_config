@@ -6,7 +6,9 @@ M = {
     "folke/snacks.nvim",
     opts = {
       indent = {
-        enabled = false,
+        enabled = true,
+        only_scope = true,
+        only_current = true,
       },
       -- BUG: breaks G and gg
       scroll = {
@@ -20,8 +22,50 @@ M = {
           return vim.g.snacks_scroll ~= false and vim.b[buf].snacks_scroll ~= false
         end,
       },
+      picker = {
+        win = {
+          input = {
+            keys = {
+              -- default C-up and C-down conflict with macos defaults
+              ["<C-p>"] = { "history_back", mode = { "i", "n" } },
+              ["<C-n>"] = { "history_forward", mode = { "i", "n" } },
+            },
+          },
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>fz",
+        function()
+          Snacks.picker.zoxide()
+        end,
+        desc = "Zoxide Files",
+      },
     },
   },
+
+  -- -- TODO: remove if using snacks picker
+  -- -- Add history to fzf-lua prompts; cycle through history with C-n & C-p
+  -- {
+  --   "ibhagwan/fzf-lua",
+  --   opts = {
+  --     -- NOTE: cycle history with C-n|p
+  --     -- fzf_opts = {
+  --     --   ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-history",
+  --     -- },
+  --     files = {
+  --       fzf_opts = {
+  --         ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-files-history",
+  --       },
+  --     },
+  --     grep = {
+  --       fzf_opts = {
+  --         ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-grep-history",
+  --       },
+  --     },
+  --   },
+  -- },
   {
     "saghen/blink.cmp",
     lazy = false, -- lazy loading handled internally
