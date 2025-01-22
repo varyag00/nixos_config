@@ -10,7 +10,6 @@ M = {
         only_scope = true,
         only_current = true,
       },
-      -- BUG: breaks G and gg
       scroll = {
         enabled = true,
         animate = {

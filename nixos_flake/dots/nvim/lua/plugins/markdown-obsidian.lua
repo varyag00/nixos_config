@@ -8,6 +8,7 @@
 
 -- -- temporarily disable
 -- if true then return {} end
+--
 
 local M = {
   -- SECTION: obsidian.nvim
@@ -360,15 +361,30 @@ local M = {
       --  },
       checkboxes = {
         enable = true,
-        checked = { text = "", hl = "MarkviewCheckboxChecked" },
-        unchecked = { text = "☐", hl = "MarkviewListItemStar" }, -- blue instead of red
-        -- BUG: using "pending" as "canceled" since pending matches [-] even when disabled
-        -- pending = {},
-        pending = { text = "󰜺", hl = "MarkviewCheckboxUnchecked" }, -- uses [-];
+        -- checked = { text = "> ", hl = "MarkviewCheckboxChecked" },
+        -- unchecked = { text = "> ☐", hl = "MarkviewListItemStar" }, -- blue instead of red
+        -- custom = {
+        --   { match = "-", text = "> 󰜺", hl = "MarkviewCheckboxUnchecked" }, -- uses [-]; }
+        --   { match = "/", text = "> 󰥔", hl = "MarkviewCheckboxPending" }, -- pending [/]
+        -- },
+        -- Options: https://www.nerdfonts.com/cheat-sheet
+        -- Ideas:
+        -- 󰄾 task
+        -- 󰅂 task
+        --  task
+        -- > task
+        --  task
+        -- 󰧚 task
+        -- 󰇘 task
+        -- 󰛂 task
+        --  task
+        --  task
+        --  task
+        checked = { text = "- ", hl = "MarkviewCheckboxChecked" },
+        unchecked = { text = "- ", hl = "MarkviewListItemStar" }, -- blue instead of red
         custom = {
-          -- See above BUG
-          -- { match = "-", text = "󰜺", hl = "MarkviewCheckboxUnchecked" }, -- canceled [-]
-          { match = "/", text = "󰥔", hl = "MarkviewCheckboxPending" }, -- pending [/]
+          { match = "-", text = "- ", hl = "MarkviewCheckboxUnchecked" }, -- uses [-]; }
+          { match = "/", text = "- 󰪡", hl = "MarkviewCheckboxPending" }, -- pending [/]
         },
       },
       list_items = {
@@ -457,7 +473,22 @@ local M = {
           --  same goes for directly adding the .markdownlint-cli2.yaml file to a markdown project dir.
           --  perhaps try markdownlint-cli and configure from CLI instead (the original)
           -- NOTE: file MUST be named ".markdownlint-cli2.yaml" (or the json equivalent)
+          -- args = { "--config", os.getenv("HOME") .. "/.config/lsp/config.markdownlint-cli2.yaml", "--" },
           args = { "--config", os.getenv("HOME") .. "/.config/lsp/config.markdownlint-cli2.yaml", "--" },
+          markdownlint = {
+            args = {
+              -- TODO: extract configuration to file
+              "--disable",
+              "MD004", -- ul-style
+              "--disable",
+              "MD012", -- no-multiple-blanks
+              "--disable",
+              "MD013", -- line-length
+              "--disable",
+              "MD032", -- blanks-around-lists
+              "--",
+            },
+          },
         },
       },
     },
@@ -467,15 +498,6 @@ local M = {
     optional = true,
     opts = {
       formatters = {
-        ["markdown-toc"] = {
-          condition = function(_, ctx)
-            for _, line in ipairs(vim.api.nvim_buf_get_lines(ctx.buf, 0, -1, false)) do
-              if line:find("<!%-%- toc %-%->") then
-                return true
-              end
-            end
-          end,
-        },
         ["markdownlint-cli2"] = {
           condition = function(_, ctx)
             local diag = vim.tbl_filter(function(d)
@@ -484,10 +506,27 @@ local M = {
             return #diag > 0
           end,
         },
+        markdownlint = {
+          -- TODO: extract configuration to file
+          args = {
+            "--disable",
+            "MD004", -- ul-style
+            "--disable",
+            "MD012", -- no-multiple-blanks
+            "--disable",
+            "MD013", -- line-length
+            "--disable",
+            "MD032", -- blanks-around-lists
+            -- "--", -- for stdin = true
+            "--fix", -- format
+            "$FILENAME",
+          },
+          stdin = false,
+        },
       },
       formatters_by_ft = {
-        ["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
-        ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
+        ["markdown"] = { "markdownlint" },
+        ["markdown.mdx"] = { "prettier", "markdownlint-cli2" },
       },
     },
   },

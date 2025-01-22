@@ -8,6 +8,8 @@
 {
   home.packages = [
     pkgs.marksman
+    # both mdlint-cli are required
+    pkgs.markdownlint-cli # add markdownlint bin
     pkgs.markdownlint-cli2
   ];
 
