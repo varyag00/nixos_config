@@ -113,6 +113,9 @@
         # browser for the martian (n)vimer
         "qutebrowser"
         "brave-browser"
+        "zen-browser"
+
+        "ghostty"
 
         "desktoppr" # set wallpaper programmatically
 
