@@ -1,0 +1,15 @@
+-- FIXME: don't get imported properly
+-- -- collection of useful macros
+--
+-- -- markdown macros
+-- require("which-key").add({
+--   "<leader>@m",
+--   "",
+--   icon = { icon = "󰍔", color = "purple" },
+--   desc = "+markdown",
+--   group = "markdown",
+--   mode = { "n", "v" },
+-- })
+--
+-- -- vim.keymap.set({ "v" }, "<leader>@mbv", "viwc****hP", { desc = "bold visual selection" })
+-- vim.keymap.set({ "v" }, "<leader>mbv", "viwc****hP", { desc = "bold visual selection" })

@@ -1,0 +1,8 @@
+#theme = dark:catppuccin-macchiato,light:catppuccin-latte
+theme = catppuccin-macchiato
+font-family = SauceCodePro Nerd Font
+font-size = 13
+
+keybind = global:ctrl+shift+grave_accent=toggle_quick_terminal
+
+

@@ -480,8 +480,8 @@ local M = {
               -- TODO: extract configuration to file
               "--disable",
               "MD004", -- ul-style
-              "--disable",
-              "MD012", -- no-multiple-blanks
+              -- "--disable",
+              -- "MD012", -- no-multiple-blanks
               "--disable",
               "MD013", -- line-length
               "--disable",
@@ -511,8 +511,8 @@ local M = {
           args = {
             "--disable",
             "MD004", -- ul-style
-            "--disable",
-            "MD012", -- no-multiple-blanks
+            -- "--disable",
+            -- "MD012", -- no-multiple-blanks
             "--disable",
             "MD013", -- line-length
             "--disable",
