@@ -5,7 +5,7 @@
   inputs = {
     # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # lock nixpkgs-unstable to commit for my own sanity
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/3566ab7246670a43abd2ffa913cc62dad9cdf7d5"; # 2024/12/18
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/0aa475546ed21629c4f5bbf90e38c846a99ec9e9"; # 2025/01/24
     # Use this input to allow me to only tick hc tools, since they take forever to build
     nixpkgs-hashicorp.url = "github:nixos/nixpkgs/f85a2d005e83542784a755ca8da112f4f65c4aa4"; # 2024/10/07
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11"; # TODO: update to 24.11
@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
