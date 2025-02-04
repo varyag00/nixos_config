@@ -36,7 +36,14 @@ if vim.g.neovide then
   vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
   vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
   vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
+  -- FIXME: doesn't work
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
+
+  -- Still use A-t for terminal
+  -- FIXME: doesn't work
+  vim.keymap.set("n", "<A-t>", function()
+    Snacks.terminal(nil)
+  end)
 
   -- resize keybindings
   vim.g.neovide_scale_factor = 1.0

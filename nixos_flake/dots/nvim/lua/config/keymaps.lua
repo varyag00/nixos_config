@@ -15,6 +15,7 @@ vim.keymap.set("n", "<leader>bc", "<leader>bd", { desc = "Delete buffer", remap 
 -- NOTE: prefer the default <leader>fb
 vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Show Buffers" })
 
+-- FIXME: broken? Or were these commands just removed?
 vim.keymap.set("n", "<A-h>", "<cmd>BufferLineCyclePrev<cr>")
 vim.keymap.set("n", "<A-l>", "<cmd>BufferLineCycleNext<cr>")
 -- remove annoying move line on alt-j/k

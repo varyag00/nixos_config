@@ -162,11 +162,12 @@ M = {
       highlight = {
         -- default is multiline_pattern = "^.",
         -- NOTE: match all comment lines starting with " >" followed by text
-        multiline_pattern = "^>.",
+        multiline_pattern = "^[>|].",
         -- TODO: test
         -- more test
         -- TODO: test
         -- > fsdfds
+        -- | fsdfds
         -- TODO: test
         --> fsdfds
         -- TODO: test

@@ -1,7 +1,9 @@
 -- NOTE: markdown-oxide based markdown workflow, as opposed to obsidian.nvim
 
 -- temporarily disable
-if true then return {} end
+if true then
+  return {}
+end
 
 local M = {
 
@@ -11,16 +13,16 @@ local M = {
     ft = { "markdown", "norg", "rmd", "org" }, -- If you decide to lazy-load anyway
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons"
+      "nvim-tree/nvim-web-devicons",
     },
     opts = {
       modes = { "n", "i", "no", "c" }, -- Change these modes to what you need
-      hybrid_modes = { "n", "i" },     -- Uses this feature on
+      hybrid_modes = { "n", "i" }, -- Uses this feature on
       callbacks = {
         on_enable = function(_, win)
-          vim.wo[win].conceallevel = 2;
-          vim.wo[win].concealcursor = "nc";
-        end
+          vim.wo[win].conceallevel = 2
+          vim.wo[win].concealcursor = "nc"
+        end,
       },
 
       checkboxes = { enable = true },
@@ -62,7 +64,7 @@ local M = {
         heading_5 = { style = "simple", hl = "Headline5" },
         heading_6 = { style = "simple", hl = "Headline6" },
       },
-    }
+    },
   },
   {
     "mfussenegger/nvim-lint",
@@ -113,7 +115,6 @@ local M = {
   --   },
   -- },
 
-
   {
     "Feel-ix-343/markdown-oxide",
     -- config = function()
@@ -146,8 +147,6 @@ local M = {
     --   { "n", "<leader>mo", ":MarkdownOxide<CR>", desc = "MarkdownOxide" },
     -- },
   },
-
-
 }
 
 return M

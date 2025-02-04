@@ -8,7 +8,8 @@
 
 -- -- temporarily disable
 -- if true then return {} end
---
+
+-- local preset = require("markview.presets")
 
 local M = {
   -- SECTION: obsidian.nvim
@@ -265,7 +266,6 @@ local M = {
           },
         },
       },
-      -- TODO: try using obsidian's rendering but keeping markdown.nvim for something?
       ui = {
         enable = false,
         -- enable = true,
@@ -315,137 +315,7 @@ local M = {
       },
     },
   },
-
   -- END_SECTION: obsidian.nvim
-  -- SECTION: markview.nvim
-  {
-    "OXY2DEV/markview.nvim",
-    -- lazy = false, -- Recommended
-    ft = { "markdown", "norg", "rmd", "org" }, -- If you decide to lazy-load anyway
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
-    opts = {
-      -- hybrid mode: normal and insert
-      -- modes = { "n", "i", "no", "c" }, -- Change these modes to what you need
-      -- hybrid_modes = { "n", "i" },     -- Uses this feature on
-      -- callbacks = {
-      --   on_enable = function(_, win)
-      --     vim.wo[win].conceallevel = 2;
-      --     vim.wo[win].concealcursor = "nc";
-      --   end
-      -- },
-      -- hybrd mode: normal only
-      modes = { "n", "no", "c" }, -- Change these modes
-      hybrid_modes = { "n" }, -- Uses this feature on
-      callbacks = {
-        on_enable = function(_, win)
-          vim.wo[win].conceallevel = 2
-          vim.wo[win].concealcursor = "c"
-        end,
-      },
-      -- links = {
-      --   -- inline_links = {
-      --   hyperlinks = {
-      --     hl = "@markup.link.label.markdown_inline", -- markown?
-      --     icon = " ",
-      --     icon_hl = "@markup.link",
-      --   },
-      --   images = {
-      --     hl = "@markup.link.label.markdown_inline",
-      --     icon = " ",
-      --     icon_hl = "@markup.link",
-      --   },
-      --   },
-      --  },
-      checkboxes = {
-        enable = true,
-        -- checked = { text = "> ", hl = "MarkviewCheckboxChecked" },
-        -- unchecked = { text = "> ☐", hl = "MarkviewListItemStar" }, -- blue instead of red
-        -- custom = {
-        --   { match = "-", text = "> 󰜺", hl = "MarkviewCheckboxUnchecked" }, -- uses [-]; }
-        --   { match = "/", text = "> 󰥔", hl = "MarkviewCheckboxPending" }, -- pending [/]
-        -- },
-        -- Options: https://www.nerdfonts.com/cheat-sheet
-        -- Ideas:
-        -- 󰄾 task
-        -- 󰅂 task
-        --  task
-        -- > task
-        --  task
-        -- 󰧚 task
-        -- 󰇘 task
-        -- 󰛂 task
-        --  task
-        --  task
-        --  task
-        checked = { text = "- ", hl = "MarkviewCheckboxChecked" },
-        unchecked = { text = "- ", hl = "MarkviewListItemStar" }, -- blue instead of red
-        custom = {
-          { match = "-", text = "- ", hl = "MarkviewCheckboxUnchecked" }, -- uses [-]; }
-          { match = "/", text = "- 󰪡", hl = "MarkviewCheckboxPending" }, -- pending [/]
-        },
-      },
-      list_items = {
-        enable = true,
-        -- colours from folke's dots
-        marker_minus = { add_padding = false, text = "●", hl = "@markup.list.markdown" },
-        marker_plus = { add_padding = false, text = "○", hl = "@markup.list.markdown" },
-        marker_star = { add_padding = false, text = "◆", hl = "@markup.list.markdown" },
-        --  numbered list, so no text replacement
-        marker_dot = { add_padding = false, hl = "@markup.list.markdown" },
-      },
-      code_blocks = {
-        -- style = "language", -- wrapping issues
-        -- min_width = 0,
-        -- pad_amount = 0,
-        -- style = "minimal", -- wrapping issues
-        style = "simple",
-        hl = "CodeBlock", -- "dark"
-        -- hl = "CursorLine", -- "bright"
-      },
-      inline_codes = { enable = true },
-      headings = {
-        enable = true,
-        shift_width = 1,
-        shift_char = " ",
-        heading_1 = { icon = "🔗 ", style = "icon", hl = "Headline1" },
-        heading_2 = { icon = "🔗 ", style = "icon", hl = "Headline2" },
-        heading_3 = { icon = "🔗 ", style = "icon", hl = "Headline3" },
-        heading_4 = { icon = "🔗 ", style = "icon", hl = "Headline4" },
-        heading_5 = { icon = "🔗 ", style = "icon", hl = "Headline5" },
-        heading_6 = { icon = "🔗 ", style = "icon", hl = "Headline6" },
-      },
-    },
-    -- config = function(_, opts)
-    --   require("markview").setup(opts)
-    --   LazyVim.toggle.map("<leader>um", {
-    --     name = "Render Markdown",
-    --     get = function()
-    --       return require("render-markdown.state").enabled
-    --     end,
-    --     set = function(enabled)
-    --       local m = require("render-markdown")
-    --       if enabled then
-    --         m.enable()
-    --       else
-    --         m.disable()
-    --       end
-    --     end,
-    --   })
-    -- end,
-    keys = {
-      {
-        mode = "n",
-        "<leader>um",
-        ":Markview toggle<CR>",
-        desc = "Render Markdown",
-        ft = { "markdown", "norg", "rmd", "org" },
-      },
-    },
-  },
-  -- END_SECTION: markview.nvim
   {
     "neovim/nvim-lspconfig",
     opts = {
