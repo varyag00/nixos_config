@@ -50,7 +50,7 @@
 
     # TODO: remove nodejs deps once i switch off mason
     # nodejs_21
-    nodejs
+    nodejs_22
     cargo # rust package manager
   ];
 }

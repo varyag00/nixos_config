@@ -104,6 +104,8 @@
         # "deskpad" # screensharing sub-monitor
         "obs" # open broadcasting software
 
+        "obsidian" # NOTE: non-work use
+
         # Development
         #"insomnia" # REST client
         #"wireshark" # network analyzer
