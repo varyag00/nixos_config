@@ -89,7 +89,9 @@ end
 
 local function font_and_rules_scp()
 	config.font = font_with_fallback({ family = "SauceCodePro Nerd Font Mono" })
-	config.font_size = 13
+	config.font_size = 14
+	-- config.font_size = 13.7
+	-- config.font_size = 13
 	-- config.font_rules = {}
 end
 
@@ -253,6 +255,8 @@ end
 
 function profiles.apply_generic_config(config)
 	config.enable_kitty_keyboard = true
+	-- remove title bar but keep resize options
+	config.window_decorations = "RESIZE"
 end
 
 if os.getenv("OS") == "Windows_NT" then
