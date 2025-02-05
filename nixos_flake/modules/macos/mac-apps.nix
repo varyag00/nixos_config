@@ -82,13 +82,16 @@
       # from FelixKratz/formulae tap; useful for aerospace
       # NOTE: run on startup using `brew services start {name}`
       "borders" # adds a border to the active window
+
+      # bluetooth utility
+      "blueutil"
     ];
 
     # `brew install --cask`
     casks =
       [
         # NOTE: corresponding dots are in shell/mac_dots.nix
-        # the intention is to migrate everything to being managed by home-manager 
+        # the intention is to migrate everything to being managed by home-manager
 
         "devtoys"
         "karabiner-elements"

@@ -17,8 +17,15 @@ if flakeVars.system.isDarwin then
       rm -rf $HOME/.config/borders
       ln -sf ${flakeVars.FLAKE_DOTS}/mac/borders $HOME/.config/borders
     '';
-    # TODO: see if this alias works well
     programs.zsh.shellAliases.ff = "aerospace list-windows --all | fzf --bind 'enter:execute(bash -c \"aerospace focus --window-id {1}\")+abort'";
+
+    # crontabs
+    home.activation.crontabs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      rm -rf $HOME/.config/crontab
+      ln -sf ${flakeVars.FLAKE_DOTS}/mac/crontab $HOME/.config/crontab
+    '';
+    # TODO: determine how to programmatically add these crontabs
+    # | (i.e. not have to interactively run `crontab -e`)
 
     # set wallpaper
     home.activation.setWallpaper = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
