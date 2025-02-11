@@ -7,27 +7,32 @@
   cd = "z";
   cdi = "zi";
   cat = "bat";
+  bman = "batman";
   man = "batman";
   ping = "gping";
   dig = "doggo";
   top = "btop";
 
-  tf = "terraform";
   lgit = "lazygit";
   ldoc = "lazydocker";
   lsql = "lazysql";
+  ldb = "lazysql";
+
   glg = "git lg";
+  "git lg" = "git lg";
   gst = "git status";
+  "git st" = "git status";
   gco = "git checkout";
+  "git co" = "git checkout";
+
   ghc = "gh copilot";
   "git open" = "gh browse";
 
-  db = "devbox";
-  dbs = "devbox shell";
-  dbr = "devbox run";
+  dv = "devbox";
+  dvs = "devbox shell";
+  dvr = "devbox run";
 
   # nix manual aliases
-
   man-nix = "man 5 configuration.nix";
   # NOTE: nix-darwin replaces this when installed
   man-nix-hm = "man 5 home-configuration.nix";

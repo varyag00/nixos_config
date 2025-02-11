@@ -1,11 +1,4 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
--- if not vim.loop.fs_stat(lazypath) then
---   -- bootstrap lazy.nvim
---   -- stylua: ignore
---   vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
---     lazypath })
--- end
--- vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
@@ -21,13 +14,11 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- import any lazy extras modules here
 local spec = {
-  -- add LazyVim and import its plugins
-  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-  -- import any extras modules here
   { import = "lazyvim.plugins.extras.dap.core" },
   -- debug nvim's lua
-  -- { import = "lazyvim.plugins.extras.dap.nlua" },
+  { import = "lazyvim.plugins.extras.dap.nlua" },
   { import = "lazyvim.plugins.extras.test.core" },
 
   { import = "lazyvim.plugins.extras.coding.luasnip" },
@@ -38,10 +29,11 @@ local spec = {
 
   -- FIXME: use blink.nvim (new default) for completion, but watch out for bugs
   -- > Bugs observed: obsidian.nvim: https://github.com/epwalsh/obsidian.nvim/issues/793
-  -- >  - triaged in ../plugins/markdown-obsidian.lua
+  -- >  - triaged in ../plugins/obsidian.lua
   -- { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
   { import = "lazyvim.plugins.extras.coding.blink" },
 
+  -- languages
   { import = "lazyvim.plugins.extras.lang.nix" },
   { import = "lazyvim.plugins.extras.lang.go" },
   { import = "lazyvim.plugins.extras.lang.python" },
@@ -49,8 +41,9 @@ local spec = {
   { import = "lazyvim.plugins.extras.lang.yaml" },
   { import = "lazyvim.plugins.extras.lang.toml" },
   { import = "lazyvim.plugins.extras.lang.terraform" },
-  -- NOTE: uncomment when needed
-  -- { import = "lazyvim.plugins.extras.lang.ansible" },
+  { import = "lazyvim.plugins.extras.lang.docker" },
+  { import = "lazyvim.plugins.extras.lang.ansible" },
+  { import = "lazyvim.plugins.extras.lang.cmake" },
   { import = "lazyvim.plugins.extras.lang.helm" },
   { import = "lazyvim.plugins.extras.lang.git" },
   -- nvim-dadbod
@@ -60,31 +53,33 @@ local spec = {
   -- dotfiles support; not an extras.lang but it includes lsp settings
   { import = "lazyvim.plugins.extras.util.dot" },
 
-  -- lsp extensions
   -- global and per-project settings
+  -- TODO: re-evaluate using this; no longer being developed
   { import = "lazyvim.plugins.extras.lsp.neoconf" },
 
   -- ui
   { import = "lazyvim.plugins.extras.ui.mini-indentscope" },
+  { import = "lazyvim.plugins.extras.ui.treesitter-context" },
 
   -- window layout manager
   { import = "lazyvim.plugins.extras.ui.edgy" },
-  -- project manager
-  { import = "lazyvim.plugins.extras.util.project" },
+
+  -- project manager NOTE: use snacks project instead
+  -- { import = "lazyvim.plugins.extras.util.project" },
   -- live preview for rename
   { import = "lazyvim.plugins.extras.editor.inc-rename" },
   -- FIXME: use fzf-lua (new default picker) instead of telescope, but watch out for bugs
-  -- { import = "lazyvim.plugins.extras.editor.fzf" }, -- uncomment
+  -- { import = "lazyvim.plugins.extras.editor.fzf" },
   -- { import = "lazyvim.plugins.extras.editor.telescope" },
-  --
-  { import = "lazyvim.plugins.extras.editor.snacks_picker" }, --delete
+  { import = "lazyvim.plugins.extras.editor.snacks_picker" },
+  { import = "lazyvim.plugins.extras.editor.snacks_explorer" },
 
   -- interesting refactoring
   { import = "lazyvim.plugins.extras.editor.refactoring" },
   -- buffer harpooning
   { import = "lazyvim.plugins.extras.editor.harpoon2" },
   -- symbols outline
-  { import = "lazyvim.plugins.extras.editor.aerial" },
+  -- { import = "lazyvim.plugins.extras.editor.aerial" },
   -- symbols outline
   -- { import = "lazyvim.plugins.extras.editor.outline" },
   -- highlight usage of word under cursor
@@ -97,11 +92,6 @@ local spec = {
   { import = "lazyvim.plugins.extras.util.octo" },
   -- http client
   { import = "lazyvim.plugins.extras.util.rest" },
-
-  -- import/override with your plugins from lua/plugins
-  { import = "plugins" },
-  -- import snippets from lua/snippets
-  { import = "snippets" },
 }
 
 -- SECTION: conditional plugins
@@ -120,10 +110,21 @@ table.insert(spec, { import = "lazyvim.plugins.extras.ai.copilot-chat" })
 -- these cause graphical glitches inside neovide
 if not vim.g.neovide then
   -- fancy animated cursor inside terminal
+  -- TODO: try disabling and using Snacks instead
   table.insert(spec, { import = "lazyvim.plugins.extras.ui.smear-cursor" })
 end
 
 -- END_SECTION: conditional plugins
+
+-- NOTE: process spec to ensure correct formatting:
+-- NOTE: 1st: lazy plugins
+-- NOTE: 2nd: extras
+-- NOTE: 3rd: my plugin configs
+-- first (zero index): lazy and its plugins
+table.insert(spec, 1, { "LazyVim/LazyVim", import = "lazyvim.plugins" })
+-- last: personal plugins and overrrides
+table.insert(spec, { import = "plugins" })
+table.insert(spec, { import = "snippets" })
 
 require("lazy").setup({
   spec = spec,

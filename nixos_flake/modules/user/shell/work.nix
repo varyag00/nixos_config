@@ -18,16 +18,15 @@ if flakeVars.system.isWork then
       (with pkgs; [
         # TODO: may requires API token (disabled on our instance), but check other sign-in methods
         # jira-cli-go
-        # BUG: doesn't get added to PATH and can't be executed
-        _1password # 1password cli, command "op"
+        _1password-cli # 1password cli, command "op"
 
-        vault # takes forever to build; pls keep it pinned
         openshift # os CLI
         nodejs_22 # required for copilot-lua
         ansible
         sshpass
       ])
       ++ (with pkgs-unstable; [
+        # TODO: move over to nvim
         vimPlugins.copilot-lua
         # vimPlugins.CopilotChat-nvim
       ])

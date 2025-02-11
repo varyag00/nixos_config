@@ -1,23 +1,28 @@
--- TODO: migrate markview here; config is too complex to have it in obisidian markdown config
--- local preset = require("markview.presets")
---
--- require("markview").setup({
---   markdown = { headings = preset.glow },
--- })
-
 local M = {
   -- SECTION: markview.nvim
   {
     "OXY2DEV/markview.nvim",
     lazy = false, -- Recommended; everything in this mod is already lazy-loaded
-    ft = { "markdown", "norg", "rmd", "org" }, -- If you decide to lazy-load anyway
+    -- ft = { "markdown", "norg", "rmd", "org" }, -- If you decide to lazy-load anyway
+    ft = { "markdown", "norg", "rmd", "org", "Avante" }, -- If you decide to lazy-load anyway
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
     opts = {
       preview = {
-        -- hybrid mode: normal only
+        filetypes = {
+          "md",
+          "markdown",
+          "norg",
+          "rmd",
+          "org",
+          "vimwiki",
+          "typst",
+          "latex",
+          "Avante",
+        },
+        -- hybrid mode: render markdown in normal mode; don't render in insert
         modes = { "n", "no", "c" }, -- Change these modes
         hybrid_modes = { "n" }, -- Uses this feature on
         callbacks = {
@@ -54,10 +59,12 @@ local M = {
           -- checked = { text = " 󰗠", hl = "MarkviewCheckboxChecked", scope_hl = "MarkviewCheckboxChecked" },
           checked = { text = " ", hl = "MarkviewCheckboxChecked", scope_hl = "MarkviewCheckboxChecked" },
           -- unchecked = { text = " 󰄰", hl = "MarkviewCheckboxUnchecked", scope_hl = "MarkviewCheckboxUnchecked" },
-          unchecked = { text = " ", hl = "MarkviewCheckboxUnchecked", scope_hl = "MarkviewCheckboxUnchecked" },
+          -- unchecked = { text = " ", hl = "MarkviewCheckboxUnchecked", scope_hl = "MarkviewCheckboxUnchecked" },
+          unchecked = { text = " ", hl = "MarkviewCheckboxUnchecked", scope_hl = "" },
           -- ["/"] = { text = " 󰪡", hl = "MarkviewCheckboxPending", scope_hl = "MarkviewCheckboxPending" },
           -- ["/"] = { text = " 󱓻", hl = "MarkviewCheckboxPending", scope_hl = "MarkviewCheckboxPending" },
-          ["/"] = { text = " ", hl = "MarkviewCheckboxPending", scope_hl = "MarkviewCheckboxPending" },
+          -- ["/"] = { text = " ", hl = "MarkviewCheckboxPending", scope_hl = "MarkviewCheckboxPending" },
+          ["/"] = { text = " ", hl = "MarkviewCheckboxPending" },
           -- ["-"] = { text = " ", hl = "MarkviewCheckboxCancelled", scope_hl = "MarkviewCheckboxStriked" },
           ["-"] = { text = " ", hl = "MarkviewCheckboxCancelled", scope_hl = "MarkviewCheckboxStriked" },
         },
@@ -149,21 +156,18 @@ local M = {
         "<leader>um",
         ":Markview toggle<CR>",
         desc = "Render Markdown",
-        ft = { "markdown", "norg", "rmd", "org" },
       },
       {
         mode = "n",
         ">h",
         ":HeadingIncrease<CR>",
         desc = "Increase Heading",
-        ft = { "markdown", "norg", "rmd", "org" },
       },
       {
         mode = "n",
         "<h",
         ":HeadingDecrease<CR>",
         desc = "Decrease Heading",
-        ft = { "markdown", "norg", "rmd", "org" },
       },
     },
   },

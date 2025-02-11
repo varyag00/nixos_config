@@ -27,6 +27,8 @@
     pkgs-unstable.shfmt
     # yaml
     pkgs.yaml-language-server
+    # ansible
+    pkgs.ansible-language-server
     # json
     pkgs.vscode-langservers-extracted
     # toml
@@ -47,7 +49,8 @@
 
   programs.neovim = {
     # Use neovim-unwrapped, see https://stackoverflow.com/a/77460220/1775420
-    package = pkgs-unstable.neovim-unwrapped;
+    # FIXME: test if this updates to nvim 0.11.x
+    # package = pkgs-unstable.neovim-unwrapped;
     # see options https://mynixos.com/home-manager/options/programs.neovim
     enable = true;
     extraPackages = [

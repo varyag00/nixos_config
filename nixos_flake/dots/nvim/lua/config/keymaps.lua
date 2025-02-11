@@ -9,11 +9,24 @@
 --   vim.keymap.set("n", "<leader>bk", require("mini.bufremove").delete, { desc = "Delete buffer" })
 -- end
 
+-- -- FIXME: snacks.explorer should probably go elsewhere...
+-- vim.keymap.set("n", "<leader>e", function()
+--   Snacks.explorer()
+-- end, { desc = "Explorer" })
+-- vim.keymap.set("n", "<leader>E", function()
+--   Snacks.explorer.open()
+-- end, { desc = "Explorer Picker" })
+
+-- snacks vscode-like lsp symbols picker, set in snacks.lua
+-- vim.keymap.set("n", "g.", function()
+--   Snacks.picker.lsp_symbols({ layout = { preset = "vscode", preview = "main" } })
+-- end, { desc = "LSP Symbols" })
+
 -- use remap = true to point (remap) to an existing key mappings
 vim.keymap.set("n", "<leader>bk", "<leader>bd", { desc = "Delete buffer", remap = true })
 vim.keymap.set("n", "<leader>bc", "<leader>bd", { desc = "Delete buffer", remap = true })
 -- NOTE: prefer the default <leader>fb
-vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Show Buffers" })
+-- vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Show Buffers" })
 
 -- FIXME: broken? Or were these commands just removed?
 vim.keymap.set("n", "<A-h>", "<cmd>BufferLineCyclePrev<cr>")
@@ -69,18 +82,37 @@ vim.keymap.set({ "n" }, "<C-n>", "'Nn'[v:searchforward].'zv'", { expr = true, de
 -- vim.api.nvim_set_keymap("v", "<C-/>", ":lua require('Comment.api').toggle.linewise.vsplit()<CR>",
 --   { noremap = true, silent = true })
 
--- telecope buffers list;
+-- telecope buffers list; from linkarzu
 -- NOTE: must not be lazy loaded in telecope.lua
 -- > these are used alongside the keybinds declared in telescope.lua
 -- TODO: make it a normal mode keybind, perhaps something like ",b" or "\b" or "Shift-H" when I'm happy with it (and remove tab bar)
-local tele_buffers_cmd = "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>"
-vim.keymap.set("n", "<leader>B", tele_buffers_cmd, { desc = "Show Buffers" })
-vim.keymap.set("n", "<localleader>b", tele_buffers_cmd, { desc = "Show Buffers" })
--- possible keybinds
-vim.keymap.set("n", "<S-h>", tele_buffers_cmd, { desc = "Show Buffers" })
-vim.keymap.set("n", "<S-l>", tele_buffers_cmd, { desc = "Show Buffers" })
--- because normal-mode t and T are kinda useless
-vim.keymap.set("n", "<S-t>", tele_buffers_cmd, { desc = "Show Buffers" })
+
+-- local tele_buffers_cmd = "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>"
+-- vim.keymap.set("n", "<leader>B", tele_buffers_cmd, { desc = "Show Buffers" })
+-- vim.keymap.set("n", "<localleader>b", tele_buffers_cmd, { desc = "Show Buffers" })
+-- -- possible keybinds
+-- vim.keymap.set("n", "<S-h>", tele_buffers_cmd, { desc = "Show Buffers" })
+-- vim.keymap.set("n", "<S-l>", tele_buffers_cmd, { desc = "Show Buffers" })
+-- -- because normal-mode t and T are kinda useless
+-- vim.keymap.set("n", "<S-t>", tele_buffers_cmd, { desc = "Show Buffers" })
+
+-- NOTE: attempt to reimplement using Snacks picker
+-- | docs: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#buffers
+local show_buffers_cmd = function()
+  Snacks.picker.buffers({
+    current = false,
+    -- from https://github.com/folke/snacks.nvim/discussions/531
+    on_show = function()
+      vim.cmd.stopinsert()
+    end,
+  })
+end
+vim.keymap.set("n", "<S-h>", function()
+  show_buffers_cmd()
+end, { desc = "Show Buffers" })
+vim.keymap.set("n", "<S-l>", function()
+  show_buffers_cmd()
+end, { desc = "Show Buffers" })
 
 -- yaml schema modeline
 vim.keymap.set("n", "<leader>cy", function()

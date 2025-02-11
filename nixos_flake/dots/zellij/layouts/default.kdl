@@ -1,14 +1,13 @@
 layout {
-    tab name="nix-darwin" hide_floating_panes=true cwd="~/nixos_config" {
+
+    tab name="zsh" hide_floating_panes=true {
 
         pane size=1 borderless=true {
             plugin location="tab-bar"
         }
-        pane name="nvim" {
-            command "nvim"
-            args "."
+        pane name="zsh" {
         }
-        floating_panes cwd="~/nixos_config" {
+        floating_panes {
             pane name="zsh" {
                 width "70%"
                 height "70%"

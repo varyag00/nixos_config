@@ -3,69 +3,6 @@
 M = {
   -- SECTION: folke/snacks
   {
-    "folke/snacks.nvim",
-    opts = {
-      indent = {
-        enabled = true,
-        only_scope = true,
-        only_current = true,
-      },
-      scroll = {
-        enabled = true,
-        animate = {
-          duration = { step = 15, total = 250 },
-          easing = "linear",
-        },
-        -- what buffers to animate
-        filter = function(buf)
-          return vim.g.snacks_scroll ~= false and vim.b[buf].snacks_scroll ~= false
-        end,
-      },
-      picker = {
-        win = {
-          input = {
-            keys = {
-              -- default C-up and C-down conflict with macos defaults
-              ["<C-p>"] = { "history_back", mode = { "i", "n" } },
-              ["<C-n>"] = { "history_forward", mode = { "i", "n" } },
-            },
-          },
-        },
-      },
-    },
-    keys = {
-      {
-        "<leader>fz",
-        function()
-          Snacks.picker.zoxide()
-        end,
-        desc = "Zoxide Files",
-      },
-    },
-  },
-
-  -- -- TODO: remove if using snacks picker
-  -- -- Add history to fzf-lua prompts; cycle through history with C-n & C-p
-  -- {
-  --   "ibhagwan/fzf-lua",
-  --   opts = {
-  --     -- NOTE: cycle history with C-n|p
-  --     -- fzf_opts = {
-  --     --   ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-history",
-  --     -- },
-  --     files = {
-  --       fzf_opts = {
-  --         ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-files-history",
-  --       },
-  --     },
-  --     grep = {
-  --       fzf_opts = {
-  --         ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-grep-history",
-  --       },
-  --     },
-  --   },
-  -- },
-  {
     "saghen/blink.cmp",
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
@@ -178,88 +115,89 @@ M = {
   -- END_SECTION:
   -- SECTION: edgy.nvim
   -- TODO: try disabling this to see if it's really needed
-  {
-    "folke/edgy.nvim",
-    event = "VeryLazy",
-    init = function()
-      vim.opt.laststatus = 3
-      vim.opt.splitkeep = "screen"
-    end,
-    opts = {
-      bottom = {
-        -- toggleterm / lazyterm at the bottom with a height of 40% of the screen
-        {
-          ft = "toggleterm",
-          size = { height = 0.4 },
-          -- exclude floating windows
-          filter = function(buf, win)
-            return vim.api.nvim_win_get_config(win).relative == ""
-          end,
-        },
-        {
-          ft = "lazyterm",
-          title = "LazyTerm",
-          size = { height = 0.4 },
-          filter = function(buf)
-            return not vim.b[buf].lazyterm_cmd
-          end,
-        },
-        "Trouble",
-        { ft = "qf", title = "QuickFix" },
-        {
-          ft = "help",
-          size = { height = 20 },
-          -- only show help buffers
-          filter = function(buf)
-            return vim.bo[buf].buftype == "help"
-          end,
-        },
-        { ft = "spectre_panel", size = { height = 0.4 } },
-      },
-      left = {
-        -- Neo-tree filesystem always takes half the screen height
-        {
-          title = "Neo-Tree",
-          ft = "neo-tree",
-          filter = function(buf)
-            return vim.b[buf].neo_tree_source == "filesystem"
-          end,
-          size = { height = 0.5 },
-        },
-        -- NOTE: Hide neotree buffers and git status
-        -- {
-        --   title = "Neo-Tree Git",
-        --   ft = "neo-tree",
-        --   filter = function(buf)
-        --     return vim.b[buf].neo_tree_source == "git_status"
-        --   end,
-        --   pinned = true,
-        --   collapsed = true, -- show window as closed/collapsed on start
-        --   open = "Neotree position=right git_status",
-        -- },
-        -- {
-        --   title = "Neo-Tree Buffers",
-        --   ft = "neo-tree",
-        --   filter = function(buf)
-        --     return vim.b[buf].neo_tree_source == "buffers"
-        --   end,
-        --   pinned = true,
-        --   collapsed = true, -- show window as closed/collapsed on start
-        --   open = "Neotree position=top buffers",
-        -- },
-        {
-          title = function()
-            local buf_name = vim.api.nvim_buf_get_name(0) or "[No Name]"
-            return vim.fn.fnamemodify(buf_name, ":t")
-          end,
-          ft = "Outline",
-          pinned = true,
-          open = "SymbolsOutlineOpen",
-        },
-        -- any other neo-tree windows
-        "neo-tree",
-      },
-    },
-  },
+  -- {
+  --   "folke/edgy.nvim",
+  --   event = "VeryLazy",
+  --   init = function()
+  --     vim.opt.laststatus = 3
+  --     vim.opt.splitkeep = "screen"
+  --   end,
+  --   -- FIXME: make edgy use snacks explorer, no neotree
+  --   opts = {
+  --     bottom = {
+  --       -- toggleterm / lazyterm at the bottom with a height of 40% of the screen
+  --       {
+  --         ft = "toggleterm",
+  --         size = { height = 0.4 },
+  --         -- exclude floating windows
+  --         filter = function(buf, win)
+  --           return vim.api.nvim_win_get_config(win).relative == ""
+  --         end,
+  --       },
+  --       {
+  --         ft = "lazyterm",
+  --         title = "LazyTerm",
+  --         size = { height = 0.4 },
+  --         filter = function(buf)
+  --           return not vim.b[buf].lazyterm_cmd
+  --         end,
+  --       },
+  --       "Trouble",
+  --       { ft = "qf", title = "QuickFix" },
+  --       {
+  --         ft = "help",
+  --         size = { height = 20 },
+  --         -- only show help buffers
+  --         filter = function(buf)
+  --           return vim.bo[buf].buftype == "help"
+  --         end,
+  --       },
+  --       { ft = "spectre_panel", size = { height = 0.4 } },
+  --     },
+  --     left = {
+  --       -- Neo-tree filesystem always takes half the screen height
+  --       {
+  --         title = "Neo-Tree",
+  --         ft = "neo-tree",
+  --         filter = function(buf)
+  --           return vim.b[buf].neo_tree_source == "filesystem"
+  --         end,
+  --         size = { height = 0.5 },
+  --       },
+  --       -- NOTE: Hide neotree buffers and git status
+  --       -- {
+  --       --   title = "Neo-Tree Git",
+  --       --   ft = "neo-tree",
+  --       --   filter = function(buf)
+  --       --     return vim.b[buf].neo_tree_source == "git_status"
+  --       --   end,
+  --       --   pinned = true,
+  --       --   collapsed = true, -- show window as closed/collapsed on start
+  --       --   open = "Neotree position=right git_status",
+  --       -- },
+  --       -- {
+  --       --   title = "Neo-Tree Buffers",
+  --       --   ft = "neo-tree",
+  --       --   filter = function(buf)
+  --       --     return vim.b[buf].neo_tree_source == "buffers"
+  --       --   end,
+  --       --   pinned = true,
+  --       --   collapsed = true, -- show window as closed/collapsed on start
+  --       --   open = "Neotree position=top buffers",
+  --       -- },
+  --       {
+  --         title = function()
+  --           local buf_name = vim.api.nvim_buf_get_name(0) or "[No Name]"
+  --           return vim.fn.fnamemodify(buf_name, ":t")
+  --         end,
+  --         ft = "Outline",
+  --         pinned = true,
+  --         open = "SymbolsOutlineOpen",
+  --       },
+  --       -- any other neo-tree windows
+  --       "neo-tree",
+  --     },
+  --   },
+  -- },
 }
 return M

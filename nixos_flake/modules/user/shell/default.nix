@@ -7,5 +7,6 @@
     ./cli-apps.nix
     ./helpers.nix
     ./work.nix
+    ./hashicorp.nix
   ];
 }

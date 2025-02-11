@@ -15,10 +15,10 @@ local M = {
           },
           mappings = {
             n = {
-              ["c"] = require("telescope.actions").delete_buffer,
-              ["d"] = require("telescope.actions").delete_buffer,
-              ["x"] = require("telescope.actions").delete_buffer,
-
+              -- ["c"] = require("telescope.actions").delete_buffer,
+              -- ["d"] = require("telescope.actions").delete_buffer,
+              -- ["x"] = require("telescope.actions").delete_buffer,
+              --
               ["q"] = require("telescope.actions").close,
             },
           },

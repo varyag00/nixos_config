@@ -36,7 +36,7 @@ if vim.g.neovide then
   vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
   vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
   vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
-  -- FIXME: doesn't work
+  -- FIXME: doesn't work; but manually running the cmd does
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
 
   -- Still use A-t for terminal

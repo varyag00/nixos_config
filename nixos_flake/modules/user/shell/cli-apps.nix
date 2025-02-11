@@ -27,6 +27,9 @@
       # thefuck
       tealdeer # rust tldr client
       # tlrc # rust tldr client -- problems on macos
+
+      # terminal colors
+      dwt1-shell-color-scripts
       # code snippets TUI
       nap
       hurl # http API testing tool
@@ -49,16 +52,15 @@
       # easy file transfer tool; pairs great with age
       portal
 
-      # double-entry bookkeeping 
+      # double-entry bookkeeping
       hledger
       hledger-ui # ledger tui
       # hledger-web # ledger gui; this is like 3 GB of packages...
-      # TODO: check out puffin hledge TUI (not in nixpkgs): 
-      # https://github.com/siddhantac/puffin
+      puffin # better ledger tui
     ])
     ++ (with pkgs-unstable; [
       # stable version is too old
-      terraform
+      # terraform
       tftui
       # simpler nix-shell
       devbox
@@ -67,8 +69,9 @@
       dblab
       # http API testing TUI
       slumber
-      # github cli
-      gh
+      # github cli and extensions
+      # gh
+      # gh-notify
       # standalone magit TUI
       gitu
       # git absorb = better git fixups
@@ -233,9 +236,25 @@
     # };
   };
   # FIXME: annoying conflict in ~/.config/gh/config.yml
-  # programs.gh = {
-  #   enable = true;
-  # };
+  programs.gh = {
+    enable = true;
+    settings = {
+      aliases = {
+        co = "pr checkout";
+        pv = "pr view";
+      };
+      # unneeded if it uses $EDITOR
+      # editor = "nvim";
+    };
+    extensions = [
+      pkgs-unstable.gh-notify
+      pkgs-unstable.gh-f # interacively search
+      pkgs-unstable.gh-s # search
+      pkgs-unstable.gh-eco
+      pkgs-unstable.gh-copilot
+      # pkgs-unstable.gh-dash # below
+    ];
+  };
   programs.gh-dash = {
     enable = true;
     catppuccin.enable = true;

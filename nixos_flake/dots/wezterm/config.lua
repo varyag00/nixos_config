@@ -89,8 +89,8 @@ end
 
 local function font_and_rules_scp()
 	config.font = font_with_fallback({ family = "SauceCodePro Nerd Font Mono" })
-	config.font_size = 14
-	-- config.font_size = 13.7
+	-- config.font_size = 14
+	config.font_size = 13.5
 	-- config.font_size = 13
 	-- config.font_rules = {}
 end

@@ -1,8 +1,15 @@
 theme "catppuccin-macchiato"
 default_mode "locked"
+
+// default_layout "default"
 // default_layout "welcome" // pretty session picker
 support_kitty_keyboard_protocol true // supported in wezterm and nvim
 simplified_ui false // no arrow fonts
+mouse_mode true
+
+on_force_close "detach"
+// TODO: consider this
+pane_frames false
 
 // NOTE: look into zjstatus plugin, which some neat community themes
 // https://github.com/dj95/zjstatus/discussions/44

@@ -200,6 +200,7 @@ local M = {
   --     }
   --   end,
   -- },
+  -- TODO: consider swapping over to Snacks.scratch to simplify config
   {
     "yarospace/lua-console.nvim",
     lazy = true,
@@ -245,14 +246,15 @@ if vim.fn.has("nvim-0.10") == 1 then
           end,
           desc = "Winbar pick",
         },
-        {
-          "<leader>.",
-          function()
-            -- TODO: fix that this can't navigate up the hierarchy (beyond where it started) with "h"
-            require("dropbar.api").select_next_context()
-          end,
-          desc = "Winbar nav",
-        },
+        -- NOTE: used by Snacks.scratch
+        -- {
+        --   "<leader>.",
+        --   function()
+        --     -- TODO: fix that this can't navigate up the hierarchy (beyond where it started) with "h"
+        --     require("dropbar.api").select_next_context()
+        --   end,
+        --   desc = "Winbar nav",
+        -- },
         {
           "<leader>c.",
           function()
