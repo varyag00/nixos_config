@@ -8,6 +8,7 @@ local M = {
       "stevearc/dressing.nvim",
       "ibhagwan/fzf-lua",
     },
+    -- enabled = false,
     opts = {
       -- Default configuration
       hints = { enabled = false },
@@ -41,6 +42,7 @@ local M = {
           "avante_files",
         },
         -- LSP score_offset is typically 60
+
         providers = {
           avante_commands = {
             name = "avante_commands",
@@ -65,5 +67,4 @@ local M = {
     },
   },
 }
-
 return M

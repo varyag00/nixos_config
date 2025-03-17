@@ -216,14 +216,14 @@ M = {
         desc = "Zoxide Files",
       },
       {
-        "<leader>s.",
+        "<leader>s>",
         function()
           Snacks.picker.lsp_symbols({ layout = { preset = "vscode", preview = "main" } })
         end,
         desc = "LSP Symbols",
       },
       {
-        "g.",
+        "g>",
         function()
           Snacks.picker.lsp_symbols({ layout = { preset = "vscode", preview = "main" } })
         end,

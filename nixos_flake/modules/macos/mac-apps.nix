@@ -118,6 +118,7 @@
         # browser for the martian (n)vimer
         "qutebrowser"
         "brave-browser"
+        "vivaldi"
         "zen-browser"
 
         "ghostty"

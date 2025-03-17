@@ -9,7 +9,9 @@ mouse_mode true
 
 on_force_close "detach"
 // TODO: consider this
-pane_frames false
+pane_frames true
+// override default layout
+//default_layout "default" 
 
 // NOTE: look into zjstatus plugin, which some neat community themes
 // https://github.com/dj95/zjstatus/discussions/44
@@ -25,6 +27,14 @@ keybinds {
     bind "Ctrl f" { SwitchToMode "entersearch"; }
     bind "Ctrl s" { SwitchToMode "session"; }
 	}
+
+  //pane clear-defaults=true {
+  pane {
+    bind "r" { SwitchToMode "RenamePane"; PaneNameInput 0;}
+    bind "h" { NewPane "Down"; SwitchToMode "Normal"; }
+    bind "v" { NewPane "Right"; SwitchToMode "Normal"; }
+		//unbind "c" "r" "d" // breaks the functionality entirely (status-bar doesn't have either of the bindings)
+  }
   // global (shared) commands available in all modes, including locked
 	shared {
 		bind "Alt i" { MoveFocusOrTab "Left"; }

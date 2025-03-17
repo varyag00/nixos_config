@@ -1,22 +1,25 @@
 layout {
-
-    tab name="zsh" hide_floating_panes=true {
-
-        pane size=1 borderless=true {
-            plugin location="tab-bar"
-        }
-        pane name="zsh" {
-        }
-        floating_panes {
-            pane name="zsh" {
-                width "70%"
-                height "70%"
-                x "15%"
-                y "15%"
-            }
-        }
-        pane size=2 borderless=true {
-            plugin location="status-bar"
-        }
+  // NOTE: do not declare a tab in the default layout, because it breaks spawning new tabs
+  //tab hide_floating_panes=true {
+    pane size=1 borderless=true {
+      plugin location="tab-bar" {
+        hide_swap_layout_indication true
+      }
     }
+    pane name="zsh" {
+    }
+    floating_panes hidden=true {
+      pane name="zsh" {
+          width "70%"
+          height "70%"
+          x "15%"
+          y "15%"
+      }
+    }
+    pane size=2 borderless=true {
+      plugin location="status-bar" {
+          classic true
+      }
+    }
+  //}
 }

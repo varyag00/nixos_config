@@ -52,6 +52,11 @@
       # easy file transfer tool; pairs great with age
       portal
 
+      # taskwarrior
+      taskwarrior3
+      taskwarrior-tui
+      timewarrior
+
       # double-entry bookkeeping
       hledger
       hledger-ui # ledger tui

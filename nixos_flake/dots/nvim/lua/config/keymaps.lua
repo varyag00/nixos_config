@@ -100,7 +100,7 @@ vim.keymap.set({ "n" }, "<C-n>", "'Nn'[v:searchforward].'zv'", { expr = true, de
 -- | docs: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#buffers
 local show_buffers_cmd = function()
   Snacks.picker.buffers({
-    current = false,
+    -- current = false,
     -- from https://github.com/folke/snacks.nvim/discussions/531
     on_show = function()
       vim.cmd.stopinsert()

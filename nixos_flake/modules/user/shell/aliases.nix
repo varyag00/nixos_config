@@ -12,6 +12,7 @@
   ping = "gping";
   dig = "doggo";
   top = "btop";
+  grep = "ripgrep";
 
   lgit = "lazygit";
   ldoc = "lazydocker";

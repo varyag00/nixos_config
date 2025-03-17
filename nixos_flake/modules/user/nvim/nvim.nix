@@ -40,6 +40,8 @@
     pkgs.tflint
     # helm - active development
     pkgs-unstable.helm-ls
+    # docker
+    pkgs.dockerfile-language-server-nodejs
 
     # NOTE: bigger lsp configs:
     # - ../lang/go
@@ -50,7 +52,7 @@
   programs.neovim = {
     # Use neovim-unwrapped, see https://stackoverflow.com/a/77460220/1775420
     # FIXME: test if this updates to nvim 0.11.x
-    # package = pkgs-unstable.neovim-unwrapped;
+    package = pkgs-unstable.neovim-unwrapped;
     # see options https://mynixos.com/home-manager/options/programs.neovim
     enable = true;
     extraPackages = [

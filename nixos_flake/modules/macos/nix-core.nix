@@ -7,6 +7,16 @@
     "flakes"
   ];
 
+  # extra binary cache to avoid compiling programs
+  # see https://nix-community.org/cache/
+  nix.settings.substituters = [
+    "https://nix-community.cachix.org"
+    "https://cache.nixos.org/"
+  ];
+  nix.settings.trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -18,10 +28,11 @@
 
   nix.package = pkgs.nix;
 
-  # do garbage collection weekly to keep disk usage low
+  # do garbage collection monthly to keep disk usage low
+  # NOTE: used to be weekly
   nix.gc = {
     automatic = lib.mkDefault true;
-    options = lib.mkDefault "--delete-older-than 7d";
+    options = lib.mkDefault "--delete-older-than 30d";
   };
 
   # Disable auto-optimise-store because of this issue:
