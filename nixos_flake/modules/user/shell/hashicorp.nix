@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   pkgs-hc,
   flakeVars,
   ...
@@ -10,7 +9,8 @@
 {
   home.packages = [
     pkgs-hc.terraform
-    pkgs.vault # TODO: tick this when I have the time
+    pkgs-hc.tftui
+    pkgs-hc.vault
   ];
   programs.zsh.shellAliases = {
     tf = "terraform";

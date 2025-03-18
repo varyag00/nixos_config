@@ -3,7 +3,6 @@
   inputs,
   pkgs,
   pkgs-unstable,
-  nh_darwin,
   ...
 }:
 
@@ -23,14 +22,13 @@
     package = inputs.nix-ld-rs.packages."${pkgs.system}".nix-ld-rs;
   };
 
-  # NOTE: doesn't exist on nixpkgs-darwin
-
   # nix helper
   programs.nh = {
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
     # TODO: relative link to this flake, something like ${../../..}
-    flake = "/home/dan/nixos_config/nixos_flake";
+    # flake = "/home/dan/nixos_config/nixos_flake";
+    package = pkgs-unstable.nh;
   };
 }

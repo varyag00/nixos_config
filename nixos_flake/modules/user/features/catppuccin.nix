@@ -5,6 +5,17 @@
     flavor = "macchiato";
     accent = "lavender";
 
+    nvim.enable = false; # set in nvim lua config
+    zellij.enable = false; # see zellij.nix
+    yazi.enable = true;
+    lazygit.enable = true;
+    gh-dash.enable = true;
+    fzf.enable = true;
+    delta.enable = true;
+    btop.enable = true;
+    bat.enable = true;
+    zsh-syntax-highlighting.enable = true;
+
     # GUI stuff
     # pointerCursor = {
     #   enable = true;
@@ -24,5 +35,5 @@
     # }
   };
 
-  programs.neovim.catppuccin.enable = false;
+  # programs.neovim.catppuccin.enable = false;
 }

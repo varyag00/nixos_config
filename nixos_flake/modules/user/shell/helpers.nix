@@ -9,9 +9,16 @@ if flakeVars.system.isDarwin then
   {
     # TODO: look into builtins.currentSystem, which gives you the currently set system
     home.packages = [
-      # pkgs-unstable.nh_darwin # doesn't exist; override 
+      # pkgs-unstable.nh_darwin # doesn't exist; override
     ];
 
+    # # nix helper CLI tool
+    # programs.nh = {
+    #   enable = true;
+    #   clean.enable = true;
+    #   clean.extraArgs = "--keep-since 7d --keep 3";
+    # };
+    #
     # # nh config
     # programs.nh = {
     #   enable = true;
@@ -19,7 +26,7 @@ if flakeVars.system.isDarwin then
     #   # package = nh_darwin.packages.${pkgs.stdenv.hostPlatform.system}.default;
     # };
 
-    programs.zsh.shellAliases.nh = "nh_darwin";
+    # programs.zsh.shellAliases.nh = "nh_darwin";
 
     # programs.nix-ld = {
     #   enable = true;

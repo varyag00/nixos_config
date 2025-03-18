@@ -25,12 +25,12 @@
   # };
 
   # nix helper
-  environment.systemPackages = [
-    # NOTE: programs.nh doesn't exist on nixpkgs-darwin, but it will after this is merged (after update):
-    # https://github.com/LnL7/nix-darwin/pull/942
-    # TODO: use programs.nh below instead of environment.systempackages
-    nh_darwin.packages.${pkgs.stdenv.hostPlatform.system}.default
-  ];
+  # environment.systemPackages = [
+  #   # NOTE: programs.nh doesn't exist on nixpkgs-darwin, but it will after this is merged (after update):
+  #   # https://github.com/LnL7/nix-darwin/pull/942
+  #   # TODO: use programs.nh below instead of environment.systempackages
+  #   nh_darwin.packages.${pkgs.stdenv.hostPlatform.system}.default
+  # ];
   # programs.nh = {
   #   enable = true;
   #   clean.enable = true;

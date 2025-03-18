@@ -5,16 +5,17 @@
   inputs = {
     # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # lock nixpkgs-unstable to commit for my own sanity
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/0aa475546ed21629c4f5bbf90e38c846a99ec9e9"; # 2025/01/24
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/c80f6a7e10b39afcc1894e02ef785b1ad0b0d7e5"; # 2025/03/15
     # Use this input to allow me to only tick hc tools, since they take forever to build
-    nixpkgs-hashicorp.url = "github:nixos/nixpkgs/f85a2d005e83542784a755ca8da112f4f65c4aa4"; # 2024/10/07
+    nixpkgs-hashicorp.url = "github:nixos/nixpkgs/c80f6a7e10b39afcc1894e02ef785b1ad0b0d7e5"; # 2025/03/15
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
     darwin = {
-      url = "github:lnl7/nix-darwin";
+      url = "github:lnl7/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
     # nh, but for darwin systems
+    # TODO: this was accepted into upstream nh, so use nixpkgs.nh starting from 25.05
     nh_darwin.url = "github:ToyVo/nh_darwin";
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
@@ -114,6 +115,7 @@
       # END_SECTION: shell vars
 
       nixpkgs-system = if flakeVars.system.isDarwin then nixpkgs-darwin else nixpkgs;
+      # nixpkgs-system = nixpkgs;
 
       pkgs = import nixpkgs-system {
         system = system;
@@ -200,7 +202,7 @@
       darwinConfigurations =
         if flakeVars.system.isDarwin then
           {
-            "${flakeVars.system.hostname}" = darwin.lib.darwinSystem {
+            ${flakeVars.system.hostname} = darwin.lib.darwinSystem {
               specialArgs = specialArgs;
               system = flakeVars.system.archname;
               modules = [

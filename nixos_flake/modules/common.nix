@@ -45,9 +45,6 @@
     procs # better ps
     git
 
-    # tlrc # tldr in rust
-    # nh # nix helper CLI
-
     # TODO: remove nodejs deps once i switch off mason
     # nodejs_21
     nodejs_22

@@ -45,7 +45,6 @@ in
     autosuggestion.enable = true;
     syntaxHighlighting = {
       enable = true;
-      catppuccin.enable = true;
     };
     enableCompletion = true;
 

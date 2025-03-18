@@ -13,7 +13,6 @@
     enableZshIntegration = false; # pls don't start on zsh start
     # NOTE: zellij config is symlinked below because .kdl settings are a pain in nix syntax
     # settings = {};
-    catppuccin.enable = false;
   };
   # create a symlink to zellij config and layouts
   home.activation.createZellijConfig =
@@ -32,7 +31,7 @@
   programs.zsh.sessionVariables = {
     ZELLIJ_CONFIG = "$HOME/.config/zellij";
     ZELLIJ_LAYOUTS = "$HOME/.config/zellij/layouts";
-    # NOTE: I define "session_layouts" as layouts that should be used to 
+    # NOTE: I define "session_layouts" as layouts that should be used to
     ZELLIJ_SESSION_LAYOUTS = "$HOME/.config/zellij/session_layouts";
   };
   # NOTE: migrated to dots/zsh/extras/zellij.sh

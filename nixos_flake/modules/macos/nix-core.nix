@@ -30,10 +30,11 @@
 
   # do garbage collection monthly to keep disk usage low
   # NOTE: used to be weekly
-  nix.gc = {
-    automatic = lib.mkDefault true;
-    options = lib.mkDefault "--delete-older-than 30d";
-  };
+  # | garbage collection manually runs with nh
+  # nix.gc = {
+  #   automatic = lib.mkDefault true;
+  #   options = lib.mkDefault "--delete-older-than 30d";
+  # };
 
   # Disable auto-optimise-store because of this issue:
   #   https://github.com/NixOS/nix/issues/7273

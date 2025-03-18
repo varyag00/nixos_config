@@ -3,28 +3,47 @@
   config,
   pkgs,
   pkgs-unstable,
-  nh_darwin,
+  # nh_darwin,
   flakeVars,
   ...
 }:
 
 {
   home.packages =
-    (with pkgs; [
-      dog
+    # special case due to binary name collision w/ go-task
+    [
+      # FIXME: I would prefer to make go-task the default "task" command, but
+      # | taskwarrior-tui uses non-configurable "task" and it's not worth the workaround
+      # | TLDR: tasks = go-task, task = taskwarrior3
+      # pkgs.taskwarrior3
+      (pkgs.runCommand "taskwarrior3" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+        mkdir -p $out/bin
+        # rename taskwarrior3's task binary to taskw
+        makeWrapper ${pkgs.taskwarrior3}/bin/task $out/bin/taskw --argv0 task
+      '')
+      pkgs.taskwarrior-tui
+      pkgs.timewarrior
+
+      pkgs.go-task
+      # (pkgs.runCommand "go-task" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+      #   mkdir -p $out/bin
+      #   # rename go-task's task binary to tasks
+      #   makeWrapper ${pkgs.go-task}/bin/task $out/bin/tasks --argv0 go-task
+      # '')
+    ]
+    ++ (with pkgs; [
       lsd
       bottom
       ripgrep
       ast-grep # rg for codebases, with context
       fd
       jq
-      # interative jq
+      # interative jq, https://github.com/simeji/jid
       jid
       yq
       bc
       lazygit
       lazydocker
-      # thefuck
       tealdeer # rust tldr client
       # tlrc # rust tldr client -- problems on macos
 
@@ -37,7 +56,6 @@
       bruno # http API testing tool
       atac # http TUI
       runme # run-able markdown files
-      go-task
       tre-command
       gping
       # presentation slides in terminal
@@ -52,11 +70,6 @@
       # easy file transfer tool; pairs great with age
       portal
 
-      # taskwarrior
-      taskwarrior3
-      taskwarrior-tui
-      timewarrior
-
       # double-entry bookkeeping
       hledger
       hledger-ui # ledger tui
@@ -65,21 +78,23 @@
     ])
     ++ (with pkgs-unstable; [
       # stable version is too old
-      # terraform
-      tftui
       # simpler nix-shell
       devbox
+
       # sql TUIs
+      # TODO: Choose one. They are both golang, support multiple db engines, and both seem good
       lazysql
       dblab
+
       # http API testing TUI
-      slumber
+      slumber # rust
+      posting # python, looks better but seem buggy....
       # github cli and extensions
       # gh
       # gh-notify
       # standalone magit TUI
       gitu
-      # git absorb = better git fixups
+      # git absorb = better git fixups, https://github.com/tummychow/git-absorb
       git-absorb
       # better dig (dns)
       doggo
@@ -91,7 +106,7 @@
       mods # CLI chatbot interface: https://github.com/charmbracelet/mods
       vhs # code gif recording utility: https://github.com/charmbracelet/vhs
       charm-freeze # code screenshot utility: https://github.com/charmbracelet/freeze
-      glow # markdown previewer tui
+      glow # markdown previewer tui # TODO: check for nixpkgs release >= 1.7 (github copilot support)
       melt # ssh key restore
       wishlist # ssh TUI
     ])
@@ -107,9 +122,9 @@
           pkgs-unstable.colima
           pkgs.docker
 
-          # TODO: uncomment when this gets added back
-          # need to install nh as system module because home-manager is acting strange
-          nh_darwin.packages.${pkgs.stdenv.hostPlatform.system}.default
+          # # TODO: uncomment when this gets added back
+          # # need to install nh as system module because home-manager is acting strange
+          # nh_darwin.packages.${pkgs.stdenv.hostPlatform.system}.default
 
           # archives
           pkgs.zip
@@ -169,7 +184,6 @@
     ];
     delta = {
       enable = true;
-      catppuccin.enable = true;
       options = {
         navigate = true;
         line-numbers = true;
@@ -178,14 +192,12 @@
   };
   programs.btop = {
     enable = true;
-    catppuccin.enable = true;
   };
   programs.yazi = {
     # yazi is under active development
     package = pkgs-unstable.yazi;
     enable = true;
     enableZshIntegration = true;
-    catppuccin.enable = true;
     settings = {
       manager.show_hidden = true;
     };
@@ -210,12 +222,10 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
-    catppuccin.enable = true;
     # TODO: add fzf custom functions from dotfiles
   };
   programs.bat = {
     enable = true;
-    catppuccin.enable = true;
     extraPackages = with pkgs.bat-extras; [
       # batdiff # this or delta. batdiff is a bit lighter but delta is better supported
       batman
@@ -262,11 +272,9 @@
   };
   programs.gh-dash = {
     enable = true;
-    catppuccin.enable = true;
   };
   programs.lazygit = {
     enable = true;
-    catppuccin.enable = true;
   };
   # superset of tldr + cheatsheets
   programs.navi = {
