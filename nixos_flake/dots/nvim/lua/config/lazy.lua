@@ -68,11 +68,15 @@ local spec = {
   -- { import = "lazyvim.plugins.extras.util.project" },
   -- live preview for rename
   { import = "lazyvim.plugins.extras.editor.inc-rename" },
+
   -- FIXME: use fzf-lua (new default picker) instead of telescope, but watch out for bugs
   -- { import = "lazyvim.plugins.extras.editor.fzf" },
   -- { import = "lazyvim.plugins.extras.editor.telescope" },
   { import = "lazyvim.plugins.extras.editor.snacks_picker" },
   { import = "lazyvim.plugins.extras.editor.snacks_explorer" },
+
+  -- navigate and manipulate filetree
+  { import = "lazyvim.plugins.extras.editor.mini-files" },
 
   -- interesting refactoring
   { import = "lazyvim.plugins.extras.editor.refactoring" },

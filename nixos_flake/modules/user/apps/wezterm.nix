@@ -45,7 +45,9 @@ else if flakeVars.system.isDarwin then
   {
     programs.wezterm = {
       enable = true;
-      enableZshIntegration = true;
+      # TEST: disabling this to test for speedup
+      # | https://discourse.nixos.org/t/terminal-zsh-performance-issue-under-home-manager-help/55798/10
+      enableZshIntegration = false;
       # extraConfig = wezterm_dots;
       extraConfig = # lua
         ''

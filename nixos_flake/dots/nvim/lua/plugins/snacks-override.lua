@@ -31,6 +31,7 @@ M = {
           -- added
           { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
           { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+          -- TODO: consider removing
           { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
           { section = "startup" },
           --
@@ -47,7 +48,7 @@ M = {
             icon = " ",
             desc = "Browse Repo",
             padding = 1,
-            key = "b",
+            key = "B",
             action = function()
               Snacks.gitbrowse()
             end,
@@ -61,7 +62,7 @@ M = {
                 action = function()
                   vim.ui.open("https://github.com/notifications")
                 end,
-                key = "n",
+                key = "N",
                 icon = " ",
                 height = 5,
                 enabled = true,
@@ -87,12 +88,12 @@ M = {
                 height = 7,
               },
               -- NOTE: kinda meh; consider deleting
-              {
-                icon = " ",
-                title = "Git Status",
-                cmd = "git --no-pager diff --stat -B -M -C",
-                height = 10,
-              },
+              -- {
+              --   icon = " ",
+              --   title = "Git Status",
+              --   cmd = "git --no-pager diff --stat -B -M -C",
+              --   height = 10,
+              -- },
             }
             return vim.tbl_map(function(cmd)
               return vim.tbl_extend("force", {

@@ -1,10 +1,6 @@
 {
-  "$schema": "https://raw.githubusercontent.com/jetpack-io/devbox/0.10.1/.schema/devbox.schema.json",
-  "packages": [
-    "nixpkgs-fmt@latest",
-    "nil@latest",
-    "rnix-lsp@latest"
-  ],
+  "$schema":  "https://raw.githubusercontent.com/jetpack-io/devbox/0.10.1/.schema/devbox.schema.json",
+  "packages": ["nh@latest"],
   "shell": {
     "init_hook": [
       "echo 'Welcome to devbox!' > /dev/null"

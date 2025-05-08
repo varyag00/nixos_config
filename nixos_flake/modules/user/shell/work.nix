@@ -9,7 +9,11 @@
 let
   # see https://nixos.wiki/wiki/Google_Cloud_SDK
   gdk-with-extras = pkgs.google-cloud-sdk.withExtraComponents (
-    with pkgs.google-cloud-sdk.components; [ gke-gcloud-auth-plugin ]
+    with pkgs.google-cloud-sdk.components;
+    [
+      gke-gcloud-auth-plugin
+      # nomos # not available on macOS???
+    ]
   );
 in
 if flakeVars.system.isWork then

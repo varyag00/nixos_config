@@ -88,13 +88,20 @@ M = {
         SECTION = { icon = "󱡠 ", color = "section", alt = { "END_SECTION" } },
         IDEA = { icon = " ", color = "info" },
         CRIT = { icon = " ", color = "critical", alt = { "CRITICAL", "IMPORTANT" } },
+        SELF = { icon = "󰙏 ", color = "self", alt = { "QUEST" } },
+        CRUFT = { icon = " ", color = "cruft", alt = { "TRASH" } },
       },
       colors = {
         -- :h highlight-groups
         -- { highlight_group, fallback color }
+        -- SECTION: foo
         section = { "Comment", "#B5B4B4" },
-        -- error or bright purple
+        -- CRIT: foo
         critical = { "ErrorMsg", "#CA33FF" },
+        -- SELF: foo
+        self = { "Question", "#B2A9EA" },
+        -- CRUFT: foo
+        cruft = { "Substitute", "#F73283" },
       },
       highlight = {
         -- default is multiline_pattern = "^.",

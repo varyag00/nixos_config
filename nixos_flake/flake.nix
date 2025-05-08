@@ -5,7 +5,7 @@
   inputs = {
     # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # lock nixpkgs-unstable to commit for my own sanity
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/c80f6a7e10b39afcc1894e02ef785b1ad0b0d7e5"; # 2025/03/15
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/ebe4301cbd8f81c4f8d3244b3632338bbeb6d49c"; # 2025/04/23
     # Use this input to allow me to only tick hc tools, since they take forever to build
     nixpkgs-hashicorp.url = "github:nixos/nixpkgs/c80f6a7e10b39afcc1894e02ef785b1ad0b0d7e5"; # 2025/03/15
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";

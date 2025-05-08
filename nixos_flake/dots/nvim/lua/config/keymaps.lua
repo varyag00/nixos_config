@@ -28,9 +28,6 @@ vim.keymap.set("n", "<leader>bc", "<leader>bd", { desc = "Delete buffer", remap 
 -- NOTE: prefer the default <leader>fb
 -- vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Show Buffers" })
 
--- FIXME: broken? Or were these commands just removed?
-vim.keymap.set("n", "<A-h>", "<cmd>BufferLineCyclePrev<cr>")
-vim.keymap.set("n", "<A-l>", "<cmd>BufferLineCycleNext<cr>")
 -- remove annoying move line on alt-j/k
 vim.keymap.set({ "n", "i", "v" }, "<A-j>", "<nop>")
 vim.keymap.set({ "n", "i", "v" }, "<A-k>", "<nop>")
@@ -114,10 +111,22 @@ vim.keymap.set("n", "<S-l>", function()
   show_buffers_cmd()
 end, { desc = "Show Buffers" })
 
+-- close window
+vim.keymap.set("n", "<leader>wc", "<C-w>q", { desc = "Close Window" })
+
 -- yaml schema modeline
 vim.keymap.set("n", "<leader>cy", function()
   require("custom.additional-schemas").init()
 end, { desc = "Set YAML schema" })
+
+-- extra k9s keybind
+-- vim.keymap.set({ "n" }, ",k", function()
+--   Snacks.terminal("k9s")
+-- end, { desc = "k9s" })
+vim.keymap.set({ "n" }, "<C-/>", function()
+  Snacks.terminal("k9s")
+end, { desc = "k9s" })
+-- NOTE: use <C-\> or <C-/> to close k9s
 
 -- SECTION: macros
 -- FIXME: macros don't get set

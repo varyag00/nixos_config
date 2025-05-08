@@ -14,7 +14,9 @@
 local M = {
   -- SECTION: obsidian.nvim
   {
-    "epwalsh/obsidian.nvim",
+    -- "epwalsh/obsidian.nvim",
+    -- use this fork, which natively supports blink.nvim without workarounds
+    "obsidian-nvim/obsidian.nvim",
     version = "*",
     lazy = true,
     ft = "markdown",
@@ -284,37 +286,37 @@ local M = {
     config = function(_, opts)
       require("obsidian").setup(opts)
 
-      -- HACK: fix error, disable completion.nvim_cmp option, manually register sources for blink.cmp below
-      local cmp = require("cmp")
-      cmp.register_source("obsidian", require("cmp_obsidian").new())
-      cmp.register_source("obsidian_new", require("cmp_obsidian_new").new())
-      cmp.register_source("obsidian_tags", require("cmp_obsidian_tags").new())
+      -- -- HACK: fix error, disable completion.nvim_cmp option, manually register sources for blink.cmp below
+      -- local cmp = require("cmp")
+      -- cmp.register_source("obsidian", require("cmp_obsidian").new())
+      -- cmp.register_source("obsidian_new", require("cmp_obsidian_new").new())
+      -- cmp.register_source("obsidian_tags", require("cmp_obsidian_tags").new())
     end,
   },
   -- workaround for the same issue https://github.com/epwalsh/obsidian.nvim/issues/770#issuecomment-2557300925
-  {
-    "saghen/blink.cmp",
-    dependencies = { "saghen/blink.compat" },
-    opts = {
-      sources = {
-        default = { "obsidian", "obsidian_new", "obsidian_tags" },
-        providers = {
-          obsidian = {
-            name = "obsidian",
-            module = "blink.compat.source",
-          },
-          obsidian_new = {
-            name = "obsidian_new",
-            module = "blink.compat.source",
-          },
-          obsidian_tags = {
-            name = "obsidian_tags",
-            module = "blink.compat.source",
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   "saghen/blink.cmp",
+  --   dependencies = { "saghen/blink.compat" },
+  --   opts = {
+  --     sources = {
+  --       default = { "obsidian", "obsidian_new", "obsidian_tags" },
+  --       providers = {
+  --         obsidian = {
+  --           name = "obsidian",
+  --           module = "blink.compat.source",
+  --         },
+  --         obsidian_new = {
+  --           name = "obsidian_new",
+  --           module = "blink.compat.source",
+  --         },
+  --         obsidian_tags = {
+  --           name = "obsidian_tags",
+  --           module = "blink.compat.source",
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
   -- END_SECTION: obsidian.nvim
   {
     "neovim/nvim-lspconfig",

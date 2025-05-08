@@ -40,7 +40,8 @@
       jq
       # interative jq, https://github.com/simeji/jid
       jid
-      yq
+      jnv # like jid, but faster?
+      yq-go
       bc
       lazygit
       lazydocker
@@ -80,6 +81,8 @@
       # stable version is too old
       # simpler nix-shell
       devbox
+      # devbox alternative, closer to nix
+      devenv
 
       # sql TUIs
       # TODO: Choose one. They are both golang, support multiple db engines, and both seem good

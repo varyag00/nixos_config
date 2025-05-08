@@ -1,0 +1,16 @@
+version: "3"
+
+vars:
+  # Set the default image name and tag
+  APP_NAME: dan-otel-demo
+  CHART_NAME: opentelemetry-demo
+  OTEL_REPO: https://open-telemetry.github.io/opentelemetry-helm-charts
+  VERSION: 0.37.0
+
+tasks:
+  install:
+    desc: "Install OpenTelemetry "
+    cmds:
+      - helm repo add opentelemetry-helm {{.OTEL_REPO}}
+      - helm repo update
+      - helm install {{.APP_NAME}} opentelemetry-helm/{{.CHART_NAME}} --version {{.VERSION}} --namespace {{.APP_NAME}} --create-namespace --values values.yaml

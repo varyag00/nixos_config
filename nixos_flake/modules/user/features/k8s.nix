@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   home.packages = with pkgs; [
     kubectl
@@ -9,10 +9,11 @@
   ];
   programs.k9s = {
     enable = true;
+    package = pkgs-unstable.k9s;
   };
   programs.zsh.shellAliases = {
     k = "kubectl";
-    ktx = "kubectx";
+    kctx = "kubectx";
     kns = "kubens";
   };
 }
