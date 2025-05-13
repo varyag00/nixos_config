@@ -201,7 +201,8 @@ M = {
         },
       },
       explorer = {
-        replace_netrw = true,
+        -- NOTE: replace_netrw = false because I use mini.files to replace netrw
+        replace_netrw = false,
       },
       statuscolumn = {
         -- using defaults
@@ -261,7 +262,7 @@ M = {
         desc = "lazydocker",
       },
       {
-        "<leader>Td",
+        "<leader>Ts",
         function()
           Snacks.terminal("lazysql")
         end,

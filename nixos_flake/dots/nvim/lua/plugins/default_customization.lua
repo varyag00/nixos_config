@@ -1,7 +1,26 @@
 -- NOTE: only {cmd, event, ft, keys, opts, dependencies} will be merged. Everything else will OVERRIDE the defaults
 -- see docs: https://www.lazyvim.org/configuration/plugins#%EF%B8%8F-customizing-plugin-specs
 M = {
-  -- SECTION: folke/snacks
+  -- SECTION: mini
+  {
+    "echasnovski/mini.files",
+    opts = {
+      windows = {
+        preview = true,
+        width_focus = 30,
+        width_preview = 60,
+      },
+      options = {
+        -- Whether to use for editing directories (i.e. replace netrw)
+        -- NOTE: requires lazy = false
+        use_as_default_explorer = true,
+      },
+    },
+    -- NOTE: only if use_as_default_explorer = true
+    lazy = false,
+  },
+  -- #END_SECTION: mini
+  -- SECTION: blink
   {
     "saghen/blink.cmp",
     lazy = false, -- lazy loading handled internally

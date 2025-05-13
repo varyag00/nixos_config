@@ -127,6 +127,9 @@ vim.keymap.set({ "n" }, "<C-/>", function()
   Snacks.terminal("k9s")
 end, { desc = "k9s" })
 -- NOTE: use <C-\> or <C-/> to close k9s
+vim.keymap.set({ "n" }, "<C-?>", function()
+  Snacks.terminal("lazydocker")
+end, { desc = "lazydocker" })
 
 -- SECTION: macros
 -- FIXME: macros don't get set

@@ -129,8 +129,12 @@ local M = {
     },
     opts = {
       completion = {
+        blink = true,
         nvim_cmp = false,
         min_chars = 2,
+      },
+      picker = {
+        name = "snacks.pick",
       },
       new_notes_location = "current_dir",
       preferred_link_style = "wiki", -- or "markdown"

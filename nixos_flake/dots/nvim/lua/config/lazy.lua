@@ -64,8 +64,6 @@ local spec = {
   -- window layout manager
   { import = "lazyvim.plugins.extras.ui.edgy" },
 
-  -- project manager NOTE: use snacks project instead
-  -- { import = "lazyvim.plugins.extras.util.project" },
   -- live preview for rename
   { import = "lazyvim.plugins.extras.editor.inc-rename" },
 
@@ -100,7 +98,7 @@ local spec = {
 
 -- SECTION: conditional plugins
 
--- NOTE: always use copilot and never use codeium atm
+-- NOTE: I always use copilot these days
 table.insert(spec, { import = "lazyvim.plugins.extras.ai.copilot" })
 table.insert(spec, { import = "lazyvim.plugins.extras.ai.copilot-chat" })
 -- NOTE: neovide doesn't source .zshrc, so these need to go in $ZDOTDIR/.zshenv

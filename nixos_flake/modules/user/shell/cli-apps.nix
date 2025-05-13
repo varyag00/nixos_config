@@ -32,11 +32,21 @@
       # '')
     ]
     ++ (with pkgs; [
-      lsd
-      bottom
-      ripgrep
+      # better _
+      lsd # ls
+      bottom # top
+      ripgrep # grep
+      procs # ps
+      curlie # curl
+      rip2 # rm
+      # NOTE: giant npm package and build takes ages on macos, so don't use it for now
+      # fkill
+      dust # du
+      # choose usage: https://github.com/theryangeary/choose?tab=readme-ov-file
+      choose
+
       ast-grep # rg for codebases, with context
-      fd
+      fd # find
       jq
       # interative jq, https://github.com/simeji/jid
       jid
@@ -87,7 +97,7 @@
       # sql TUIs
       # TODO: Choose one. They are both golang, support multiple db engines, and both seem good
       lazysql
-      dblab
+      # dblab
 
       # http API testing TUI
       slumber # rust
