@@ -14,6 +14,13 @@ local M = {
       highlight = false,
     },
     keys = {
+      { "<C-S-K>", "<cmd>Treewalker Up<cr>", { silent = true } },
+      { "<C-S-J>", "<cmd>Treewalker Down<cr>", { silent = true } },
+
+      -- { "<Esc>[1;6K", "<cmd>Treewalker Up<cr>", { silent = true } },
+      -- { "'<Esc>[1;6J'", "<cmd>Treewalker Down<cr>", { silent = true } },
+      -- { "<Esc>[1;6H", "<cmd>Treewalker Left<cr>", { silent = true } },
+      -- { "<Esc>[1;6L", "<cmd>Treewalker Right<cr>", { silent = true } },
 
       { "<S-Up>", "<cmd>Treewalker Up<cr>", { silent = true } },
       { "<S-Down>", "<cmd>Treewalker Down<cr>", { silent = true } },

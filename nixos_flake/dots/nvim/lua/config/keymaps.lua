@@ -22,6 +22,10 @@
 --   Snacks.picker.lsp_symbols({ layout = { preset = "vscode", preview = "main" } })
 -- end, { desc = "LSP Symbols" })
 
+-- tab management, see: https://neovim.io/doc/user/tabpage.html
+vim.keymap.set("n", "<leader><tab>h", "<Cmd>tabprevious<CR>", { desc = "Prev Tab", remap = true })
+vim.keymap.set("n", "<leader><tab>l", "<Cmd>tabnext<CR>", { desc = "Next Tab", remap = true })
+
 -- use remap = true to point (remap) to an existing key mappings
 vim.keymap.set("n", "<leader>bk", "<leader>bd", { desc = "Delete buffer", remap = true })
 vim.keymap.set("n", "<leader>bc", "<leader>bd", { desc = "Delete buffer", remap = true })

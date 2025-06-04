@@ -27,6 +27,18 @@ local M = {
     },
   },
 
+  -- -- golang
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   optional = true,
+  --   opts = {
+  --     linters_by_ft = {
+  --       -- exits with error code 5...
+  --       go = { "golangcilint" },
+  --     },
+  --   },
+  -- },
+
   -- {
   --   "neovim/nvim-lspconfig",
   --   opts = {
