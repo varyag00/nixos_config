@@ -36,11 +36,14 @@ in
     dotDir = ".config/zsh";
     shellAliases = myAliases;
 
+    # FIXME: warning:
+    # | evaluation warning: `programs.zsh.initExtraBeforeCompInit` is deprecated, use `programs.zsh.initContent` with `lib.mkOrder 550` instead.
+    # | Example: programs.zsh.initContent = lib.mkOrder 550 "your content here";
     initExtraBeforeCompInit = builtins.readFile "${flakeVars.FLAKE_DOTS}/zsh/init_p10k.zsh";
 
-    initExtra = builtins.readFile "${flakeVars.FLAKE_DOTS}/zsh/.zshrc-slim";
+    initContent = builtins.readFile "${flakeVars.FLAKE_DOTS}/zsh/.zshrc-slim";
 
-    # this is very ugly
+    # TODO: this is very ugly
     # autosuggestion.highlight = "fg=#ff00ff,bg=cyan,bold,underline";
     autosuggestion.enable = true;
     syntaxHighlighting = {

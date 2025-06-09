@@ -64,7 +64,8 @@
       nap
       hurl # http API testing tool
       # NOTE: also installed via brew on macos
-      bruno # http API testing tool
+      # bruno # http API testing tool GUI
+      bruno-cli # http API testing tool CLI
       atac # http TUI
       runme # run-able markdown files
       tre-command
@@ -86,6 +87,9 @@
       hledger-ui # ledger tui
       # hledger-web # ledger gui; this is like 3 GB of packages...
       puffin # better ledger tui
+
+      # flakehub cli
+      fh
     ])
     ++ (with pkgs-unstable; [
       # stable version is too old

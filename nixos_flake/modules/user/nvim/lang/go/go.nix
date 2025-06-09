@@ -13,8 +13,13 @@
       gofumpt
       gotools
       delve
+      gotestsum
+      golangci-lint
+      golangci-lint-langserver
+      gomodifytags
+      impl # interface stubs
     ])
     ++ (with pkgs-unstable; [
-      # 
+      #
     ]);
 }

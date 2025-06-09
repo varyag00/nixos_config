@@ -90,7 +90,7 @@ end
 local function font_and_rules_scp()
 	config.font = font_with_fallback({ family = "SauceCodePro Nerd Font Mono" })
 	-- config.font_size = 14
-	config.font_size = 13.5
+	config.font_size = 13
 	-- config.font_size = 13
 	-- config.font_rules = {}
 end
@@ -178,6 +178,26 @@ config.keys = {
 		key = "V",
 		mods = "CTRL",
 		action = wezterm.action.PasteFrom("Clipboard"),
+	},
+	{
+		key = "J",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.SendString("\x1b[1;6J"),
+	},
+	{
+		key = "K",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.SendString("\x1b[1;6K"),
+	},
+	{
+		key = "H",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.SendString("\x1b[1;6H"),
+	},
+	{
+		key = "L",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.SendString("\x1b[1;6L"),
 	},
 }
 

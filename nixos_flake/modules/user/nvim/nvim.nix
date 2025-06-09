@@ -42,6 +42,7 @@
     pkgs-unstable.helm-ls
     # docker
     pkgs.dockerfile-language-server-nodejs
+    pkgs.hadolint # docker lint
 
     # NOTE: bigger lsp configs:
     # - ../lang/go

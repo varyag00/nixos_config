@@ -120,10 +120,10 @@
         "brave-browser"
         "vivaldi"
         "zen-browser"
-
         "ghostty"
 
         "desktoppr" # set wallpaper programmatically
+        "background-music" # set volume per app
 
         # Services (run in background on startup)
         # NOTE: most of these should be made to run these as services via `brew services start {name}`

@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  flakeVars,
+  ...
+}:
 
 ###################################################################################
 #
@@ -14,11 +18,15 @@
 
   system = {
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
-    activationScripts.postUserActivation.text = ''
-      # activateSettings -u will reload the settings from the database and apply them to the current session,
-      # so we do not need to logout and login again to make the changes take effect.
-      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    # NOTE: commented for upgrade to 25.05
+    activationScripts.postActivation.text = ''
+      #   # activateSettings -u will reload the settings from the database and apply them to the current session,
+      #   # so we do not need to logout and login again to make the changes take effect.
+      sudo /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     '';
+
+    # the primate user of the system, whom I have been using to run darwin-rebuild
+    primaryUser = flakeVars.user.name;
 
     defaults = {
       # menuExtraClock.Show24Hour = true;  # show 24 hour clock
@@ -70,7 +78,7 @@
         "com.apple.trackpad.forceClick" = false; # disable "force click" (hold click)
         AppleInterfaceStyle = "Dark"; # dark mode
         AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
-        ApplePressAndHoldEnabled = true; # enable press and hold
+        ApplePressAndHoldEnabled = false; # enable press and hold
 
         # If you press and hold certain keyboard keys when in a text area, the key’s character begins to repeat.
         # This is very useful for vim users, they use `hjkl` to move cursor.
@@ -171,7 +179,7 @@
   services = { };
 
   # Add ability to used TouchID for sudo authentication
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # Create /etc/zshrc that loads the nix-darwin environment.
   # this is required if you want to use darwin's default shell - zsh
@@ -194,19 +202,14 @@
 
       # nerdfonts
       # https://github.com/NixOS/nixpkgs/blob/nixos-24.05/pkgs/data/fonts/nerdfonts/shas.nix
-      (nerdfonts.override {
-        fonts = [
-          # symbols icon only
-          "NerdFontsSymbolsOnly"
-          # Characters
-          "FiraCode"
-          "JetBrainsMono"
-          "Iosevka"
-          "IosevkaTerm"
-          "SourceCodePro" # "SauceCodePro Nerd Font"
-          "Hack"
-        ];
-      })
+      nerd-fonts.symbols-only
+
+      nerd-fonts.fira-code
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.iosevka
+      nerd-fonts.iosevka-term
+      nerd-fonts.sauce-code-pro
+      nerd-fonts.hack
 
       monocraft # minecraft-inspired font
       miracode # monocraft-like, but more readable

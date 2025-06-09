@@ -75,7 +75,17 @@ tasks:
       - task: check
       - |
         echo "building with nix build"
-        nix build .#darwinConfigurations.SE-K7N2N4QLGP.system --extra-experimental-features 'nix-command flakes' --impure
+        # nix build .#darwinConfigurations.SE-K7N2N4QLGP.system --extra-experimental-features 'nix-command flakes' --impure
+        # echo "username=$username"
+        # echo "useremail=$useremail"
+        # echo "system=$system"
+        # echo "hostname=$hostname"
+        # echo "nixos_profile=$nixos_profile"
+        # echo "system_flake=$system_flake"
+        # echo "is_work=$is_work"
+        # echo "is_gui=$is_gui"
+        # echo "is_wsl=$is_wsl"
+        nix build .#darwinConfigurations.SE-K7N2N4QLGP.system --impure
         # if command -v nh &> /dev/null
         # then
         #   # default target is SYSTEM_FLAKE
@@ -86,7 +96,7 @@ tasks:
         #   echo "building with nix build"
         #   nix build .#darwinConfigurations.SE-K7N2N4QLGP.system --extra-experimental-features 'nix-command flakes' --impure
         # fi
-    env:
+    # env:
     #   SYSTEM_FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
     dir: ./nixos_flake
     desc: "Build the nix-darwin configuration"
@@ -94,7 +104,28 @@ tasks:
   darwin:switch:
     cmds:
       - task: check
-      - ./result/sw/bin/darwin-rebuild switch --flake .#SE-K7N2N4QLGP --impure
+      - |
+        # echo "username=$username"
+        # echo "useremail=$useremail"
+        # echo "system=$system"
+        # echo "hostname=$hostname"
+        # echo "nixos_profile=$nixos_profile"
+        # echo "system_flake=$system_flake"
+        # echo "is_work=$is_work"
+        # echo "is_gui=$is_gui"
+        # echo "is_wsl=$is_wsl"
+        # sudo \
+        # username=$username \
+        # useremail=$useremail \
+        # system=$system \
+        # hostname=$hostname \
+        # nixos_profile=$nixos_profile \
+        # system_flake=$system_flake \
+        # is_work=$is_work \
+        # is_gui=$is_gui \
+        # is_wsl=$is_wsl \
+        # NOTE: sudo -E to inherit .envrc's vars
+        sudo -E ./result/sw/bin/darwin-rebuild switch --flake .#SE-K7N2N4QLGP --impure
     # env:
     #   SYSTEM_FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
     dir: ./nixos_flake
@@ -106,3 +137,13 @@ tasks:
       - task: darwin:build
       - task: darwin:switch
     desc: "Build the darwin system configuration and switch to it"
+
+  darwin:newswitch:
+    cmds:
+      - task: check
+      - sudo darwin-rebuild switch --flake .#SE-K7N2N4QLGP --impure
+    # env:
+    #   SYSTEM_FLAKE: "{{ .USER_WORKING_DIR }}/nixos_flake/profiles/{{ .PROFILE }}"
+    dir: ./nixos_flake
+    desc: "Update and switch my darwin config"
+# TODO: test nix --no-eval-cache build .#darwinConfigurations.SE-K7N2N4QLGP.system --extra-experimental-features 'nix-command flakes' --impure

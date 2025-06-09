@@ -16,6 +16,8 @@ local M = {
     keys = {
       { "<C-S-K>", "<cmd>Treewalker Up<cr>", { silent = true } },
       { "<C-S-J>", "<cmd>Treewalker Down<cr>", { silent = true } },
+      { "<C-S-H>", "<cmd>Treewalker Left<cr>", { silent = true } },
+      { "<C-S-L>", "<cmd>Treewalker Right<cr>", { silent = true } },
 
       -- { "<Esc>[1;6K", "<cmd>Treewalker Up<cr>", { silent = true } },
       -- { "'<Esc>[1;6J'", "<cmd>Treewalker Down<cr>", { silent = true } },
@@ -27,11 +29,11 @@ local M = {
       { "<S-Left>", "<cmd>Treewalker Left<cr>", { silent = true } },
       { "<S-Right>", "<cmd>Treewalker Right<cr>", { silent = true } },
 
-      -- BUG: these don't work; perhaps due to key being intercepted at wezterm or zellij level
-      { "<S-Up>", "<cmd>Treewalker SwapUp<cr>", mode = "v", { silent = true } },
-      { "<S-Down>", "<cmd>Treewalker SwapDown<cr>", mode = "v", { silent = true } },
-      { "<S-Left>", "<cmd>Treewalker SwapLeft<cr>", mode = "v", { silent = true } },
-      { "<S-Right>", "<cmd>Treewalker SwapRight<cr>", mode = "v", { silent = true } },
+      -- -- BUG: these don't work; perhaps due to key being intercepted at wezterm or zellij level
+      -- { "<S-Up>", "<cmd>Treewalker SwapUp<cr>", mode = "v", { silent = true } },
+      -- { "<S-Down>", "<cmd>Treewalker SwapDown<cr>", mode = "v", { silent = true } },
+      -- { "<S-Left>", "<cmd>Treewalker SwapLeft<cr>", mode = "v", { silent = true } },
+      -- { "<S-Right>", "<cmd>Treewalker SwapRight<cr>", mode = "v", { silent = true } },
       -- { "<C-S-Up>", "<cmd>Treewalker SwapUp<cr>", { noremap = true, silent = true } },
       -- { "<C-S-Down>", "<cmd>Treewalker SwapDown<cr>", { noremap = true, silent = true } },
       -- { "<C-S-Left>", "<cmd>Treewalker SwapLeft<cr>", { noremap = true, silent = true } },
