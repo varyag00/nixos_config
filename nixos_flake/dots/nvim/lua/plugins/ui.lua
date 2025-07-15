@@ -19,16 +19,15 @@ local M = {
       { "<C-S-H>", "<cmd>Treewalker Left<cr>", { silent = true } },
       { "<C-S-L>", "<cmd>Treewalker Right<cr>", { silent = true } },
 
-      -- { "<Esc>[1;6K", "<cmd>Treewalker Up<cr>", { silent = true } },
-      -- { "'<Esc>[1;6J'", "<cmd>Treewalker Down<cr>", { silent = true } },
-      -- { "<Esc>[1;6H", "<cmd>Treewalker Left<cr>", { silent = true } },
-      -- { "<Esc>[1;6L", "<cmd>Treewalker Right<cr>", { silent = true } },
-
       { "<S-Up>", "<cmd>Treewalker Up<cr>", { silent = true } },
       { "<S-Down>", "<cmd>Treewalker Down<cr>", { silent = true } },
       { "<S-Left>", "<cmd>Treewalker Left<cr>", { silent = true } },
       { "<S-Right>", "<cmd>Treewalker Right<cr>", { silent = true } },
 
+      { "<C-S-Down>", "<cmd>Treewalker SwapDown<cr>", { silent = true } },
+      { "<C-S-Up>", "<cmd>Treewalker SwapUp<cr>", { silent = true } },
+      { "<C-S-Left>", "<cmd>Treewalker SwapLeft<cr>", { silent = true } },
+      { "<C-S-Right>", "<cmd>Treewalker SwapRight<cr>", { silent = true } },
       -- -- BUG: these don't work; perhaps due to key being intercepted at wezterm or zellij level
       -- { "<S-Up>", "<cmd>Treewalker SwapUp<cr>", mode = "v", { silent = true } },
       -- { "<S-Down>", "<cmd>Treewalker SwapDown<cr>", mode = "v", { silent = true } },
@@ -38,10 +37,10 @@ local M = {
       -- { "<C-S-Down>", "<cmd>Treewalker SwapDown<cr>", { noremap = true, silent = true } },
       -- { "<C-S-Left>", "<cmd>Treewalker SwapLeft<cr>", { noremap = true, silent = true } },
       -- { "<C-S-Right>", "<cmd>Treewalker SwapRight<cr>", { noremap = true, silent = true } },
-      { "<leader>cwj", "<cmd>Treewalker SwapDown<cr>", { silent = true } },
-      { "<leader>cwk", "<cmd>Treewalker SwapUp<cr>", { silent = true } },
-      { "<leader>cwh", "<cmd>Treewalker SwapLeft<cr>", { silent = true } },
-      { "<leader>cwl", "<cmd>Treewalker SwapRight<cr>", { silent = true } },
+      -- { "<leader>cwj", "<cmd>Treewalker SwapDown<cr>", { silent = true } },
+      -- { "<leader>cwk", "<cmd>Treewalker SwapUp<cr>", { silent = true } },
+      -- { "<leader>cwh", "<cmd>Treewalker SwapLeft<cr>", { silent = true } },
+      -- { "<leader>cwl", "<cmd>Treewalker SwapRight<cr>", { silent = true } },
     },
   },
   -- -- seems nice, but requires a bit of setup to be useful

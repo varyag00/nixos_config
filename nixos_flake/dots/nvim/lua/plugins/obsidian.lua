@@ -350,21 +350,29 @@ local M = {
           --  perhaps try markdownlint-cli and configure from CLI instead (the original)
           -- NOTE: file MUST be named ".markdownlint-cli2.yaml" (or the json equivalent)
           -- args = { "--config", os.getenv("HOME") .. "/.config/lsp/config.markdownlint-cli2.yaml", "--" },
-          args = { "--config", os.getenv("HOME") .. "/.config/lsp/config.markdownlint-cli2.yaml", "--" },
-          markdownlint = {
-            args = {
-              -- TODO: extract configuration to file
-              "--disable",
-              "MD004", -- ul-style
-              -- "--disable",
-              -- "MD012", -- no-multiple-blanks
-              "--disable",
-              "MD013", -- line-length
-              "--disable",
-              "MD032", -- blanks-around-lists
-              "--",
-            },
-          },
+          -- args = { "--config", os.getenv("HOME") .. "/.config/lsp/config.markdownlint-cli2.yaml", "--" },
+          -- use repo's markdownlint file if present
+          args = (function()
+            local cwd = vim.fn.getcwd()
+            local local_config = cwd .. "/.markdownlint.yaml"
+            local fallback_config = os.getenv("HOME") .. "/.config/lsp/config.markdownlint-cli2.yaml"
+            local config_file = vim.fn.filereadable(local_config) == 1 and local_config or fallback_config
+            return { "--config", config_file, "--" }
+          end)(),
+          -- markdownlint = {
+          --   args = {
+          --     -- TODO: extract configuration to file
+          --     "--disable",
+          --     "MD004", -- ul-style
+          --     -- "--disable",
+          --     -- "MD012", -- no-multiple-blanks
+          --     "--disable",
+          --     "MD013", -- line-length
+          --     "--disable",
+          --     "MD032", -- blanks-around-lists
+          --     "--",
+          --   },
+          -- },
         },
       },
     },

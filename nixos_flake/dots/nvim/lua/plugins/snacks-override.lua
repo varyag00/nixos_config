@@ -136,15 +136,16 @@ M = {
               -- default C-up and C-down conflict with macos defaults
               ["<C-p>"] = { "history_back", mode = { "i", "n" } },
               ["<C-n>"] = { "history_forward", mode = { "i", "n" } },
-              -- doesn't work...
-              -- ["<a-H>"] = { "toggle_hidden", mode = { "i", "n" } },
-              -- weird shortcuts, but whatever
-              ["<a-O>"] = { "toggle_hidden", mode = { "i", "n" } },
-              ["<a-I>"] = { "toggle_ignored", mode = { "i", "n" } },
+              ["<C-S-O>"] = { "toggle_hidden", mode = { "i", "n" } },
+              -- BUG: C-S-I doesn't work, so use C-S-U instead
+              ["<C-S-U>"] = { "toggle_ignored", mode = { "i", "n" } },
+
+              -- cycle between windows
+              ["<C-S-W>"] = { "cycle_win", mode = { "i", "n" } },
             },
             list = {
-              ["<a-O>"] = { "toggle_hidden", mode = { "i", "n" } },
-              ["<a-I>"] = { "toggle_ignored", mode = { "i", "n" } },
+              ["<C-S-O>"] = { "toggle_hidden", mode = { "i", "n" } },
+              ["<C-S-U>"] = { "toggle_ignored", mode = { "i", "n" } },
             },
           },
         },
