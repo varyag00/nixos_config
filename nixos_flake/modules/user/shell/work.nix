@@ -20,8 +20,7 @@ if flakeVars.system.isWork then
   {
     home.packages =
       (with pkgs; [
-        # TODO: may requires API token (disabled on our instance), but check other sign-in methods
-        # jira-cli-go
+        jira-cli-go
         _1password-cli # 1password cli, command "op"
 
         openshift # os CLI
@@ -33,6 +32,8 @@ if flakeVars.system.isWork then
         # TODO: move over to nvim
         vimPlugins.copilot-lua
         # vimPlugins.CopilotChat-nvim
+
+        vale # prose linter w/ spellcheck and grammar
       ])
       ++ [ gdk-with-extras ];
 

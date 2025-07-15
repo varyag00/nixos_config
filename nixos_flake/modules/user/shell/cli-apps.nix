@@ -98,6 +98,11 @@
       # devbox alternative, closer to nix
       devenv
 
+      gemini
+
+      # run github-actions locally
+      act
+
       # sql TUIs
       # TODO: Choose one. They are both golang, support multiple db engines, and both seem good
       lazysql
@@ -216,7 +221,7 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
-      manager.show_hidden = true;
+      mgr.show_hidden = true;
     };
   };
   programs.atuin = {

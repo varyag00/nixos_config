@@ -4,6 +4,9 @@
 
 export PATH="/opt/homebrew/bin:$PATH"
 
+# TODO: handle env secrets better (prob sops + age in flake .env)
+source "$HOME/.work/env.sh"
+
 # SECTION: functions
 
 function mgke {
@@ -59,4 +62,15 @@ function ocp_login() {
 # NOTE: should no longer be a problem with TB4 cable since it enables VRR
 function fix_uwd_resolution() {
   screenresolution set 3440x1440x32@144
+}
+
+function jira_login() {
+  file="$HOME/.work/env.sh"
+  # if file exists, source it
+  if [ -f "$file" ]; then
+    source "$file"
+  else
+    echo "JIRA environment file not found. Create $file and add JIRA_API_TOKEN."
+    return 1
+  fi
 }

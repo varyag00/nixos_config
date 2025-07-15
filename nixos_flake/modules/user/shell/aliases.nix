@@ -13,6 +13,7 @@
   top = "btop";
   ps = "procs";
   curl = "curlie";
+  grep = "rg";
   # https://github.com/MilesCranmer/rip2?tab=readme-ov-file#notes
   rm = "echo 'use rip' instead of rm";
   tree = "tre";
@@ -27,6 +28,7 @@
   gst = "git status";
   gco = "git checkout";
   ghc = "gh copilot";
+  gpr = "git pull -r";
   "git open" = "gh browse";
 
   db = "devbox";
