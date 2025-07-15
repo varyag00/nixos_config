@@ -110,8 +110,11 @@ cmd-alt-h = []
 # '''
 # FIXME: also doesn't work, but the command works and the finder shortcut below works
 cmd-alt-t = 'exec-and-forget wezterm start'
-# open finder in ~/.config
-cmd-alt-f = 'exec-and-forget open ~/.config'
+# open finder in ~/
+cmd-alt-f = 'exec-and-forget open ~/'
+# interactive screenshot
+cmd-alt-s = 'exec-and-forget screencapture -i ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).png'
+
 
 alt-backtick = 'focus-back-and-forth'
 
