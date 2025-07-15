@@ -1,25 +1,69 @@
 layout {
-  // NOTE: do not declare a tab in the default layout, because it breaks spawning new tabs
-  //tab hide_floating_panes=true {
+  default_tab_template {
+    // children
     pane size=1 borderless=true {
-      plugin location="tab-bar" {
-        hide_swap_layout_indication true
-      }
+        plugin location="tab-bar"
+        // plugin location="zjstatus" {
+        // }
     }
-    pane name="zsh" {
-    }
-    floating_panes hidden=true {
-      pane name="zsh" {
-          width "70%"
-          height "70%"
-          x "15%"
-          y "15%"
-      }
-    }
+    children
     pane size=2 borderless=true {
       plugin location="status-bar" {
-          classic true
       }
     }
-  //}
+  }
+
+  // swap between these use alt-]/[
+  swap_floating_layout name="tiled"{
+    floating_panes max_panes=1 {
+      pane {
+        width "70%"
+        height "70%"
+        x "15%"
+        y "15%"
+      }
+    }
+    floating_panes max_panes=2 {
+        pane x=0
+        pane x="50%"
+    }
+    floating_panes max_panes=3 {
+        pane x=0 width="25%"
+        pane x="25%" width="25%"
+        pane x="50%"
+    }
+  }
+  swap_floating_layout name="stacked"{
+    floating_panes max_panes=3 {
+        pane
+    }
+  }
+  // make 3+ panels vertical
+  swap_tiled_layout name="h2v" {
+    tab max_panes=2 {
+        pane
+        pane
+    }
+    tab {
+        pane split_direction="vertical" {
+          pane
+          pane
+          pane
+        }
+    }
+  }
+  // make 3+ panels horizontal
+  swap_tiled_layout name="v2h" {
+    tab max_panes=2 {
+        pane
+        pane
+    }
+    tab {
+        pane split_direction="horizontal" {
+          pane
+          pane
+          pane
+        }
+    }
+  }
 }

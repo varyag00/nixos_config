@@ -30,6 +30,7 @@
   # shell aliases
   programs.zsh.sessionVariables = {
     ZELLIJ_CONFIG = "$HOME/.config/zellij";
+    ZELLIJ_CONFIG_DIR = "$HOME/.config/zellij";
     ZELLIJ_LAYOUTS = "$HOME/.config/zellij/layouts";
     # NOTE: I define "session_layouts" as layouts that should be used to
     ZELLIJ_SESSION_LAYOUTS = "$HOME/.config/zellij/session_layouts";
