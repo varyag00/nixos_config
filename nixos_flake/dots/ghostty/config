@@ -1,8 +1,13 @@
 #theme = dark:catppuccin-macchiato,light:catppuccin-latte
-theme = catppuccin-macchiato
+theme = catppuccin-macchiato.conf
 font-family = SauceCodePro Nerd Font
 font-size = 13
+# disables tabs (they become new windows), which works perfectly with zellij
+macos-titlebar-style = hidden
 
-keybind = global:ctrl+shift+grave_accent=toggle_quick_terminal
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+# requires full restart
+quick-terminal-position = top
+quick-terminal-animation-duration = 0.1
 
 

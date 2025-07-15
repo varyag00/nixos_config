@@ -98,7 +98,7 @@
       # devbox alternative, closer to nix
       devenv
 
-      gemini
+      # gemini-cli
 
       # run github-actions locally
       act
